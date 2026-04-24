@@ -587,6 +587,7 @@ p { margin: 0 0 1em; }
   gap: 16px;
 }
 .footer-disclaimer { margin: 0; font-weight: 600; color: #fff; }
+.footer-service { margin: 4px 0 0; font-size: 13px; color: rgba(255,255,255,.6); flex-basis: 100%; }
 .footer-links { display: flex; gap: 18px; }
 .footer-links a { font-size: 14px; color: rgba(255,255,255,.75); }
 .footer-links a:hover { color: #fff; }
