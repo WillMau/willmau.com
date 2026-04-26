@@ -563,6 +563,12 @@ p { margin: 0 0 1em; }
   transition: background .15s ease;
 }
 .vote-links a:hover { background: var(--navy-700); }
+.vote-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
 .vote-neighbor {
   margin: 28px auto 0;
   max-width: 48ch;
