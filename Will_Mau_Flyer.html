@@ -460,6 +460,25 @@
     font-family: inherit;
   }
   .page-nav .print:hover { background: var(--green-dark); color: #fff; }
+  .page-nav .actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .page-nav .email {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    border-bottom: 1px dotted var(--navy);
+  }
+  .page-nav .email:hover { color: var(--green-dark); border-color: var(--green-dark); }
+  @media (max-width: 560px) {
+    .page-nav { flex-direction: column; gap: 8px; align-items: stretch; padding: 10px 14px; }
+    .page-nav .back { text-align: center; }
+    .page-nav .actions { justify-content: center; flex-wrap: wrap; gap: 10px; }
+    .page-nav .email { font-size: 12px; }
+  }
 
   /* ---------- Mobile responsive ---------- */
   @media screen and (max-width: 880px) {
@@ -537,7 +556,10 @@
 
 <nav class="page-nav" aria-label="Site">
   <a class="back" href="/">&larr; willmau.com</a>
-  <button class="print" type="button" onclick="window.print()">Print / Save PDF</button>
+  <div class="actions">
+    <a class="email" href="mailto:will@willmau.com?subject=Printed%20flyer%20request">Want a printed copy? Email me</a>
+    <button class="print" type="button" onclick="window.print()">Print / Save PDF</button>
+  </div>
 </nav>
 
 <section class="page">
