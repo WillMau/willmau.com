@@ -5,3 +5,8 @@ Thumbs.db
 .idea/
 .claude/
 node_modules/
+
+# Internal campaign materials and design iterations (kept local, not deployed)
+*.docx
+Postcard_*.png
+willmaugraphic*.png
