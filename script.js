@@ -62,24 +62,29 @@
     }
   }
 
-  // Share button: prefer the native share sheet (iOS, Android, modern desktop)
-  // and fall back to opening the Facebook sharer URL on browsers without support.
+  // Share button: on phones, use navigator.share() to open the native share
+  // sheet (Facebook sharer.php is unreliable on iOS Safari). On desktop, leave
+  // the link alone so it opens the FB share dialog in a popup as expected.
   const shareBtn = document.getElementById('share-btn');
-  if (shareBtn && navigator.share) {
-    shareBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      try {
-        await navigator.share({
-          title: 'Will Mau for Schalmont Board of Education',
-          text: 'Reelection 2026. Vote Tuesday, May 19.',
-          url: 'https://willmau.com/'
-        });
-      } catch (err) {
-        if (err && err.name !== 'AbortError') {
-          window.open(shareBtn.href, '_blank', 'noopener');
+  if (shareBtn) {
+    const isMobile = (navigator.userAgentData && navigator.userAgentData.mobile) ||
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile && navigator.share) {
+      shareBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          await navigator.share({
+            title: 'Will Mau for Schalmont Board of Education',
+            text: 'Reelection 2026. Vote Tuesday, May 19.',
+            url: 'https://willmau.com/'
+          });
+        } catch (err) {
+          if (err && err.name !== 'AbortError') {
+            window.open(shareBtn.href, '_blank', 'noopener');
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   // Copy-link button on Help Win section.
