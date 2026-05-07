@@ -45,20 +45,60 @@
     fabObs.observe(voteSection);
   }
 
-  // Days-to-vote countdown.
+  // Election countdown: drives both the hero chip and the Help Win eyebrow
+  // from a single date source so neither goes stale as May 19 approaches.
   const cd = document.getElementById('hero-countdown');
-  if (cd) {
+  const eyebrow = document.getElementById('help-win-eyebrow');
+  if (cd || eyebrow) {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const electionDay = new Date(2026, 4, 19); // May 19, 2026
     const days = Math.round((electionDay - today) / 86400000);
-    let text = '';
-    if (days > 1) text = days + ' days to go';
-    else if (days === 1) text = 'Tomorrow, polls 6am-9pm';
-    else if (days === 0) text = 'Today, polls 6am-9pm';
-    if (text) {
-      cd.textContent = text;
-      cd.hidden = false;
+    const hour = now.getHours();
+
+    let chipText = '';
+    let eyebrowText = '';
+    let urgent = false;
+
+    if (days > 14) {
+      const weeks = Math.round(days / 7);
+      chipText = days + ' days to go';
+      eyebrowText = weeks + ' weeks out';
+    } else if (days > 7) {
+      chipText = days + ' days to go';
+      eyebrowText = days + ' days out';
+    } else if (days > 1) {
+      chipText = days + ' days to go';
+      eyebrowText = days + ' days out';
+      urgent = true;
+    } else if (days === 1) {
+      chipText = 'Tomorrow, polls 6am-9pm';
+      eyebrowText = 'Tomorrow';
+      urgent = true;
+    } else if (days === 0) {
+      if (hour < 21) {
+        chipText = 'Today, polls open until 9pm';
+      } else {
+        chipText = 'Polls have closed, thank you';
+      }
+      eyebrowText = 'Today';
+      urgent = true;
+    } else {
+      chipText = '';
+      eyebrowText = 'Thank you for voting';
+    }
+
+    if (cd) {
+      if (chipText) {
+        cd.textContent = chipText;
+        cd.hidden = false;
+        if (urgent) cd.classList.add('is-urgent');
+      } else {
+        cd.hidden = true;
+      }
+    }
+    if (eyebrow && eyebrowText) {
+      eyebrow.textContent = eyebrowText;
     }
   }
 
