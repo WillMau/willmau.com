@@ -62,6 +62,26 @@
     }
   }
 
+  // Share button: prefer the native share sheet (iOS, Android, modern desktop)
+  // and fall back to opening the Facebook sharer URL on browsers without support.
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn && navigator.share) {
+    shareBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await navigator.share({
+          title: 'Will Mau for Schalmont Board of Education',
+          text: 'Reelection 2026. Vote Tuesday, May 19.',
+          url: 'https://willmau.com/'
+        });
+      } catch (err) {
+        if (err && err.name !== 'AbortError') {
+          window.open(shareBtn.href, '_blank', 'noopener');
+        }
+      }
+    });
+  }
+
   // Copy-link button on Help Win section.
   const copyBtn = document.getElementById('copy-link');
   if (copyBtn && navigator.clipboard) {
