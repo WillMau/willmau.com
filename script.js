@@ -65,14 +65,17 @@
   // Copy-link button on Help Win section.
   const copyBtn = document.getElementById('copy-link');
   if (copyBtn && navigator.clipboard) {
+    const label = copyBtn.querySelector('.btn-label');
     copyBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(copyBtn.dataset.copy || window.location.href);
-        const original = copyBtn.textContent;
-        copyBtn.textContent = 'Copied!';
+        const original = label ? label.textContent : copyBtn.textContent;
+        if (label) label.textContent = 'Copied!';
+        else copyBtn.textContent = 'Copied!';
         copyBtn.classList.add('is-copied');
         setTimeout(() => {
-          copyBtn.textContent = original;
+          if (label) label.textContent = original;
+          else copyBtn.textContent = original;
           copyBtn.classList.remove('is-copied');
         }, 1600);
       } catch (e) {
