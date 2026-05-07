@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//willmau.com//Vote 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:vote-may-19-2026@willmau.com
+DTSTAMP:20260507T000000Z
+DTSTART:20260519T100000Z
+DTEND:20260520T010000Z
+SUMMARY:Vote: Schalmont BOE Election
+LOCATION:Schalmont High School, 1 Sabre Drive, Rotterdam, NY 12303
+DESCRIPTION:Polls open 6:00 AM to 9:00 PM. William Mau on the ballot. More info: https://willmau.com
+URL:https://willmau.com/
+END:VEVENT
+END:VCALENDAR

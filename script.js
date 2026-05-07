@@ -44,4 +44,40 @@
     }, { threshold: 0.15 });
     fabObs.observe(voteSection);
   }
+
+  // Days-to-vote countdown.
+  const cd = document.getElementById('hero-countdown');
+  if (cd) {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const electionDay = new Date(2026, 4, 19); // May 19, 2026
+    const days = Math.round((electionDay - today) / 86400000);
+    let text = '';
+    if (days > 1) text = days + ' days to go';
+    else if (days === 1) text = 'Tomorrow, polls 6am-9pm';
+    else if (days === 0) text = 'Today, polls 6am-9pm';
+    if (text) {
+      cd.textContent = text;
+      cd.hidden = false;
+    }
+  }
+
+  // Copy-link button on Help Win section.
+  const copyBtn = document.getElementById('copy-link');
+  if (copyBtn && navigator.clipboard) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copyBtn.dataset.copy || window.location.href);
+        const original = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('is-copied');
+        setTimeout(() => {
+          copyBtn.textContent = original;
+          copyBtn.classList.remove('is-copied');
+        }, 1600);
+      } catch (e) {
+        // No-op on failure; user can copy URL manually.
+      }
+    });
+  }
 })();
