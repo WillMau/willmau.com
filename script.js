@@ -32,4 +32,16 @@
 
   const chart = document.querySelector('.bar-chart');
   if (chart) obs.observe(chart);
+
+  // Hide social FAB while the green Vote section is in view (it has its own CTAs).
+  const fab = document.querySelector('.social-fab');
+  const voteSection = document.getElementById('vote');
+  if (fab && voteSection) {
+    const fabObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        fab.classList.toggle('is-hidden', entry.isIntersecting);
+      });
+    }, { threshold: 0.15 });
+    fabObs.observe(voteSection);
+  }
 })();
