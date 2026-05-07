@@ -45,61 +45,103 @@
     fabObs.observe(voteSection);
   }
 
-  // Election countdown: drives both the hero chip and the Help Win eyebrow
-  // from a single date source so neither goes stale as May 19 approaches.
+  // Election countdown: live D:H:M ticker in the hero, status pill on day-of
+  // and after, plus a synced eyebrow on the Help Win section.
   const cd = document.getElementById('hero-countdown');
+  const stack = document.getElementById('cd-stack');
+  const status = document.getElementById('cd-status');
+  const cdDays = document.getElementById('cd-days');
+  const cdHours = document.getElementById('cd-hours');
+  const cdMins = document.getElementById('cd-mins');
   const eyebrow = document.getElementById('help-win-eyebrow');
+
+  // Polls close at 9pm Eastern on May 19, 2026.
+  // Eastern Daylight Time is UTC-4, so 21:00 EDT = 01:00 UTC May 20.
+  const pollsClose = new Date('2026-05-20T01:00:00Z').getTime();
+  const pollsOpen = new Date('2026-05-19T10:00:00Z').getTime(); // 6am EDT
+  const pad = (n) => (n < 10 ? '0' + n : '' + n);
+  const prevValues = { d: null, h: null, m: null };
+
+  function setNum(el, value) {
+    if (!el) return;
+    const text = pad(value);
+    if (el.textContent !== text) {
+      el.textContent = text;
+      el.classList.remove('is-tick');
+      // Force reflow so the animation can replay.
+      void el.offsetWidth;
+      el.classList.add('is-tick');
+    }
+  }
+
+  function showStatus(text) {
+    if (stack) stack.hidden = true;
+    if (status) {
+      status.textContent = text;
+      status.hidden = false;
+    }
+    if (cd) cd.hidden = false;
+  }
+
+  function showStack() {
+    if (status) status.hidden = true;
+    if (stack) stack.hidden = false;
+    if (cd) cd.hidden = false;
+  }
+
+  function tick() {
+    const nowMs = Date.now();
+    const diff = pollsClose - nowMs;
+    const todayMidnight = new Date();
+    todayMidnight.setHours(0, 0, 0, 0);
+    const electionMidnight = new Date(2026, 4, 19);
+    const daysUntil = Math.round((electionMidnight - todayMidnight) / 86400000);
+
+    // Eyebrow phrasing follows the calendar-day count.
+    if (eyebrow) {
+      let txt = '';
+      if (daysUntil > 14) txt = Math.round(daysUntil / 7) + ' weeks out';
+      else if (daysUntil > 1) txt = daysUntil + ' days out';
+      else if (daysUntil === 1) txt = 'Tomorrow';
+      else if (daysUntil === 0) txt = 'Today';
+      else txt = 'Thank you for voting';
+      if (txt && eyebrow.textContent !== txt) eyebrow.textContent = txt;
+    }
+
+    if (!cd) return;
+
+    if (diff <= 0) {
+      showStatus('Polls have closed, thank you');
+      return;
+    }
+
+    // On election day, switch the cards from D:H:M to a status pill so the
+    // 0-days display does not look broken.
+    if (daysUntil === 0) {
+      if (nowMs < pollsOpen) {
+        showStatus('Polls open at 6am');
+      } else {
+        showStatus('Polls open until 9pm');
+      }
+      return;
+    }
+
+    // Standard live ticker: days, hours, minutes until polls close.
+    showStack();
+    const totalSec = Math.floor(diff / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+
+    if (days !== prevValues.d) { setNum(cdDays, days); prevValues.d = days; }
+    if (hours !== prevValues.h) { setNum(cdHours, hours); prevValues.h = hours; }
+    if (mins !== prevValues.m) { setNum(cdMins, mins); prevValues.m = mins; }
+  }
+
   if (cd || eyebrow) {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const electionDay = new Date(2026, 4, 19); // May 19, 2026
-    const days = Math.round((electionDay - today) / 86400000);
-    const hour = now.getHours();
-
-    let chipText = '';
-    let eyebrowText = '';
-    let urgent = false;
-
-    if (days > 14) {
-      const weeks = Math.round(days / 7);
-      chipText = days + ' days to go';
-      eyebrowText = weeks + ' weeks out';
-    } else if (days > 7) {
-      chipText = days + ' days to go';
-      eyebrowText = days + ' days out';
-    } else if (days > 1) {
-      chipText = days + ' days to go';
-      eyebrowText = days + ' days out';
-      urgent = true;
-    } else if (days === 1) {
-      chipText = 'Tomorrow, polls 6am-9pm';
-      eyebrowText = 'Tomorrow';
-      urgent = true;
-    } else if (days === 0) {
-      if (hour < 21) {
-        chipText = 'Today, polls open until 9pm';
-      } else {
-        chipText = 'Polls have closed, thank you';
-      }
-      eyebrowText = 'Today';
-      urgent = true;
-    } else {
-      chipText = '';
-      eyebrowText = 'Thank you for voting';
-    }
-
-    if (cd) {
-      if (chipText) {
-        cd.textContent = chipText;
-        cd.hidden = false;
-        if (urgent) cd.classList.add('is-urgent');
-      } else {
-        cd.hidden = true;
-      }
-    }
-    if (eyebrow && eyebrowText) {
-      eyebrow.textContent = eyebrowText;
-    }
+    tick();
+    // Update every 30 seconds so the minutes stay accurate without burning CPU.
+    setInterval(tick, 30000);
   }
 
   // Share button: on phones, use navigator.share() to open the native share
