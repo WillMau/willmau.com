@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tell a Friend | Will Mau for Schalmont Board of Education</title>
+<meta name="description" content="Take 30 seconds and text three Schalmont neighbors about the May 19 Board of Education election. Reelection for William Mau." />
+<meta name="robots" content="noindex, follow" />
+<meta name="theme-color" content="#1E2A5E" />
+<link rel="canonical" href="https://willmau.com/" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preload" as="image" href="/assets/will_mau_headshot.webp" />
+<link rel="stylesheet" href="/styles.css" />
+
+<meta property="og:site_name" content="Will Mau for Schalmont Board of Education" />
+<meta property="og:title" content="Help Will win May 19" />
+<meta property="og:description" content="Text three Schalmont neighbors about the May 19 Board of Education election." />
+<meta property="og:image" content="https://willmau.com/assets/og-share.png?v=2" />
+<meta property="og:url" content="https://willmau.com/text-a-friend/" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Help Will win May 19" />
+<meta name="twitter:description" content="Text three Schalmont neighbors about the May 19 Board of Education election." />
+<meta name="twitter:image" content="https://willmau.com/assets/og-share.png?v=2" />
+
+<style>
+  body { margin: 0; }
+  .ta-wrap { min-height: 100vh; display: flex; flex-direction: column; }
+
+  .ta-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px var(--pad);
+    background: var(--navy);
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .ta-topbar a { color: #fff; text-decoration: none; transition: color .15s ease; }
+  .ta-topbar .brand { font-weight: 800; letter-spacing: .02em; font-size: 17px; }
+  .ta-topbar .back { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.85); }
+  .ta-topbar .back:hover { color: var(--green); }
+
+  .ta-hero {
+    flex: 1;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-800) 100%);
+    color: #fff;
+    padding: clamp(40px, 7vw, 80px) var(--pad) clamp(48px, 8vw, 96px);
+    position: relative;
+    overflow: hidden;
+  }
+  .ta-hero::before {
+    content: "";
+    position: absolute;
+    top: -10%; right: -10%;
+    width: 55%; padding-bottom: 55%;
+    background: radial-gradient(circle at center, rgba(111,207,151,.22), transparent 60%);
+    pointer-events: none;
+  }
+  .ta-hero::after {
+    content: "";
+    position: absolute;
+    bottom: -20%; left: -10%;
+    width: 50%; padding-bottom: 50%;
+    background: radial-gradient(circle at center, rgba(111,207,151,.12), transparent 60%);
+    pointer-events: none;
+  }
+
+  .ta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+
+  .ta-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0 0 16px;
+  }
+  .ta-name {
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: .92;
+    margin: 0 0 10px;
+  }
+  .ta-sub {
+    font-size: clamp(16px, 2.2vw, 20px);
+    color: rgba(255,255,255,.82);
+    font-weight: 500;
+    margin: 0 0 32px;
+  }
+  .ta-photo {
+    width: clamp(96px, 13vw, 128px);
+    aspect-ratio: 4 / 5;
+    margin: 0 auto 28px;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 3px solid #fff;
+    box-shadow: 0 14px 36px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.25);
+  }
+  .ta-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Save-the-date card */
+  .ta-date {
+    display: inline-flex;
+    flex-direction: column;
+    width: clamp(150px, 20vw, 184px);
+    margin: 0 auto 32px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 26px 60px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.2);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.4);
+    transform: rotate(-1.5deg);
+    transition: transform .25s ease;
+  }
+  .ta-date:hover { transform: rotate(0deg) scale(1.02); }
+  .ta-date .month {
+    background: var(--navy);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    padding: 9px 0;
+    text-align: center;
+  }
+  .ta-date .day {
+    font-size: clamp(64px, 8vw, 84px);
+    font-weight: 800;
+    color: var(--navy);
+    text-align: center;
+    line-height: 1;
+    padding: 16px 0 6px;
+    letter-spacing: -0.04em;
+  }
+  .ta-date .dow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    padding: 0 0 12px;
+  }
+
+  .ta-call {
+    font-size: clamp(22px, 3.6vw, 30px);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .ta-call span { color: var(--green); }
+  .ta-call-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,.78);
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.55;
+  }
+
+  /* White action card */
+  .ta-card {
+    background: #fff;
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: clamp(24px, 4vw, 32px);
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 28px 56px rgba(0,0,0,.32), 0 4px 12px rgba(0,0,0,.18);
+    text-align: left;
+    position: relative;
+  }
+  .ta-card-h {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--green-600);
+    margin: 0 0 16px;
+    text-align: center;
+  }
+  .ta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 999px;
+    text-decoration: none;
+    border: 1.5px solid var(--navy);
+    background: var(--navy);
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s ease, transform .15s ease, color .15s ease;
+  }
+  .ta-btn:hover { background: var(--navy-700); transform: translateY(-1px); }
+  .ta-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .ta-btn-ghost { background: transparent; color: var(--navy); }
+  .ta-btn-ghost:hover { background: var(--navy); color: #fff; }
+  .ta-tip {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin: 14px 0 0;
+    line-height: 1.5;
+  }
+
+  .ta-share {
+    margin: 22px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--gray-300);
+    text-align: center;
+  }
+  .ta-share-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  .ta-share-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .ta-mini {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--navy);
+    border: 1.5px solid var(--navy);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease, transform .15s ease;
+  }
+  .ta-mini:hover { background: var(--navy); color: #fff; transform: translateY(-1px); }
+  .ta-mini svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+  .ta-mini.is-copied { background: var(--green); border-color: var(--green); color: var(--navy); }
+
+  .ta-tagline {
+    margin: 36px 0 0;
+    font-size: clamp(15px, 2vw, 17px);
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: .04em;
+    text-align: center;
+  }
+
+  .ta-foot {
+    background: var(--navy-800);
+    color: rgba(255,255,255,.7);
+    padding: 24px var(--pad);
+    text-align: center;
+  }
+  .ta-foot p { margin: 4px 0; font-size: 13px; }
+  .ta-foot p.disc { font-weight: 600; color: #fff; }
+  .ta-foot a { color: rgba(255,255,255,.85); border-bottom: 1px solid rgba(111,207,151,.45); text-decoration: none; }
+  .ta-foot a:hover { color: #fff; }
+</style>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="ta-wrap">
+
+  <header class="ta-topbar">
+    <a class="brand" href="/">William Mau</a>
+    <a class="back" href="/">willmau.com</a>
+  </header>
+
+  <main id="main" class="ta-hero">
+    <div class="ta-inner">
+      <p class="ta-eyebrow">Reelection 2026</p>
+      <h1 class="ta-name">Will Mau</h1>
+      <p class="ta-sub">for the Schalmont Board of Education</p>
+
+      <div class="ta-photo">
+        <img src="/assets/will_mau_headshot.webp" alt="William Mau, candidate for Schalmont Board of Education" width="720" height="900" />
+      </div>
+
+      <div class="ta-date" aria-hidden="true">
+        <span class="month">May</span>
+        <span class="day">19</span>
+        <span class="dow">Tuesday</span>
+      </div>
+
+      <h2 class="ta-call">Help <span>Will</span> win.</h2>
+      <p class="ta-call-sub">School board elections come down to who shows up. Take 30 seconds and text three Schalmont neighbors.</p>
+
+      <div class="ta-card">
+        <p class="ta-card-h">Tell a neighbor</p>
+        <div class="ta-actions">
+          <a class="ta-btn" href="sms:?&body=Schalmont%20school%20board%20election%20is%20Tuesday%20May%2019%2C%20polls%206am-9pm%20at%20the%20HS.%20I'm%20voting%20for%20Will%20Mau%20for%20reelection%2C%20he's%20done%20good%20work%20on%20the%20board.%20Quick%205-min%20stop%3F%20willmau.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Text a Schalmont neighbor
+          </a>
+          <a class="ta-btn ta-btn-ghost" href="mailto:?subject=Schalmont%20school%20board%20election%20is%20May%2019&body=Hi%2C%0A%0AHeads%20up%20that%20the%20Schalmont%20Central%20School%20District%20election%20is%20Tuesday%2C%20May%2019.%20Polls%20are%20open%206am-9pm%20at%20Schalmont%20High%20School%2C%201%20Sabre%20Drive%2C%20Rotterdam.%0A%0AI'm%20voting%20for%20Will%20Mau%20for%20reelection.%20He's%20done%20good%20work%20the%20last%20two%20years%3A%20kept%20class%20sizes%20low%2C%20held%20the%20budget%20under%20cap%2C%20expanded%20Pre-K%20and%20career%20pathways.%20More%20at%20https%3A%2F%2Fwillmau.com.%0A%0AWould%20you%20join%20me%3F%0A%0AThanks!">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email a neighbor
+          </a>
+        </div>
+
+        <p class="ta-tip">Tip: when the text opens, tap the To: field and pick up to three Schalmont contacts at once.</p>
+
+        <div class="ta-share">
+          <p class="ta-share-label">Or share willmau.com</p>
+          <div class="ta-share-row">
+            <a id="share-btn" class="ta-mini" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwillmau.com%2F" target="_blank" rel="noopener" aria-label="Share on Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.6H7.7V14h2.6v8h3.2z"/></svg>
+              Facebook
+            </a>
+            <button id="copy-link" class="ta-mini" type="button" data-copy="https://willmau.com/">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy link
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="ta-tagline">Our kids. Our community. Our future.</p>
+    </div>
+  </main>
+
+  <footer class="ta-foot">
+    <p class="disc">Paid for by William Mau, Rotterdam, NY</p>
+    <p>&copy; 2026 William Mau for Schalmont Board of Education &middot; <a href="/">willmau.com</a></p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  // Share button: native share sheet on mobile, FB sharer popup on desktop.
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    const isMobile = (navigator.userAgentData && navigator.userAgentData.mobile) ||
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile && navigator.share) {
+      shareBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          await navigator.share({
+            title: 'Will Mau for Schalmont Board of Education',
+            text: 'Reelection 2026. Vote Tuesday, May 19.',
+            url: 'https://willmau.com/'
+          });
+        } catch (err) {
+          if (err && err.name !== 'AbortError') {
+            window.open(shareBtn.href, '_blank', 'noopener');
+          }
+        }
+      });
+    }
+  }
+
+  // Copy-link with brief confirmation state.
+  const copyBtn = document.getElementById('copy-link');
+  if (copyBtn && navigator.clipboard) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copyBtn.dataset.copy || window.location.href);
+        const textNode = copyBtn.querySelector('svg').nextSibling;
+        if (textNode) {
+          const original = textNode.nodeValue;
+          textNode.nodeValue = ' Copied!';
+          copyBtn.classList.add('is-copied');
+          setTimeout(() => {
+            textNode.nodeValue = original;
+            copyBtn.classList.remove('is-copied');
+          }, 1600);
+        }
+      } catch (e) {
+        // Silent failure
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
