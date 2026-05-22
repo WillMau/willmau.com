@@ -36,14 +36,6 @@ const now = [
     domain: 'troop3054.org',
     href: 'https://www.troop3054.org',
   },
-  {
-    n: '04',
-    kind: 'resume',
-    title: 'Résumé',
-    text: 'Experience, education, and civic work, on one page you can read or download.',
-    domain: 'On this site',
-    href: '/resume',
-  },
 ];
 ---
 
@@ -116,9 +108,6 @@ const now = [
                       {item.kind === 'board' && (
                         <SchalmontShield class="card__shield" />
                       )}
-                      {item.kind === 'resume' && (
-                        <span class="card__icon" set:html={resumeIcon} />
-                      )}
                     </span>
 
                     <span class="card__body">
@@ -141,6 +130,21 @@ const now = [
             })
           }
         </ul>
+
+        <a href="/resume" class="resume-band" data-reveal>
+          <span class="resume-band__icon" set:html={resumeIcon} />
+          <span class="resume-band__text">
+            <span class="resume-band__title">The full résumé</span>
+            <span class="resume-band__desc">
+              Experience, education, and civic work, on one page you can
+              read or download.
+            </span>
+          </span>
+          <span class="resume-band__cta">
+            View résumé
+            <span class="resume-band__arrow" aria-hidden="true">&#8594;</span>
+          </span>
+        </a>
       </div>
     </section>
 
@@ -225,7 +229,7 @@ const now = [
   .grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
   }
 
@@ -273,7 +277,6 @@ const now = [
   .card__emblem--mauops { background: #edeff6; }
   .card__emblem--board { background: #e9f2ec; }
   .card__emblem--troop { background: #f0eee6; }
-  .card__emblem--resume { background: #e9f2ec; }
 
   .card__body {
     display: flex;
@@ -334,6 +337,80 @@ const now = [
   .card:hover .card__foot { color: var(--green); }
   .card:hover .card__arrow { transform: translateX(0.3rem); }
 
+  /* ---------- RÉSUMÉ BAND ---------- */
+  .resume-band {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 0.7rem + 1.4vw, 1.75rem);
+    margin-top: 1.25rem;
+    padding: clamp(1.1rem, 0.9rem + 0.9vw, 1.6rem)
+      clamp(1.25rem, 1rem + 1vw, 1.9rem);
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    transition:
+      transform 0.24s var(--ease),
+      border-color 0.24s var(--ease),
+      box-shadow 0.24s var(--ease);
+  }
+  .resume-band:hover {
+    transform: translateY(-3px);
+    border-color: var(--green);
+    box-shadow: 0 14px 30px rgba(29, 34, 71, 0.1);
+  }
+  .resume-band__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: clamp(48px, 3.5rem + 1vw, 60px);
+    height: clamp(48px, 3.5rem + 1vw, 60px);
+    background: #e9f2ec;
+    border-radius: 10px;
+    color: var(--green);
+  }
+  .resume-band__icon :global(svg) {
+    width: 56%;
+    height: 56%;
+  }
+  .resume-band__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .resume-band__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .resume-band__desc {
+    font-size: 0.99rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+  .resume-band__cta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    transition: color 0.2s var(--ease);
+  }
+  .resume-band__arrow {
+    font-size: 1.05rem;
+    transition: transform 0.22s var(--ease);
+  }
+  .resume-band:hover .resume-band__cta { color: var(--green); }
+  .resume-band:hover .resume-band__arrow { transform: translateX(0.3rem); }
+
   /* ---------- SNAPSHOT ---------- */
   .snap { background: var(--paper); }
   .snap__inner {
@@ -374,7 +451,13 @@ const now = [
       order: -1;
     }
   }
-  @media (max-width: 620px) {
+  @media (max-width: 720px) {
     .grid { grid-template-columns: 1fr; }
+    .resume-band { flex-wrap: wrap; }
+    .resume-band__cta {
+      width: 100%;
+      padding-top: 0.4rem;
+      justify-content: flex-start;
+    }
   }
 </style>
