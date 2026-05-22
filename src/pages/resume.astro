@@ -2,11 +2,77 @@
 import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+
+const experience = [
+  {
+    dates: '',
+    role: 'Chief Operations Officer',
+    org: 'TalentSmartEQ',
+    note: 'Lead day-to-day operations for an emotional intelligence and leadership development company, with a focus on process improvement, data, and systems.',
+  },
+  {
+    dates: '',
+    role: 'Founder',
+    org: 'Mauops',
+    note: 'AI agents, Salesforce implementation, workflow automation, and web design for small businesses.',
+  },
+  {
+    dates: '',
+    role: 'Social Studies Teacher',
+    org: '',
+    note: 'Taught secondary social studies for three years before moving into operations and data.',
+  },
+];
+
+const education = [
+  {
+    dates: '',
+    role: 'Bachelor of Arts, Social Studies 7-12',
+    org: 'The College of Saint Rose',
+    note: '',
+  },
+  {
+    dates: 'Class of 2003',
+    role: 'High School Diploma',
+    org: 'Schalmont High School',
+    note: '',
+  },
+];
+
+const civic = [
+  {
+    dates: '2023 to present',
+    role: 'Trustee, Board of Education',
+    org: 'Schalmont Central School District',
+    note: 'Elected in 2023, reelected in 2026 to a second term. Work on budget, programs, and district operations.',
+  },
+  {
+    dates: '',
+    role: 'Committee Chair',
+    org: 'Scout Troop 3054, Rotterdam',
+    note: 'Chair the troop committee supporting Scouts and volunteer leaders.',
+  },
+];
+
+const skills = [
+  'Operations and process improvement',
+  'Data analysis and reporting',
+  'AI agents and workflow automation',
+  'Certified Salesforce Administrator',
+  'Certified Teacher, Social Studies 7-12',
+  'Public budgeting and governance',
+];
+
+const sections = [
+  { label: 'Experience', entries: experience },
+  { label: 'Education', entries: education },
+  { label: 'Civic & Volunteer', entries: civic },
+];
 ---
 
 <Base
   title="Résumé — Will Mau"
-  description="The professional and civic résumé of Will Mau: experience, education, and volunteer work, with a downloadable PDF."
+  description="The professional and civic résumé of Will Mau: experience in operations, education, and public service in Rotterdam, New York."
 >
   <main id="main">
     <section class="page-hero">
@@ -14,14 +80,168 @@ import SiteFooter from '../components/SiteFooter.astro';
       <div class="wrap page-hero__inner">
         <p class="kicker page-hero__kicker" data-reveal>Résumé</p>
         <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
-          Experience,<br />on one page.
+          Will Mau
         </h1>
         <p class="page-hero__note" data-reveal data-reveal-delay="2">
-          This page is next. It will hold the web résumé, experience,
-          education, civic work, and skills, plus a clean PDF download.
+          Operations leader and founder in Rotterdam, New York, with a
+          background in education, data, and public service.
         </p>
+        <a
+          href="/will-mau-resume.pdf"
+          class="resume__download"
+          data-reveal
+          data-reveal-delay="3"
+        >
+          <span class="resume__download-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
+          </span>
+          Download PDF
+        </a>
       </div>
     </section>
+
+    <section class="resume section">
+      <div class="wrap">
+        <div class="resume__doc">
+          {
+            sections.map((section) => (
+              <div class="resume__section" data-reveal>
+                <h2 class="resume__h">{section.label}</h2>
+                {section.entries.map((e) => (
+                  <div class="resume__entry">
+                    <p class="resume__dates">{e.dates}</p>
+                    <div>
+                      <p class="resume__role">{e.role}</p>
+                      {e.org && <p class="resume__org">{e.org}</p>}
+                      {e.note && <p class="resume__note">{e.note}</p>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))
+          }
+
+          <div class="resume__section" data-reveal>
+            <h2 class="resume__h">Skills & Certifications</h2>
+            <ul class="resume__skills">
+              {skills.map((s) => <li class="resume__skill">{s}</li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <SiteFooter />
   </main>
 </Base>
+
+<style>
+  .resume { background: var(--paper); }
+  .resume__doc { max-width: 820px; }
+
+  .resume__section + .resume__section {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+  }
+  .resume__h {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  .resume__h::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .resume__entry {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1.5rem;
+    padding-block: 1.3rem;
+  }
+  .resume__entry + .resume__entry {
+    border-top: 1px solid var(--line);
+  }
+  .resume__dates {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    padding-top: 0.25rem;
+  }
+  .resume__role {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.28rem;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+  .resume__org {
+    margin-top: 0.15rem;
+    font-size: 1.02rem;
+    color: var(--text);
+  }
+  .resume__note {
+    margin-top: 0.55rem;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--text-soft);
+  }
+
+  .resume__skills {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .resume__skill {
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .resume__download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.6rem;
+    background: var(--ink);
+    color: var(--on-dark);
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: background 0.18s var(--ease), transform 0.18s var(--ease);
+  }
+  .resume__download:hover {
+    background: var(--ink-deep);
+    transform: translateY(-2px);
+  }
+  .resume__download-icon {
+    display: grid;
+    place-items: center;
+  }
+  .resume__download-icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    color: var(--green-bright);
+  }
+
+  @media (max-width: 600px) {
+    .resume__entry {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+    .resume__dates { padding-top: 0; }
+  }
+</style>
