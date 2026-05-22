@@ -47,22 +47,22 @@ const year = new Date().getFullYear();
     margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
   }
   .site-footer__big {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(2rem, 7vw, 5rem);
-    letter-spacing: -0.03em;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 1.1rem + 1.7vw, 2.4rem);
+    letter-spacing: -0.02em;
     color: var(--on-dark);
     display: inline-flex;
     align-items: flex-start;
-    gap: 0.15em;
+    gap: 0.2em;
     transition: color 0.2s var(--ease);
   }
   .site-footer__arrow {
-    font-size: 0.5em;
-    color: var(--green);
+    font-size: 0.6em;
+    color: var(--green-bright);
     transition: transform 0.22s var(--ease);
   }
-  .site-footer__big:hover { color: var(--green); }
+  .site-footer__big:hover { color: var(--green-bright); }
   .site-footer__big:hover .site-footer__arrow {
     transform: translate(0.15em, -0.15em);
   }
@@ -81,7 +81,7 @@ const year = new Date().getFullYear();
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--green);
+    color: var(--green-bright);
     margin-bottom: 0.3rem;
   }
   .site-footer__col a {

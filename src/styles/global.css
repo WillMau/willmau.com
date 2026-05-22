@@ -1,31 +1,32 @@
 /* =============================================================
-   willmau.com  ·  Bold Modern Civic design system
+   willmau.com  ·  warm, restrained, civic
    ============================================================= */
 
 :root {
   /* --- Color --- */
-  --ink:        #16183c;   /* primary deep navy */
-  --ink-deep:   #0c0d24;   /* darkest navy, footer + depth */
-  --ink-700:    #262a55;   /* lifted navy, cards on dark */
-  --paper:      #f4f3ec;   /* warm off-white, primary light surface */
-  --paper-pure: #ffffff;
-  --green:      #6fcf97;   /* signature accent */
-  --green-deep: #3f9e6c;   /* accent hover on light */
-  --text:       #1a1a22;   /* charcoal body on light */
-  --text-soft:  #5c5d6b;   /* muted body on light */
-  --on-dark:    #f4f3ec;   /* body text on navy */
-  --on-dark-soft: rgba(244, 243, 236, 0.62);
-  --line-dark:  rgba(244, 243, 236, 0.16);
-  --line-light: rgba(22, 24, 60, 0.14);
+  --ink:         #1d2247;  /* navy, civic and trustworthy */
+  --ink-deep:    #151935;  /* darkest navy, footer */
+  --paper:       #f6f5f0;  /* warm off-white, primary surface */
+  --paper-pure:  #ffffff;
+  --green:       #4d9b71;  /* calm green for light backgrounds */
+  --green-bright:#6fcf97;  /* brighter green for navy backgrounds */
+  --text:        #232430;  /* charcoal body text */
+  --text-soft:   #595b69;  /* muted body text */
+  --on-dark:     #f3f2ec;
+  --on-dark-soft: rgba(243, 242, 236, 0.66);
+  --line:        rgba(29, 34, 71, 0.13);
+  --line-dark:   rgba(243, 242, 236, 0.16);
 
   /* --- Type --- */
-  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque",
-    system-ui, sans-serif;
-  --font-body: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
 
   /* --- Layout --- */
-  --container: 1200px;
-  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --container: 1140px;
+  --measure: 680px;
+  --gutter: clamp(1.25rem, 0.9rem + 1.8vw, 2.5rem);
+  --section: clamp(3.5rem, 2.7rem + 2.8vw, 6rem);
+  --radius: 10px;
 
   /* --- Motion --- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -36,33 +37,31 @@
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   background: var(--paper);
   color: var(--text);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 1.125rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
 img, picture, svg { display: block; max-width: 100%; }
-
 a { color: inherit; text-decoration: none; }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.025em;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.012em;
 }
 
-::selection { background: var(--green); color: var(--ink); }
+::selection { background: var(--green-bright); color: var(--ink); }
 
 :focus-visible {
   outline: 3px solid var(--green);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 /* --- Layout helpers --- */
@@ -71,15 +70,14 @@ h1, h2, h3, h4 {
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
-
-.section { padding-block: clamp(4.5rem, 11vw, 9rem); }
+.section { padding-block: var(--section); }
 
 /* --- Eyebrow / tracked label --- */
 .kicker {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -89,7 +87,7 @@ h1, h2, h3, h4 {
   left: 1rem;
   top: -120px;
   z-index: 200;
-  background: var(--green);
+  background: var(--green-bright);
   color: var(--ink);
   padding: 0.7rem 1.1rem;
   font-weight: 700;
@@ -102,26 +100,21 @@ h1, h2, h3, h4 {
 .page-hero {
   background: var(--ink);
   color: var(--on-dark);
-  min-height: 60svh;
-  display: flex;
-  flex-direction: column;
 }
 .page-hero__inner {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: clamp(3rem, 8vw, 6rem);
+  padding-block: clamp(2.75rem, 2rem + 2.6vw, 4.5rem);
 }
-.page-hero__kicker { color: var(--green); margin-bottom: clamp(1rem, 3vw, 1.75rem); }
+.page-hero__kicker {
+  color: var(--green-bright);
+  margin-bottom: 1rem;
+}
 .page-hero__title {
-  font-size: clamp(3rem, 9vw, 7.5rem);
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
+  font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3rem);
+  letter-spacing: -0.02em;
 }
 .page-hero__note {
-  margin-top: 1.75rem;
-  max-width: 48ch;
+  margin-top: 1.15rem;
+  max-width: 54ch;
   color: var(--on-dark-soft);
   font-size: 1.05rem;
   line-height: 1.6;
@@ -130,17 +123,14 @@ h1, h2, h3, h4 {
 /* --- Scroll reveal --- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transform: translateY(16px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
 }
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
-[data-reveal-delay="1"] { transition-delay: 0.08s; }
-[data-reveal-delay="2"] { transition-delay: 0.16s; }
-[data-reveal-delay="3"] { transition-delay: 0.24s; }
-[data-reveal-delay="4"] { transition-delay: 0.32s; }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+[data-reveal-delay="1"] { transition-delay: 0.06s; }
+[data-reveal-delay="2"] { transition-delay: 0.12s; }
+[data-reveal-delay="3"] { transition-delay: 0.18s; }
+[data-reveal-delay="4"] { transition-delay: 0.24s; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

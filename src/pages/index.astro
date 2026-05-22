@@ -18,7 +18,7 @@ const now = [
     n: '02',
     title: 'Schalmont School Board',
     text: 'Elected trustee in 2023, reelected in 2026 to a second term on the Board of Education.',
-    meta: 'On Facebook',
+    meta: 'Follow on Facebook',
     href: 'https://www.facebook.com/people/Will-Mau-for-Schalmont-Board-of-Education/61567429940268/',
     external: true,
   },
@@ -26,7 +26,7 @@ const now = [
     n: '03',
     title: 'Scouting',
     text: 'Committee chair for the Scout troop that meets at Jefferson Elementary in Rotterdam.',
-    meta: 'Volunteer',
+    meta: 'Volunteer work',
     href: null,
     external: false,
   },
@@ -50,32 +50,21 @@ const now = [
     <section class="hero">
       <SiteHeader />
       <div class="wrap hero__inner">
-        <p class="kicker hero__kicker" data-reveal>Rotterdam, New York</p>
-
-        <div class="hero__grid">
-          <h1 class="hero__name" data-reveal data-reveal-delay="1">
-            <span class="hero__line">Will</span>
-            <span class="hero__line">Mau<span class="hero__dot">.</span></span>
-          </h1>
-
-          <div class="hero__photo" data-reveal data-reveal-delay="2">
-            <Image
-              src={headshot}
-              alt="Will Mau"
-              widths={[320, 480, 640]}
-              sizes="(max-width: 760px) 70vw, 34vw"
-            />
-          </div>
+        <div class="hero__photo" data-reveal>
+          <Image
+            src={headshot}
+            alt="Will Mau"
+            widths={[260, 400, 520]}
+            sizes="(max-width: 680px) 160px, 260px"
+          />
         </div>
-
-        <p class="hero__lede" data-reveal data-reveal-delay="3">
-          Husband and dad in Rotterdam. School board member, Scout leader,
-          and founder of <span class="hero__accent">Mauops</span>.
-        </p>
-
-        <div class="hero__rule" data-reveal data-reveal-delay="4">
-          <span class="hero__scroll">Scroll to see what I'm working on</span>
-          <span class="hero__arrow" aria-hidden="true">&#8595;</span>
+        <div class="hero__text">
+          <p class="kicker hero__kicker" data-reveal>Rotterdam, New York</p>
+          <h1 class="hero__name" data-reveal data-reveal-delay="1">Will Mau</h1>
+          <p class="hero__lede" data-reveal data-reveal-delay="2">
+            Husband and dad in Rotterdam. School board member at Schalmont,
+            Scout troop leader, and founder of Mauops.
+          </p>
         </div>
       </div>
     </section>
@@ -85,10 +74,10 @@ const now = [
       <div class="wrap">
         <div class="now__head" data-reveal>
           <p class="kicker now__kicker">What I'm doing now</p>
-          <h2 class="now__title">Four things have my attention.</h2>
+          <h2 class="now__title">Where my time goes.</h2>
         </div>
 
-        <ul class="now__list">
+        <ul class="grid">
           {
             now.map((item, i) => {
               const Tag = item.href ? 'a' : 'div';
@@ -100,20 +89,20 @@ const now = [
               return (
                 <li>
                   <Tag
-                    class:list={['row', { 'row--link': item.href }]}
+                    class:list={['card', { 'card--link': item.href }]}
                     data-reveal
                     data-reveal-delay={Math.min(i + 1, 4)}
                     {...linkProps}
                   >
-                    <span class="row__n">{item.n}</span>
-                    <span class="row__body">
-                      <span class="row__title">{item.title}</span>
-                      <span class="row__text">{item.text}</span>
+                    <span class="card__n">{item.n}</span>
+                    <h3 class="card__title">{item.title}</h3>
+                    <p class="card__text">{item.text}</p>
+                    <span class="card__meta">
+                      {item.meta}
+                      {item.href && (
+                        <span class="card__arrow" aria-hidden="true">&#8594;</span>
+                      )}
                     </span>
-                    <span class="row__meta">{item.meta}</span>
-                    {item.href && (
-                      <span class="row__arrow" aria-hidden="true">&#8599;</span>
-                    )}
                   </Tag>
                 </li>
               );
@@ -124,18 +113,20 @@ const now = [
     </section>
 
     {/* ---------- ABOUT SNAPSHOT ---------- */}
-    <section class="snap">
+    <section class="snap section">
       <div class="wrap">
-        <p class="kicker snap__kicker" data-reveal>A bit of background</p>
-        <p class="snap__text" data-reveal data-reveal-delay="1">
-          I got into public service by showing up. Three years ago I started
-          going to Schalmont board meetings because my daughter's kindergarten
-          class was too big. I kept showing up. Eventually I ran.
-        </p>
-        <a href="/about" class="snap__link" data-reveal data-reveal-delay="2">
-          Read the whole story
-          <span class="snap__arrow" aria-hidden="true">&#8594;</span>
-        </a>
+        <div class="snap__inner">
+          <p class="kicker snap__kicker" data-reveal>A bit of background</p>
+          <p class="snap__text" data-reveal data-reveal-delay="1">
+            I got into public service by showing up. Three years ago I started
+            going to Schalmont board meetings because my daughter's kindergarten
+            class was too big. I kept showing up. Eventually I ran.
+          </p>
+          <a href="/about" class="snap__link" data-reveal data-reveal-delay="2">
+            Read the whole story
+            <span class="snap__arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -148,111 +139,39 @@ const now = [
   .hero {
     background: var(--ink);
     color: var(--on-dark);
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    top: -25%;
-    right: -10%;
-    width: 45%;
-    aspect-ratio: 1;
-    background: radial-gradient(
-      circle,
-      rgba(111, 207, 151, 0.16),
-      transparent 68%
-    );
-    pointer-events: none;
   }
   .hero__inner {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: clamp(2.5rem, 6vw, 5rem);
-    position: relative;
-    z-index: 1;
-  }
-  .hero__kicker {
-    color: var(--green);
-    margin-bottom: clamp(1.5rem, 4vw, 2.75rem);
-  }
-  .hero__grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: clamp(1.5rem, 5vw, 4rem);
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
     align-items: center;
+    padding-block: clamp(2.5rem, 2rem + 2.5vw, 4.5rem);
   }
-  .hero__name {
-    font-size: clamp(4.75rem, 16.5vw, 15.5rem);
-    line-height: 0.84;
-    letter-spacing: -0.045em;
-    text-transform: uppercase;
-  }
-  .hero__line { display: block; }
-  .hero__dot { color: var(--green); }
   .hero__photo {
-    position: relative;
-    isolation: isolate;
-    max-width: 360px;
-    width: 100%;
-    margin-inline: auto;
-  }
-  .hero__photo::before {
-    content: '';
-    position: absolute;
-    inset: auto -1.1rem -1.1rem auto;
-    width: 70%;
-    height: 70%;
-    background: var(--green);
-    z-index: -1;
+    width: clamp(150px, 22vw, 248px);
+    flex-shrink: 0;
   }
   .hero__photo :global(img) {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    object-position: center 22%;
+    object-position: center 20%;
+    border-radius: var(--radius);
+  }
+  .hero__kicker {
+    color: var(--green-bright);
+    margin-bottom: 0.85rem;
+  }
+  .hero__name {
+    font-size: clamp(2.4rem, 1.7rem + 2.7vw, 3.4rem);
+    letter-spacing: -0.022em;
   }
   .hero__lede {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.35rem, 3.2vw, 2.4rem);
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    max-width: 24ch;
-    margin-top: clamp(2.25rem, 6vw, 4rem);
-  }
-  .hero__accent {
-    color: var(--green);
-  }
-  .hero__rule {
-    margin-top: clamp(2.5rem, 6vw, 4.5rem);
-    padding-top: 1.4rem;
-    border-top: 1px solid var(--line-dark);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .hero__scroll {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    margin-top: 0.95rem;
+    max-width: 40ch;
+    font-size: 1.18rem;
+    line-height: 1.5;
     color: var(--on-dark-soft);
-  }
-  .hero__arrow {
-    color: var(--green);
-    font-size: 1.25rem;
-    animation: bob 2s var(--ease) infinite;
-  }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
   }
 
   /* ---------- NOW ---------- */
@@ -260,125 +179,116 @@ const now = [
   .now__head {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+    gap: 0.7rem;
+    margin-bottom: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
   }
-  .now__kicker { color: var(--green-deep); }
+  .now__kicker { color: var(--green); }
   .now__title {
-    font-size: clamp(2.1rem, 5.5vw, 4.25rem);
-    letter-spacing: -0.035em;
-    max-width: 16ch;
+    font-size: clamp(1.6rem, 1.3rem + 1.3vw, 2.1rem);
   }
-  .now__list { list-style: none; }
-  .now__list li { border-top: 1px solid var(--line-light); }
-  .now__list li:last-child { border-bottom: 1px solid var(--line-light); }
 
-  .row {
+  .grid {
+    list-style: none;
     display: grid;
-    grid-template-columns: auto 1fr auto auto;
-    align-items: center;
-    gap: clamp(1rem, 4vw, 3rem);
-    padding-block: clamp(1.6rem, 3.5vw, 2.6rem);
-    color: var(--text);
-    transition: padding-left 0.25s var(--ease), background 0.25s var(--ease);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
   }
-  .row--link:hover {
-    padding-left: clamp(0.6rem, 2vw, 1.5rem);
-    background: var(--paper-pure);
-  }
-  .row__n {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: var(--green-deep);
-    letter-spacing: 0;
-  }
-  .row__body {
+  .card {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    height: 100%;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    color: var(--text);
+    transition:
+      transform 0.22s var(--ease),
+      border-color 0.22s var(--ease),
+      box-shadow 0.22s var(--ease);
   }
-  .row__title {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(1.6rem, 3.8vw, 3rem);
-    letter-spacing: -0.035em;
-    line-height: 1;
+  .card--link:hover {
+    transform: translateY(-3px);
+    border-color: var(--green);
+    box-shadow: 0 14px 30px rgba(29, 34, 71, 0.1);
   }
-  .row__text {
-    font-size: 1rem;
-    color: var(--text-soft);
-    max-width: 46ch;
-    line-height: 1.55;
-  }
-  .row__meta {
-    font-size: 0.74rem;
+  .card__n {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
+    color: var(--green);
+    margin-bottom: 0.7rem;
+  }
+  .card__title {
+    font-size: 1.32rem;
+    margin-bottom: 0.45rem;
+  }
+  .card__text {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+  .card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.15rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--text-soft);
-    text-align: right;
   }
-  .row__arrow {
-    font-size: 1.6rem;
-    color: var(--ink);
-    transition: transform 0.25s var(--ease);
+  .card__arrow {
+    transition: transform 0.22s var(--ease);
+    color: var(--green);
+    font-size: 1rem;
   }
-  .row--link:hover .row__arrow {
-    transform: translate(0.3rem, -0.3rem);
-    color: var(--green-deep);
-  }
+  .card--link:hover .card__arrow { transform: translateX(0.25rem); }
+  .card--link:hover .card__meta { color: var(--green); }
 
   /* ---------- ABOUT SNAPSHOT ---------- */
-  .snap {
-    background: var(--ink);
-    color: var(--on-dark);
-    padding-block: clamp(5rem, 13vw, 11rem);
+  .snap { background: var(--paper); }
+  .snap__inner {
+    border-top: 1px solid var(--line);
+    padding-top: clamp(2.5rem, 2rem + 2vw, 4rem);
   }
   .snap__kicker {
     color: var(--green);
-    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1.1rem;
   }
   .snap__text {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.6rem, 4.2vw, 3.4rem);
-    line-height: 1.18;
-    letter-spacing: -0.03em;
-    max-width: 20ch;
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2rem);
+    line-height: 1.34;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    max-width: var(--measure);
   }
   .snap__link {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-top: clamp(2rem, 5vw, 3.25rem);
-    font-size: 0.95rem;
+    gap: 0.5rem;
+    margin-top: 1.6rem;
+    font-size: 0.92rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
     color: var(--green);
-    padding-bottom: 0.3rem;
-    border-bottom: 2px solid var(--green);
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid currentColor;
   }
   .snap__arrow { transition: transform 0.22s var(--ease); }
-  .snap__link:hover .snap__arrow { transform: translateX(0.35rem); }
+  .snap__link:hover .snap__arrow { transform: translateX(0.3rem); }
 
   /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 760px) {
-    .hero__grid {
+  @media (max-width: 680px) {
+    .hero__inner {
       grid-template-columns: 1fr;
-      gap: clamp(2rem, 8vw, 3rem);
+      justify-items: start;
+      gap: 1.4rem;
     }
-    .hero__photo { order: -1; max-width: 240px; margin-inline: 0; }
-    .row {
-      grid-template-columns: auto 1fr;
-      grid-template-areas:
-        'n meta'
-        'body body';
-      gap: 0.5rem 1.5rem;
-    }
-    .row__n { grid-area: n; }
-    .row__meta { grid-area: meta; }
-    .row__body { grid-area: body; margin-top: 0.6rem; }
-    .row__arrow { display: none; }
+    .grid { grid-template-columns: 1fr; }
   }
 </style>

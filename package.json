@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
     "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/source-serif-4": "^5.2.9",
     "astro": "^6.3.7"
   }
 }
