@@ -160,15 +160,55 @@ const experience = [
 const skillGroups = [
   {
     label: 'Platforms',
-    items: ['Salesforce (Apex, LWC, SOQL, Flow)', 'Microsoft 365', 'SharePoint', 'Azure'],
+    desc: 'The systems I administer and architect.',
+    items: [
+      'Salesforce (Apex, LWC, SOQL, Flow, Pardot)',
+      'Microsoft 365',
+      'SharePoint',
+      'Azure',
+      'Microsoft Graph',
+    ],
   },
   {
     label: 'Hands-on',
-    items: ['Python', 'Apex', 'Lightning Web Components', 'TypeScript', 'SQL', 'Git & CI/CD'],
+    desc: 'I write the code when that is the right call.',
+    items: [
+      'Python (pandas, simple-salesforce)',
+      'Apex (batch, triggers, 95% test coverage)',
+      'Lightning Web Components',
+      'TypeScript & Astro',
+      'SQL',
+      'Git & GitHub Actions',
+    ],
   },
   {
-    label: 'AI & automation',
-    items: ['Azure OpenAI', 'Structured-output classification', 'RAG patterns', 'Human-in-the-loop design'],
+    label: 'AI & LLM',
+    desc: 'Production AI, built carefully.',
+    items: [
+      'Azure OpenAI',
+      'Structured-output classification',
+      'RAG patterns',
+      'Shadow-mode deployment',
+      'Human-in-the-loop audit',
+    ],
+  },
+];
+
+const offerings = [
+  {
+    dur: '1 to 2 weeks',
+    title: 'Salesforce & RevOps Health Check',
+    text: 'A diagnostic pass on the CRM and revenue stack, ending in a prioritized fix list.',
+  },
+  {
+    dur: '2 weeks',
+    title: 'Funnel Bottleneck Sprint',
+    text: 'Find where the funnel leaks, then build and ship the fix.',
+  },
+  {
+    dur: '1 week',
+    title: 'Executive Dashboard Pack',
+    text: 'The reporting leadership actually needs, built and documented to hand off.',
   },
 ];
 
@@ -354,15 +394,55 @@ const jsonLd = {
       </div>
     </section>
 
-    {/* ---------- TECHNOLOGY ---------- */}
+    {/* ---------- INDEPENDENT PRACTICE ---------- */}
     <section class="section r-section r-section--alt">
       <div class="wrap">
+        <h2 class="r-h2" data-reveal>Independent practice</h2>
+        <p class="r-lede" data-reveal>
+          Alongside the work at TalentSmartEQ, I run Mauops, a solo
+          Salesforce, AI, and automation consultancy. Most small businesses
+          are paying for software they barely use and doing by hand what
+          should be automated. The same approach fixes that.
+        </p>
+        <div class="r-offerings">
+          {
+            offerings.map((o, i) => (
+              <div class="r-offering" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <span class="r-offering__dur">{o.dur}</span>
+                <h3 class="r-offering__title">{o.title}</h3>
+                <p class="r-offering__text">{o.text}</p>
+              </div>
+            ))
+          }
+        </div>
+        <a
+          class="r-linkedin"
+          href="https://mauops.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-reveal
+        >
+          <span>Recent engagements and fixed-scope offerings at mauops.com</span>
+          <span class="r-linkedin__arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+    </section>
+
+    {/* ---------- TECHNOLOGY ---------- */}
+    <section class="section r-section">
+      <div class="wrap">
         <h2 class="r-h2" data-reveal>Technology</h2>
+        <p class="r-lede" data-reveal>
+          An executive with enough technical fluency to architect solutions,
+          evaluate vendors honestly, and direct technical work without
+          translation overhead.
+        </p>
         <div class="r-skills">
           {
             skillGroups.map((g, i) => (
               <div class="r-skillgroup" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
                 <p class="r-skillgroup__label">{g.label}</p>
+                <p class="r-skillgroup__desc">{g.desc}</p>
                 <ul class="r-tags">
                   {g.items.map((s) => <li class="r-tag">{s}</li>)}
                 </ul>
@@ -374,7 +454,7 @@ const jsonLd = {
     </section>
 
     {/* ---------- EDUCATION + CIVIC ---------- */}
-    <section class="section r-section">
+    <section class="section r-section r-section--alt">
       <div class="wrap r-grid2">
         <div data-reveal>
           <h2 class="r-h2">Education</h2>
@@ -716,7 +796,46 @@ const jsonLd = {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--green);
+    margin-bottom: 0.35rem;
+  }
+  .r-skillgroup__desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-soft);
     margin-bottom: 0.9rem;
+  }
+
+  /* ---------- INDEPENDENT PRACTICE ---------- */
+  .r-offerings {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+    margin-bottom: 1.6rem;
+  }
+  .r-offering {
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.2rem, 1rem + 0.9vw, 1.65rem);
+  }
+  .r-offering__dur {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+  }
+  .r-offering__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ink);
+    margin: 0.4rem 0 0.35rem;
+  }
+  .r-offering__text {
+    font-size: 0.94rem;
+    line-height: 1.5;
+    color: var(--text-soft);
   }
   .r-tags {
     list-style: none;
@@ -764,6 +883,9 @@ const jsonLd = {
   @media (max-width: 820px) {
     .r-work { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .r-skills { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+  @media (max-width: 820px) {
+    .r-offerings { grid-template-columns: 1fr; }
   }
   @media (max-width: 620px) {
     .r-principles { grid-template-columns: 1fr; }
