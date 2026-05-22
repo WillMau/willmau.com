@@ -9,9 +9,7 @@ const path = Astro.url.pathname;
 
 <header class="site-header">
   <div class="wrap site-header__row">
-    <a href="/" class="wordmark" aria-label="Will Mau, home">
-      Will Mau<span class="wordmark__dot" aria-hidden="true"></span>
-    </a>
+    <a href="/" class="wordmark" aria-label="Will Mau, home">Will Mau</a>
     <nav class="site-nav" aria-label="Primary">
       {
         links.map((l) => (
@@ -46,16 +44,6 @@ const path = Astro.url.pathname;
     font-size: 1.3rem;
     letter-spacing: -0.018em;
     color: var(--ink);
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.22rem;
-  }
-  .wordmark__dot {
-    width: 0.4rem;
-    height: 0.4rem;
-    background: var(--green);
-    border-radius: 50%;
-    display: inline-block;
   }
   .site-nav {
     display: flex;
