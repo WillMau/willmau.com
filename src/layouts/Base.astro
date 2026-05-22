@@ -42,6 +42,8 @@ const ogImage = new URL('/og.jpg', origin);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    <slot name="head" />
+
     <ClientRouter />
   </head>
   <body>

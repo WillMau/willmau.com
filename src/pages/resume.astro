@@ -3,130 +3,335 @@ import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
+const principles = [
+  {
+    title: 'Diagnose before you build',
+    text: 'Most operations problems are definition problems, not tool problems. A few hours with the actual data (the tickets, the lost-deal notes, the funnel report) and the right system falls out of the diagnosis.',
+  },
+  {
+    title: 'Build what should be built, buy what shouldn’t',
+    text: 'One vendor quoted $90K a year for what a 200-line script does better at about $20 a month. When a vendor solves it cleanly, buy. When it doesn’t, direct the internal build.',
+  },
+  {
+    title: 'Make it boring to operate',
+    text: 'Every system ships with a deployment guide, a backfill guide, and a what-to-do-when-it-breaks guide. The job is not to be the only person who understands how it works.',
+  },
+  {
+    title: 'Leave the team faster than you found it',
+    text: 'Operations should not just add reporting overhead. Anything I build has to give the team time back, or it should not ship.',
+  },
+];
+
+const initiatives = [
+  {
+    stat: '68%',
+    statLabel: 'of support tickets auto-handled',
+    title: 'AI case-handling system',
+    summary:
+      'An Azure OpenAI agent reads incoming support cases, classifies them, and resolves routine ones (passcode resets, registration changes, license lookups) end to end.',
+    detail:
+      'The system auto-handles about 68% of incoming cases at roughly $4 a month in API costs, and writes a structured handoff for cases that need a human. The most visible outcome: the support team scaled from 6 people to 3, with response time improving rather than degrading.',
+  },
+  {
+    stat: '10 sec',
+    statLabel: 'from new lead to first-touch email',
+    title: 'AI lead-triage system',
+    summary:
+      'Every inbound lead is auto-classified and answered with a personalized first-touch email in about ten seconds, live in production.',
+    detail:
+      'Before approving the build, I directed a study of 1,064 converted leads over 24 months to find what actually predicts conversion. The system now classifies roughly 600 leads a month, suppresses about 11% as junk before a VP sees them, and reclaims an estimated 50 to 100 hours of manual triage monthly across five regional VPs.',
+  },
+  {
+    stat: '95%',
+    statLabel: 'Apex test coverage, running weekly',
+    title: 'Executive forecasting platform',
+    summary:
+      'A snapshot system that gives TalentSmartEQ its first reliable year-over-year view of pipeline, quota performance, and deal history.',
+    detail:
+      'Salesforce stores opportunities as single mutable rows, so history evaporates the moment a stage changes. I directed a custom snapshot object, an Apex batch that runs every Monday at 5 AM, a 95%-coverage test suite, and a Lightning Web Component executive dashboard. It has run weekly since early 2026 with no manual intervention.',
+  },
+  {
+    stat: '100s',
+    statLabel: 'of cross-team hours saved per year',
+    title: 'Clickwrap legal re-architecture',
+    summary:
+      'A multi-round editing, approval, and signature cycle for every new customer agreement, collapsed into a single-click workflow.',
+    detail:
+      'Legal still owns the underlying contract template, but each new agreement now flows through automation instead of email chains, reclaiming hundreds of hours annually across legal, sales, and operations and shortening the path from interested customer to signed agreement.',
+  },
+  {
+    stat: 'Daily',
+    statLabel: 'who-to-call list for the sales team',
+    title: 'Customer-health system',
+    summary:
+      'A daily report that surfaces which customers are low on assessment credits, which inventory is stagnant, and how fast each account is burning credits.',
+    detail:
+      'The data lived in the assessment platform; the customer relationship lived in Salesforce, and nobody was joining them. The system now computes reorder opportunities and churn risk every day and emits a one-page report with one-click outreach buttons that sales opens like a dashboard.',
+  },
+  {
+    stat: '0',
+    statLabel: 'humans left in the integration',
+    title: 'Accounts Receivable automation',
+    summary:
+      'A manual AR workbook, updated by hand from purchase exports, rebuilt as an automated pipeline.',
+    detail:
+      'A daily job pulls every account’s payment terms from Salesforce, authenticates to Microsoft Graph through a service principal, and posts a clean CSV to SharePoint. A documented runbook means anyone on the team can run collections, not just one person.',
+  },
+];
+
 const experience = [
   {
-    dates: '',
-    role: 'Chief Operations Officer',
+    mark: 'TS',
+    role: 'Vice President of Operations',
     org: 'TalentSmartEQ',
-    note: 'Lead day-to-day operations for an emotional intelligence and leadership development company, with a focus on process improvement, data, and systems.',
+    dates: 'May 2021 to Present',
+    place: 'Remote',
+    text: 'One of four members of the Executive Leadership Team. Partner directly with the CEO on strategy and lead operations, technology, revenue systems, data privacy, and cybersecurity. Promoted from Director of Sales Operations to Sr. Director to VP.',
   },
   {
-    dates: '',
-    role: 'Founder',
-    org: 'Mauops',
-    note: 'AI agents, Salesforce implementation, workflow automation, and web design for small businesses.',
+    mark: 'CL',
+    role: 'Senior Sales Manager',
+    org: 'Cengage Learning',
+    dates: 'Mar 2018 to May 2021',
+    place: 'Boston, MA',
+    text: 'Led sales operations strategy for a B2B segment of a major education publisher. Drove an enterprise Salesforce implementation delivering a 10x productivity gain in six months, and compressed new-hire ramp from eight months to four weeks.',
   },
   {
-    dates: '',
-    role: 'Social Studies Teacher',
-    org: '',
-    note: 'Taught secondary social studies for three years before moving into operations and data.',
+    mark: 'CC',
+    role: 'Inbound Sales Manager',
+    org: 'Charter Communications',
+    dates: 'Jan 2014 to Mar 2018',
+    place: 'Albany, NY',
+    text: 'Led a 72-person sales organization through six supervisors. Drove a 9% lift in sales metrics with process optimization and a peer-mentorship program that became a model across the region.',
+  },
+  {
+    mark: 'ER',
+    role: 'Earlier roles',
+    org: 'TJX, Target, Schenectady City School District',
+    dates: '2010 to 2014',
+    place: 'Albany & Schenectady, NY',
+    text: 'Operations Manager at TJX and Executive Team Leader at Target. Before that, three years teaching U.S. history, world cultures, and economics, which is where I learned to explain complex systems to people who have not seen them before.',
+  },
+];
+
+const skillGroups = [
+  {
+    label: 'Platforms',
+    items: ['Salesforce (Apex, LWC, SOQL, Flow)', 'Microsoft 365', 'SharePoint', 'Azure'],
+  },
+  {
+    label: 'Hands-on',
+    items: ['Python', 'Apex', 'Lightning Web Components', 'TypeScript', 'SQL', 'Git & CI/CD'],
+  },
+  {
+    label: 'AI & automation',
+    items: ['Azure OpenAI', 'Structured-output classification', 'RAG patterns', 'Human-in-the-loop design'],
   },
 ];
 
 const education = [
-  {
-    dates: '',
-    role: 'Bachelor of Arts, Social Studies 7-12',
-    org: 'The College of Saint Rose',
-    note: '',
-  },
-  {
-    dates: 'Class of 2003',
-    role: 'High School Diploma',
-    org: 'Schalmont High School',
-    note: '',
-  },
+  { role: 'M.A., History', org: 'University at Albany', note: '4.0 GPA' },
+  { role: 'B.A., History Teacher Education', org: 'The College of Saint Rose', note: '3.6 GPA' },
+];
+
+const certifications = [
+  'Salesforce Administrator',
+  'Mastering Emotional Intelligence, Levels 1 & 2',
+  'New York State Teacher Certification, Social Studies 7-12',
 ];
 
 const civic = [
   {
-    dates: '2023 to present',
-    role: 'Trustee, Board of Education',
+    role: 'Elected Board of Education Member',
     org: 'Schalmont Central School District',
-    note: 'Elected in 2023, reelected in 2026 to a second term. Work on budget, programs, and district operations.',
+    dates: '2024 to present',
+    text: 'Elected in 2023 and reelected in 2026. Two years of work including Pre-K expansion, the Woestina school reopening, a Residential Trade Technology program, and a 1.95% tax levy held well under the state cap.',
   },
   {
-    dates: '',
-    role: 'Committee Chair',
-    org: 'Scout Troop 3054, Rotterdam',
-    note: 'Chair the troop committee supporting Scouts and volunteer leaders.',
+    role: 'Troop Committee Chair',
+    org: 'Scouting America, Troop 3054',
+    dates: '2024 to present',
+    text: 'Chair the troop committee: strategic planning, adult-leader development, and community engagement. Also built and maintain the troop website.',
   },
 ];
 
-const skills = [
-  'Operations and process improvement',
-  'Data analysis and reporting',
-  'AI agents and workflow automation',
-  'Certified Salesforce Administrator',
-  'Certified Teacher, Social Studies 7-12',
-  'Public budgeting and governance',
-];
-
-const sections = [
-  { label: 'Experience', entries: experience },
-  { label: 'Education', entries: education },
-  { label: 'Civic & Volunteer', entries: civic },
-];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Will Mau',
+  alternateName: 'William Mau',
+  jobTitle: 'Vice President of Operations',
+  worksFor: { '@type': 'Organization', name: 'TalentSmartEQ' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Rotterdam',
+    addressRegion: 'NY',
+    addressCountry: 'US',
+  },
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'University at Albany' },
+    { '@type': 'CollegeOrUniversity', name: 'The College of Saint Rose' },
+  ],
+  url: 'https://willmau.com/resume',
+  sameAs: ['https://www.linkedin.com/in/will-mau/', 'https://mauops.com'],
+};
 ---
 
 <Base
-  title="Résumé — Will Mau"
-  description="The professional and civic résumé of Will Mau: experience in operations, education, and public service in Rotterdam, New York."
+  title="Will Mau, Operations & Technology Executive | Résumé"
+  description="The résumé of Will Mau: Vice President of Operations at TalentSmartEQ, fifteen-plus years across operations, revenue systems, and AI automation. Salesforce certified. Rotterdam, New York."
 >
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(jsonLd)}
+  />
+
   <main id="main">
-    <section class="page-hero">
+    {/* ---------- HERO ---------- */}
+    <section class="r-hero">
       <SiteHeader />
-      <div class="wrap page-hero__inner">
-        <p class="kicker page-hero__kicker" data-reveal>Résumé</p>
-        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
-          Will Mau
-        </h1>
-        <p class="page-hero__note" data-reveal data-reveal-delay="2">
-          Operations leader and founder in Rotterdam, New York, with a
-          background in education, data, and public service.
+      <div class="wrap r-hero__inner">
+        <p class="kicker r-hero__kicker" data-reveal>Résumé</p>
+        <h1 class="r-hero__name" data-reveal data-reveal-delay="1">Will Mau</h1>
+        <p class="r-hero__role" data-reveal data-reveal-delay="1">
+          Operations &amp; Technology Executive &middot; AI &amp; Automation
         </p>
-        <a
-          href="/will-mau-resume.pdf"
-          class="resume__download"
-          data-reveal
-          data-reveal-delay="3"
-        >
-          <span class="resume__download-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
-          </span>
-          Download PDF
-        </a>
+        <p class="r-hero__summary" data-reveal data-reveal-delay="2">
+          I am an operations executive who builds the systems most VPs only
+          buy. Fifteen-plus years across operations, revenue, and business
+          technology. Currently VP of Operations at TalentSmartEQ and one of
+          four members of its Executive Leadership Team.
+        </p>
+        <div class="r-hero__actions" data-reveal data-reveal-delay="3">
+          <a class="r-btn r-btn--solid" href="/will-mau-resume.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
+            Download PDF
+          </a>
+          <a class="r-btn" href="mailto:William.Mau@gmail.com">Email</a>
+          <a class="r-btn" href="https://www.linkedin.com/in/will-mau/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
       </div>
     </section>
 
-    <section class="resume section">
+    {/* ---------- HOW I LEAD ---------- */}
+    <section class="section r-section">
       <div class="wrap">
-        <div class="resume__doc">
+        <h2 class="r-h2" data-reveal>How I lead</h2>
+        <div class="r-principles">
           {
-            sections.map((section) => (
-              <div class="resume__section" data-reveal>
-                <h2 class="resume__h">{section.label}</h2>
-                {section.entries.map((e) => (
-                  <div class="resume__entry">
-                    <p class="resume__dates">{e.dates}</p>
-                    <div>
-                      <p class="resume__role">{e.role}</p>
-                      {e.org && <p class="resume__org">{e.org}</p>}
-                      {e.note && <p class="resume__note">{e.note}</p>}
-                    </div>
-                  </div>
-                ))}
+            principles.map((p, i) => (
+              <div class="r-principle" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <h3 class="r-principle__title">{p.title}</h3>
+                <p class="r-principle__text">{p.text}</p>
               </div>
             ))
           }
+        </div>
+      </div>
+    </section>
 
-          <div class="resume__section" data-reveal>
-            <h2 class="resume__h">Skills & Certifications</h2>
-            <ul class="resume__skills">
-              {skills.map((s) => <li class="resume__skill">{s}</li>)}
-            </ul>
-          </div>
+    {/* ---------- SELECTED WORK ---------- */}
+    <section class="section r-section r-section--alt">
+      <div class="wrap">
+        <h2 class="r-h2" data-reveal>Selected work</h2>
+        <p class="r-lede" data-reveal>
+          The projects I would want to talk about in an interview, the ones
+          that do not fit on a one-page résumé.
+        </p>
+        <div class="r-work">
+          {
+            initiatives.map((it, i) => (
+              <article class="r-card" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <div class="r-card__stat">
+                  <span class="r-card__num">{it.stat}</span>
+                  <span class="r-card__statlabel">{it.statLabel}</span>
+                </div>
+                <h3 class="r-card__title">{it.title}</h3>
+                <p class="r-card__summary">{it.summary}</p>
+                <details class="r-card__more">
+                  <summary>The full story</summary>
+                  <p>{it.detail}</p>
+                </details>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ---------- EXPERIENCE ---------- */}
+    <section class="section r-section">
+      <div class="wrap">
+        <h2 class="r-h2" data-reveal>Experience</h2>
+        <div class="r-xp">
+          {
+            experience.map((x, i) => (
+              <div class="r-xp__item" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <span class="r-xp__mark" aria-hidden="true">{x.mark}</span>
+                <div class="r-xp__body">
+                  <div class="r-xp__head">
+                    <h3 class="r-xp__role">{x.role}</h3>
+                    <span class="r-xp__dates">{x.dates}</span>
+                  </div>
+                  <p class="r-xp__org">{x.org} &middot; {x.place}</p>
+                  <p class="r-xp__text">{x.text}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ---------- TECHNOLOGY ---------- */}
+    <section class="section r-section r-section--alt">
+      <div class="wrap">
+        <h2 class="r-h2" data-reveal>Technology</h2>
+        <div class="r-skills">
+          {
+            skillGroups.map((g, i) => (
+              <div class="r-skillgroup" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <p class="r-skillgroup__label">{g.label}</p>
+                <ul class="r-tags">
+                  {g.items.map((s) => <li class="r-tag">{s}</li>)}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ---------- EDUCATION + CIVIC ---------- */}
+    <section class="section r-section">
+      <div class="wrap r-grid2">
+        <div data-reveal>
+          <h2 class="r-h2">Education</h2>
+          {
+            education.map((e) => (
+              <div class="r-edu">
+                <p class="r-edu__role">{e.role}</p>
+                <p class="r-edu__org">{e.org} &middot; {e.note}</p>
+              </div>
+            ))
+          }
+          <h3 class="r-subh">Certifications</h3>
+          <ul class="r-tags">
+            {certifications.map((c) => <li class="r-tag">{c}</li>)}
+          </ul>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <h2 class="r-h2">Civic &amp; community</h2>
+          {
+            civic.map((c) => (
+              <div class="r-edu">
+                <p class="r-edu__role">{c.role}</p>
+                <p class="r-edu__org">{c.org} &middot; {c.dates}</p>
+                <p class="r-edu__text">{c.text}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
@@ -136,112 +341,299 @@ const sections = [
 </Base>
 
 <style>
-  .resume { background: var(--paper); }
-  .resume__doc { max-width: 820px; }
-
-  .resume__section + .resume__section {
-    margin-top: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+  /* ---------- HERO ---------- */
+  .r-hero {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
   }
-  .resume__h {
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
+  .r-hero__inner {
+    padding-block: clamp(1.25rem, 0.9rem + 1.5vw, 2.5rem)
+      clamp(2.75rem, 2.2rem + 2.6vw, 4.25rem);
+  }
+  .r-hero__kicker { color: var(--green); margin-bottom: 0.6rem; }
+  .r-hero__name {
+    font-size: clamp(2.5rem, 1.9rem + 2.8vw, 3.75rem);
+    color: var(--ink);
+    line-height: 1;
+  }
+  .r-hero__role {
+    margin-top: 0.6rem;
+    font-size: 0.84rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--green);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.4rem;
   }
-  .resume__h::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-
-  .resume__entry {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 1.5rem;
-    padding-block: 1.3rem;
-  }
-  .resume__entry + .resume__entry {
-    border-top: 1px solid var(--line);
-  }
-  .resume__dates {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-soft);
-    padding-top: 0.25rem;
-  }
-  .resume__role {
+  .r-hero__summary {
+    margin-top: 1.1rem;
+    max-width: 56ch;
     font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 1.28rem;
-    letter-spacing: -0.012em;
-    color: var(--ink);
-  }
-  .resume__org {
-    margin-top: 0.15rem;
-    font-size: 1.02rem;
+    font-weight: 400;
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.32rem);
+    line-height: 1.45;
     color: var(--text);
   }
-  .resume__note {
-    margin-top: 0.55rem;
-    font-size: 1rem;
+  .r-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.6rem;
+  }
+  .r-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper-pure);
+    color: var(--ink);
+    font-size: 0.86rem;
+    font-weight: 700;
+    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  }
+  .r-btn:hover { border-color: var(--green); transform: translateY(-2px); }
+  .r-btn--solid {
+    background: var(--ink);
+    color: var(--on-dark);
+    border-color: var(--ink);
+  }
+  .r-btn--solid:hover { background: var(--ink-deep); border-color: var(--ink-deep); }
+  .r-btn svg { width: 1rem; height: 1rem; color: var(--green-bright); }
+
+  /* ---------- SECTIONS ---------- */
+  .r-section--alt { background: var(--paper-pure); }
+  .r-h2 {
+    font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2.1rem);
+    color: var(--ink);
+    margin-bottom: 1.4rem;
+  }
+  .r-subh {
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin: 2rem 0 0.9rem;
+  }
+  .r-lede {
+    max-width: 56ch;
+    color: var(--text-soft);
+    margin-bottom: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+    margin-top: -0.5rem;
+  }
+
+  /* ---------- PRINCIPLES ---------- */
+  .r-principles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+  .r-principle {
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.3rem, 1rem + 1vw, 1.85rem);
+  }
+  .r-principle__title {
+    font-size: 1.18rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .r-principle__text {
+    font-size: 0.99rem;
     line-height: 1.58;
     color: var(--text-soft);
   }
 
-  .resume__skills {
+  /* ---------- SELECTED WORK ---------- */
+  .r-work {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+  .r-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  }
+  .r-section--alt .r-card { background: var(--paper); }
+  .r-card__stat {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .r-card__num {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 1.9rem + 1.8vw, 3.1rem);
+    line-height: 1;
+    color: var(--green);
+    letter-spacing: -0.02em;
+  }
+  .r-card__statlabel {
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+  .r-card__title {
+    font-size: 1.22rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .r-card__summary {
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+  .r-card__more {
+    margin-top: 1rem;
+    border-top: 1px solid var(--line);
+    padding-top: 0.8rem;
+  }
+  .r-card__more summary {
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    list-style: none;
+  }
+  .r-card__more summary::-webkit-details-marker { display: none; }
+  .r-card__more summary::after {
+    content: ' +';
+    font-weight: 700;
+  }
+  .r-card__more[open] summary::after { content: ' \2212'; }
+  .r-card__more p {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+  .r-xp { display: flex; flex-direction: column; }
+  .r-xp__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    padding-block: 1.6rem;
+  }
+  .r-xp__item + .r-xp__item { border-top: 1px solid var(--line); }
+  .r-xp__mark {
+    display: grid;
+    place-items: center;
+    width: 3.1rem;
+    height: 3.1rem;
+    border-radius: 12px;
+    background: var(--ink);
+    color: var(--on-dark);
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+  .r-xp__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+  .r-xp__role {
+    font-size: 1.28rem;
+    color: var(--ink);
+  }
+  .r-xp__dates {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+  .r-xp__org {
+    margin-top: 0.2rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--green-deep);
+  }
+  .r-xp__text {
+    margin-top: 0.55rem;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--text-soft);
+    max-width: 62ch;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .r-skills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .r-skillgroup__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.9rem;
+  }
+  .r-tags {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
-  .resume__skill {
-    background: var(--paper-pure);
+  .r-tag {
+    background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 0.5rem 1rem;
-    font-size: 0.92rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.88rem;
     color: var(--text);
   }
+  .r-section--alt .r-tag { background: var(--paper); }
 
-  .resume__download {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    margin-top: 1.6rem;
-    background: var(--ink);
-    color: var(--on-dark);
-    padding: 0.8rem 1.4rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    transition: background 0.18s var(--ease), transform 0.18s var(--ease);
-  }
-  .resume__download:hover {
-    background: var(--ink-deep);
-    transform: translateY(-2px);
-  }
-  .resume__download-icon {
+  /* ---------- EDUCATION + CIVIC ---------- */
+  .r-grid2 {
     display: grid;
-    place-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 1.5rem + 3vw, 4rem);
   }
-  .resume__download-icon svg {
-    width: 1.05rem;
-    height: 1.05rem;
-    color: var(--green-bright);
+  .r-edu { margin-bottom: 1.5rem; }
+  .r-edu__role {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .r-edu__org {
+    margin-top: 0.15rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+  .r-edu__text {
+    margin-top: 0.5rem;
+    font-size: 0.97rem;
+    line-height: 1.56;
+    color: var(--text-soft);
   }
 
-  @media (max-width: 600px) {
-    .resume__entry {
-      grid-template-columns: 1fr;
-      gap: 0.3rem;
-    }
-    .resume__dates { padding-top: 0; }
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 820px) {
+    .r-work { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .r-skills { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+  @media (max-width: 620px) {
+    .r-principles { grid-template-columns: 1fr; }
+    .r-work { grid-template-columns: 1fr; }
+    .r-grid2 { grid-template-columns: 1fr; }
+    .r-xp__item { grid-template-columns: 1fr; gap: 0.9rem; }
   }
 </style>
