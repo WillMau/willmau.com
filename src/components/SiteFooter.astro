@@ -1,13 +1,11 @@
 ---
-import Mark from '../images/mark.svg';
-
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="wrap">
     <div class="site-footer__top">
-      <Mark class="site-footer__mark" />
+      <img class="site-footer__mark" src="/favicon.png" alt="" width="56" height="56" />
       <a href="mailto:will@willmau.com" class="site-footer__big" data-reveal>
         will@willmau.com
         <span class="site-footer__arrow" aria-hidden="true">&#8599;</span>
@@ -50,9 +48,8 @@ const year = new Date().getFullYear();
     margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
   }
   .site-footer__mark {
-    width: 2.7rem;
-    height: 2.7rem;
-    border-radius: 9px;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1.4rem;
   }
   .site-footer__big {
