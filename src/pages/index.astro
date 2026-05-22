@@ -43,40 +43,39 @@ const now = [
 
 <Base
   title="Will Mau — Rotterdam, New York"
-  description="Will Mau of Rotterdam, New York. School board member at Schalmont Central School District, Scout leader, and founder of Mauops."
+  description="Will Mau of Rotterdam, New York. School board member at Schalmont Central School District and founder of Mauops."
 >
   <main id="main">
-    {/* ---------- HERO ---------- */}
-    <section class="hero">
+    {/* ---------- INTRO ---------- */}
+    <section class="intro">
       <SiteHeader />
-      <div class="wrap hero__inner">
-        <div class="hero__photo" data-reveal>
-          <Image
-            src={headshot}
-            alt="Will Mau"
-            widths={[260, 400, 520]}
-            sizes="(max-width: 680px) 160px, 260px"
-          />
+      <div class="wrap intro__inner">
+        <div class="intro__head" data-reveal>
+          <div class="intro__photo">
+            <Image
+              src={headshot}
+              alt="Will Mau"
+              widths={[112, 224, 336]}
+              sizes="112px"
+            />
+          </div>
+          <div class="intro__titles">
+            <p class="kicker intro__kicker">Rotterdam, New York</p>
+            <h1 class="intro__name">Will Mau</h1>
+          </div>
         </div>
-        <div class="hero__text">
-          <p class="kicker hero__kicker" data-reveal>Rotterdam, New York</p>
-          <h1 class="hero__name" data-reveal data-reveal-delay="1">Will Mau</h1>
-          <p class="hero__lede" data-reveal data-reveal-delay="2">
-            Husband and dad in Rotterdam. School board member at Schalmont,
-            Scout troop leader, and founder of Mauops.
-          </p>
-        </div>
+        <p class="intro__lede" data-reveal data-reveal-delay="1">
+          School board member at Schalmont Central School District and
+          founder of Mauops, an AI consulting practice. Born and raised in
+          Rotterdam, New York.
+        </p>
       </div>
     </section>
 
     {/* ---------- NOW ---------- */}
     <section class="now section" id="now">
       <div class="wrap">
-        <div class="now__head" data-reveal>
-          <p class="kicker now__kicker">What I'm doing now</p>
-          <h2 class="now__title">Where my time goes.</h2>
-        </div>
-
+        <h2 class="now__title" data-reveal>What I'm doing now</h2>
         <ul class="grid">
           {
             now.map((item, i) => {
@@ -135,58 +134,59 @@ const now = [
 </Base>
 
 <style>
-  /* ---------- HERO ---------- */
-  .hero {
-    background: var(--ink);
-    color: var(--on-dark);
+  /* ---------- INTRO ---------- */
+  .intro {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
   }
-  .hero__inner {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: clamp(1.5rem, 4vw, 3rem);
+  .intro__inner {
+    padding-block: clamp(0.5rem, 0.3rem + 1vw, 1.5rem) clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  }
+  .intro__head {
+    display: flex;
     align-items: center;
-    padding-block: clamp(2.5rem, 2rem + 2.5vw, 4.5rem);
+    gap: clamp(1rem, 2.5vw, 1.6rem);
   }
-  .hero__photo {
-    width: clamp(150px, 22vw, 248px);
+  .intro__photo {
+    width: clamp(84px, 9vw, 108px);
+    height: clamp(84px, 9vw, 108px);
+    border-radius: 16px;
+    overflow: hidden;
     flex-shrink: 0;
+    border: 1px solid var(--line);
   }
-  .hero__photo :global(img) {
+  .intro__photo :global(img) {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: 100%;
     object-fit: cover;
-    object-position: center 20%;
-    border-radius: var(--radius);
+    object-position: center 18%;
   }
-  .hero__kicker {
-    color: var(--green-bright);
-    margin-bottom: 0.85rem;
+  .intro__kicker {
+    color: var(--green);
+    margin-bottom: 0.45rem;
   }
-  .hero__name {
-    font-size: clamp(2.4rem, 1.7rem + 2.7vw, 3.4rem);
-    letter-spacing: -0.022em;
+  .intro__name {
+    font-size: clamp(2.3rem, 1.7rem + 2.5vw, 3.4rem);
+    color: var(--ink);
+    line-height: 1;
   }
-  .hero__lede {
-    margin-top: 0.95rem;
-    max-width: 40ch;
-    font-size: 1.18rem;
-    line-height: 1.5;
-    color: var(--on-dark-soft);
+  .intro__lede {
+    margin-top: clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem);
+    max-width: 36ch;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--text);
   }
 
   /* ---------- NOW ---------- */
   .now { background: var(--paper); }
-  .now__head {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    margin-bottom: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
-  }
-  .now__kicker { color: var(--green); }
   .now__title {
-    font-size: clamp(1.6rem, 1.3rem + 1.3vw, 2.1rem);
+    font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);
+    color: var(--ink);
+    margin-bottom: clamp(1.5rem, 1.2rem + 1.4vw, 2.4rem);
   }
-
   .grid {
     list-style: none;
     display: grid;
@@ -200,7 +200,7 @@ const now = [
     background: var(--paper-pure);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    padding: clamp(1.4rem, 1.1rem + 1vw, 1.95rem);
     color: var(--text);
     transition:
       transform 0.22s var(--ease),
@@ -214,15 +214,16 @@ const now = [
   }
   .card__n {
     font-family: var(--font-sans);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     color: var(--green);
     margin-bottom: 0.7rem;
   }
   .card__title {
-    font-size: 1.32rem;
-    margin-bottom: 0.45rem;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
   }
   .card__text {
     font-size: 1rem;
@@ -233,10 +234,10 @@ const now = [
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    margin-top: 1.15rem;
-    padding-top: 0.9rem;
+    margin-top: 1.1rem;
+    padding-top: 0.85rem;
     border-top: 1px solid var(--line);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
@@ -250,29 +251,29 @@ const now = [
   .card--link:hover .card__arrow { transform: translateX(0.25rem); }
   .card--link:hover .card__meta { color: var(--green); }
 
-  /* ---------- ABOUT SNAPSHOT ---------- */
+  /* ---------- SNAPSHOT ---------- */
   .snap { background: var(--paper); }
   .snap__inner {
     border-top: 1px solid var(--line);
-    padding-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+    padding-top: clamp(2.5rem, 2rem + 2vw, 3.75rem);
   }
   .snap__kicker {
     color: var(--green);
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
   }
   .snap__text {
     font-family: var(--font-serif);
-    font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2rem);
-    line-height: 1.34;
-    letter-spacing: -0.015em;
-    color: var(--text);
+    font-size: clamp(1.35rem, 1.1rem + 1.1vw, 1.95rem);
+    line-height: 1.36;
+    letter-spacing: -0.012em;
+    color: var(--ink);
     max-width: var(--measure);
   }
   .snap__link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1.6rem;
+    margin-top: 1.5rem;
     font-size: 0.92rem;
     font-weight: 700;
     color: var(--green);
@@ -283,12 +284,7 @@ const now = [
   .snap__link:hover .snap__arrow { transform: translateX(0.3rem); }
 
   /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 680px) {
-    .hero__inner {
-      grid-template-columns: 1fr;
-      justify-items: start;
-      gap: 1.4rem;
-    }
+  @media (max-width: 620px) {
     .grid { grid-template-columns: 1fr; }
   }
 </style>
