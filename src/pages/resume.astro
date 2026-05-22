@@ -87,7 +87,14 @@ const experience = [
     org: 'TalentSmartEQ',
     dates: 'May 2021 to Present',
     place: 'Remote',
-    text: 'One of four members of the Executive Leadership Team. Partner directly with the CEO on strategy and lead operations, technology, revenue systems, data privacy, and cybersecurity. Promoted from Director of Sales Operations to Sr. Director to VP.',
+    text: 'Operations and technology leadership for a remote-first emotional-intelligence training company, as one of four members of the Executive Leadership Team.',
+    bullets: [
+      'Partner directly with the CEO on company strategy and operating cadence.',
+      'Lead a global team: a U.S. customer-support group, a development team in India, and support desks in Mexico and Guatemala.',
+      'Own revenue operations, technology infrastructure, data privacy, cybersecurity, vendor management, and contract management.',
+      'Replaced manual spreadsheet work across the company with documented, tested systems and production AI agents.',
+      'Promoted from Director of Sales Operations to Sr. Director of Operations to Vice President.',
+    ],
   },
   {
     logo: '/logos/cengage.png',
@@ -96,7 +103,14 @@ const experience = [
     org: 'Cengage Learning',
     dates: 'Mar 2018 to May 2021',
     place: 'Boston, MA',
-    text: 'Led sales operations strategy and channel realignment for a B2B segment of a major education publisher. Drove an enterprise Salesforce implementation that delivered a 10x productivity gain in six months, and cut new-hire ramp from eight months to four weeks.',
+    text: 'Sales operations leadership for a B2B segment of one of the largest education publishers in North America.',
+    bullets: [
+      'Drove an enterprise-wide Salesforce implementation that delivered a 10x productivity gain in six months.',
+      'Built the KPI framework, the compensation model, and the new-hire onboarding program.',
+      'Compressed new-hire ramp from eight months to four weeks.',
+      'Partnered with marketing and product to fold campaign and pipeline insight into territory planning.',
+      'Promoted from Sales Manager.',
+    ],
   },
   {
     logo: '/logos/charter.png',
@@ -105,7 +119,14 @@ const experience = [
     org: 'Charter Communications',
     dates: 'Jan 2014 to Mar 2018',
     place: 'Albany, NY',
-    text: 'Led a 72-person inbound sales organization through six supervisors. Drove a 9% lift in sales metrics with process optimization and a peer-mentorship program that became a model across the region.',
+    text: 'Frontline sales leadership for a regional telecommunications provider.',
+    bullets: [
+      'Led a 72-person inbound sales organization through six supervisors.',
+      'Drove a 9% lift in overall sales metrics through process optimization.',
+      'Built a peer-mentorship program that became a model across the region.',
+      'Transformed leadership onboarding and strengthened the management pipeline.',
+      'Promoted from Supervisor to Sales Effectiveness Manager to Inbound Sales Manager.',
+    ],
   },
   {
     logo: '/logos/tjx.png',
@@ -307,6 +328,14 @@ const jsonLd = {
                   </div>
                   <p class="r-xp__org">{x.org} &middot; {x.place}</p>
                   <p class="r-xp__text">{x.text}</p>
+                  {x.bullets && (
+                    <details class="r-xp__more">
+                      <summary>Highlights</summary>
+                      <ul class="r-xp__bullets">
+                        {x.bullets.map((b) => <li>{b}</li>)}
+                      </ul>
+                    </details>
+                  )}
                 </div>
               </div>
             ))
@@ -644,6 +673,36 @@ const jsonLd = {
     color: var(--text-soft);
     max-width: 62ch;
   }
+  .r-xp__more {
+    margin-top: 0.9rem;
+  }
+  .r-xp__more summary {
+    cursor: pointer;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    list-style: none;
+    width: fit-content;
+  }
+  .r-xp__more summary::-webkit-details-marker { display: none; }
+  .r-xp__more summary::after { content: ' +'; font-weight: 700; }
+  .r-xp__more[open] summary::after { content: ' \2212'; }
+  .r-xp__bullets {
+    margin: 0.9rem 0 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 62ch;
+  }
+  .r-xp__bullets li {
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+  .r-xp__bullets li::marker { color: var(--green); }
 
   /* ---------- SKILLS ---------- */
   .r-skills {
