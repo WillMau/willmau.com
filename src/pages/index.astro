@@ -3,15 +3,13 @@ import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { Image } from 'astro:assets';
+import Mark from '../images/mark.svg';
+import SchalmontShield from '../images/schalmont-shield.svg';
 import mauopsLogo from '../images/mauops-logo.png';
 import troopLogo from '../images/troop3054-logo.png';
 
-const icons = {
-  board:
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5.5 21V10.5M18.5 21V10.5M9.75 21v-4.5h4.5V21M12 3l7 4.5H5z"/></svg>',
-  resume:
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h7L18 7.6V21H6.5zM13 3v5h5M9.75 12.5h4.5M9.75 16h4.5"/></svg>',
-};
+const resumeIcon =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h7L18 7.6V21H6.5zM13 3v5h5M9.75 12.5h4.5M9.75 16h4.5"/></svg>';
 
 const now = [
   {
@@ -57,14 +55,23 @@ const now = [
     {/* ---------- INTRO ---------- */}
     <section class="intro">
       <SiteHeader />
-      <div class="wrap intro__inner">
-        <p class="kicker intro__kicker" data-reveal>Rotterdam, New York</p>
-        <h1 class="intro__name" data-reveal data-reveal-delay="1">Will Mau</h1>
-        <p class="intro__lede" data-reveal data-reveal-delay="2">
-          School board member at Schalmont Central School District and
-          founder of Mauops, an AI consulting practice. Born and raised in
-          Rotterdam, New York.
-        </p>
+      <div class="wrap intro__grid">
+        <div class="intro__text">
+          <p class="kicker intro__kicker" data-reveal>Rotterdam, New York</p>
+          <h1 class="intro__name" data-reveal data-reveal-delay="1">Will Mau</h1>
+          <p class="intro__lede" data-reveal data-reveal-delay="2">
+            School board member at Schalmont Central School District and
+            founder of Mauops, an AI consulting practice. Born and raised in
+            Rotterdam, New York.
+          </p>
+        </div>
+        <aside class="intro__card" data-reveal data-reveal-delay="3">
+          <Mark class="intro__mark" />
+          <p class="intro__card-name">Will Mau</p>
+          <p class="intro__card-meta">Rotterdam, New York</p>
+          <span class="intro__card-rule" aria-hidden="true"></span>
+          <p class="intro__card-url">willmau.com</p>
+        </aside>
       </div>
     </section>
 
@@ -105,8 +112,11 @@ const now = [
                           sizes="92px"
                         />
                       )}
-                      {(item.kind === 'board' || item.kind === 'resume') && (
-                        <span class="card__icon" set:html={icons[item.kind]} />
+                      {item.kind === 'board' && (
+                        <SchalmontShield class="card__shield" />
+                      )}
+                      {item.kind === 'resume' && (
+                        <span class="card__icon" set:html={resumeIcon} />
                       )}
                     </span>
 
@@ -161,8 +171,12 @@ const now = [
     background: var(--paper);
     border-bottom: 1px solid var(--line);
   }
-  .intro__inner {
-    padding-block: clamp(1rem, 0.7rem + 1.4vw, 2.25rem)
+  .intro__grid {
+    display: grid;
+    grid-template-columns: 1.55fr 0.9fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: center;
+    padding-block: clamp(1.5rem, 1rem + 2vw, 3rem)
       clamp(2.75rem, 2.2rem + 2.6vw, 4.5rem);
   }
   .intro__kicker {
@@ -176,12 +190,61 @@ const now = [
   }
   .intro__lede {
     margin-top: clamp(1.1rem, 0.9rem + 1vw, 1.75rem);
-    max-width: 34ch;
+    max-width: 32ch;
     font-family: var(--font-serif);
     font-weight: 400;
     font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
     line-height: 1.4;
     color: var(--text);
+  }
+
+  /* Hero brand card */
+  .intro__card {
+    background: var(--ink);
+    border-radius: 20px;
+    padding: clamp(1.9rem, 1.5rem + 1.8vw, 2.85rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 26px 52px rgba(18, 22, 50, 0.22);
+  }
+  .intro__mark {
+    width: clamp(88px, 6rem + 4vw, 132px);
+    height: auto;
+    margin-bottom: 1.1rem;
+  }
+  .intro__card :global(.mark-w) {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawW 1.15s var(--ease) 0.45s forwards;
+  }
+  @keyframes drawW {
+    to { stroke-dashoffset: 0; }
+  }
+  .intro__card-name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--on-dark);
+  }
+  .intro__card-meta {
+    margin-top: 0.2rem;
+    font-size: 0.92rem;
+    color: var(--on-dark-soft);
+  }
+  .intro__card-rule {
+    width: 2rem;
+    height: 2px;
+    background: var(--green-bright);
+    margin: 0.95rem 0;
+  }
+  .intro__card-url {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-bright);
   }
 
   /* ---------- NOW ---------- */
@@ -218,7 +281,6 @@ const now = [
     border-color: var(--green);
     box-shadow: 0 16px 34px rgba(29, 34, 71, 0.12);
   }
-
   .card__emblem {
     display: grid;
     place-items: center;
@@ -236,7 +298,10 @@ const now = [
     width: clamp(54px, 4rem + 1vw, 68px);
     height: clamp(54px, 4rem + 1vw, 68px);
   }
-  /* per-destination panel tints */
+  .card__shield {
+    width: auto;
+    height: clamp(62px, 4.5rem + 1.5vw, 84px);
+  }
   .card__emblem--mauops { background: #edeff6; }
   .card__emblem--board { background: #e9f2ec; }
   .card__emblem--troop { background: #f0eee6; }
@@ -334,7 +399,20 @@ const now = [
   .snap__link:hover .snap__arrow { transform: translateX(0.3rem); }
 
   /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 760px) {
+    .intro__grid { grid-template-columns: 1fr; }
+    .intro__card {
+      max-width: 320px;
+      width: 100%;
+    }
+  }
   @media (max-width: 620px) {
     .grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .intro__card :global(.mark-w) {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
   }
 </style>
