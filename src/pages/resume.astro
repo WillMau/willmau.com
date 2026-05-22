@@ -81,6 +81,7 @@ const initiatives = [
 
 const experience = [
   {
+    logo: '/logos/talentsmart.png',
     mark: 'TS',
     role: 'Vice President of Operations',
     org: 'TalentSmartEQ',
@@ -89,28 +90,49 @@ const experience = [
     text: 'One of four members of the Executive Leadership Team. Partner directly with the CEO on strategy and lead operations, technology, revenue systems, data privacy, and cybersecurity. Promoted from Director of Sales Operations to Sr. Director to VP.',
   },
   {
+    logo: '/logos/cengage.png',
     mark: 'CL',
     role: 'Senior Sales Manager',
     org: 'Cengage Learning',
     dates: 'Mar 2018 to May 2021',
     place: 'Boston, MA',
-    text: 'Led sales operations strategy for a B2B segment of a major education publisher. Drove an enterprise Salesforce implementation delivering a 10x productivity gain in six months, and compressed new-hire ramp from eight months to four weeks.',
+    text: 'Led sales operations strategy and channel realignment for a B2B segment of a major education publisher. Drove an enterprise Salesforce implementation that delivered a 10x productivity gain in six months, and cut new-hire ramp from eight months to four weeks.',
   },
   {
+    logo: '/logos/charter.png',
     mark: 'CC',
     role: 'Inbound Sales Manager',
     org: 'Charter Communications',
     dates: 'Jan 2014 to Mar 2018',
     place: 'Albany, NY',
-    text: 'Led a 72-person sales organization through six supervisors. Drove a 9% lift in sales metrics with process optimization and a peer-mentorship program that became a model across the region.',
+    text: 'Led a 72-person inbound sales organization through six supervisors. Drove a 9% lift in sales metrics with process optimization and a peer-mentorship program that became a model across the region.',
   },
   {
-    mark: 'ER',
-    role: 'Earlier roles',
-    org: 'TJX, Target, Schenectady City School District',
-    dates: '2010 to 2014',
-    place: 'Albany & Schenectady, NY',
-    text: 'Operations Manager at TJX and Executive Team Leader at Target. Before that, three years teaching U.S. history, world cultures, and economics, which is where I learned to explain complex systems to people who have not seen them before.',
+    logo: null,
+    mark: 'TJX',
+    role: 'Operations Manager',
+    org: 'TJX Corporation',
+    dates: '2013 to 2014',
+    place: 'Albany, NY',
+    text: 'Store operations, logistics, and team performance for a high-volume off-price retail location.',
+  },
+  {
+    logo: '/logos/target.png',
+    mark: 'TG',
+    role: 'Executive Team Leader',
+    org: 'Target Corporation',
+    dates: '2013 to 2014',
+    place: 'Albany, NY',
+    text: 'Led a store team and daily operations as part of the store leadership group.',
+  },
+  {
+    logo: null,
+    mark: 'SCS',
+    role: 'Social Studies Teacher',
+    org: 'Schenectady City School District',
+    dates: '2010 to 2013',
+    place: 'Schenectady, NY',
+    text: 'Taught U.S. history, world cultures, and economics. Three years that shaped how I explain complex systems to people who have not seen them before.',
   },
 ];
 
@@ -204,12 +226,15 @@ const jsonLd = {
           four members of its Executive Leadership Team.
         </p>
         <div class="r-hero__actions" data-reveal data-reveal-delay="3">
-          <a class="r-btn r-btn--solid" href="/will-mau-resume.pdf" download>
+          <a class="r-btn" href="https://www.linkedin.com/in/will-mau/" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.5 0H12v1.92h.06c.6-1.13 2.06-2.32 4.24-2.32 4.54 0 5.38 2.99 5.38 6.87V22h-4.56v-6.69c0-1.6-.03-3.66-2.23-3.66-2.23 0-2.57 1.74-2.57 3.54V22H7.72V8z"/></svg>
+            View on LinkedIn
+          </a>
+          <a class="r-btn" href="/will-mau-resume.pdf" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
             Download PDF
           </a>
           <a class="r-btn" href="mailto:William.Mau@gmail.com">Email</a>
-          <a class="r-btn" href="https://www.linkedin.com/in/will-mau/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -236,8 +261,8 @@ const jsonLd = {
       <div class="wrap">
         <h2 class="r-h2" data-reveal>Selected work</h2>
         <p class="r-lede" data-reveal>
-          The projects I would want to talk about in an interview, the ones
-          that do not fit on a one-page résumé.
+          A sample of the systems I have designed and shipped at
+          TalentSmartEQ.
         </p>
         <div class="r-work">
           {
@@ -268,7 +293,13 @@ const jsonLd = {
           {
             experience.map((x, i) => (
               <div class="r-xp__item" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
-                <span class="r-xp__mark" aria-hidden="true">{x.mark}</span>
+                <span class="r-xp__tile" aria-hidden="true">
+                  {x.logo ? (
+                    <img src={x.logo} alt="" loading="lazy" />
+                  ) : (
+                    <span class="r-xp__mono">{x.mark}</span>
+                  )}
+                </span>
                 <div class="r-xp__body">
                   <div class="r-xp__head">
                     <h3 class="r-xp__role">{x.role}</h3>
@@ -281,6 +312,16 @@ const jsonLd = {
             ))
           }
         </div>
+        <a
+          class="r-linkedin"
+          href="https://www.linkedin.com/in/will-mau/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-reveal
+        >
+          <span>The complete history, with recommendations, is on LinkedIn.</span>
+          <span class="r-linkedin__arrow" aria-hidden="true">&#8599;</span>
+        </a>
       </div>
     </section>
 
@@ -525,18 +566,53 @@ const jsonLd = {
     padding-block: 1.6rem;
   }
   .r-xp__item + .r-xp__item { border-top: 1px solid var(--line); }
-  .r-xp__mark {
+  .r-xp__tile {
     display: grid;
     place-items: center;
-    width: 3.1rem;
-    height: 3.1rem;
+    width: 3.4rem;
+    height: 3.4rem;
     border-radius: 12px;
-    background: var(--ink);
-    color: var(--on-dark);
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .r-xp__tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.5rem;
+  }
+  .r-xp__mono {
     font-family: var(--font-serif);
     font-weight: 600;
-    font-size: 1.05rem;
-    letter-spacing: 0.02em;
+    font-size: 0.98rem;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+  }
+  .r-linkedin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.6rem;
+    padding: 1.1rem 1.4rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--ink);
+    transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  .r-linkedin:hover {
+    border-color: var(--green);
+    transform: translateY(-2px);
+  }
+  .r-linkedin__arrow {
+    color: var(--green);
+    font-size: 1.1rem;
+    flex-shrink: 0;
   }
   .r-xp__head {
     display: flex;
