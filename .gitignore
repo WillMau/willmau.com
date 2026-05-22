@@ -6,6 +6,10 @@ Thumbs.db
 .claude/
 node_modules/
 
+# Astro build output
+dist/
+.astro/
+
 # Internal campaign materials and design iterations (kept local, not deployed)
 *.docx
 Postcard_*.png

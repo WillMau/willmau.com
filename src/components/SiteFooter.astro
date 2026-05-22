@@ -1,0 +1,107 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <a href="mailto:will@willmau.com" class="site-footer__big" data-reveal>
+        will@willmau.com
+        <span class="site-footer__arrow" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+
+    <div class="site-footer__grid">
+      <nav class="site-footer__col" aria-label="Elsewhere">
+        <p class="site-footer__label">Elsewhere</p>
+        <a href="https://www.linkedin.com/in/will-mau/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://mauops.com" target="_blank" rel="noopener noreferrer">Mauops</a>
+      </nav>
+      <nav class="site-footer__col" aria-label="This site">
+        <p class="site-footer__label">This site</p>
+        <a href="/about">About</a>
+        <a href="/resume">Résumé</a>
+      </nav>
+      <div class="site-footer__col">
+        <p class="site-footer__label">Archive</p>
+        <a href="/archive/2026-election/">See the 2026 reelection campaign archive</a>
+      </div>
+    </div>
+
+    <div class="site-footer__base">
+      <span>&copy; {year} Will Mau &middot; Rotterdam, New York</span>
+      <span>Built with Astro</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink-deep);
+    color: var(--on-dark);
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .site-footer__top {
+    border-bottom: 1px solid var(--line-dark);
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .site-footer__big {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 5rem);
+    letter-spacing: -0.03em;
+    color: var(--on-dark);
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.15em;
+    transition: color 0.2s var(--ease);
+  }
+  .site-footer__arrow {
+    font-size: 0.5em;
+    color: var(--green);
+    transition: transform 0.22s var(--ease);
+  }
+  .site-footer__big:hover { color: var(--green); }
+  .site-footer__big:hover .site-footer__arrow {
+    transform: translate(0.15em, -0.15em);
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .site-footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .site-footer__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.3rem;
+  }
+  .site-footer__col a {
+    color: var(--on-dark-soft);
+    transition: color 0.16s var(--ease);
+    width: fit-content;
+  }
+  .site-footer__col a:hover { color: var(--on-dark); }
+  .site-footer__base {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-dark);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--on-dark-soft);
+  }
+  @media (max-width: 640px) {
+    .site-footer__grid { grid-template-columns: 1fr; gap: 2.25rem; }
+  }
+</style>

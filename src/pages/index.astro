@@ -1,0 +1,384 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { Image } from 'astro:assets';
+import headshot from '../images/will-mau.webp';
+
+const now = [
+  {
+    n: '01',
+    title: 'Mauops',
+    text: 'AI agents and consulting that help small businesses do more with the team they already have.',
+    meta: 'mauops.com',
+    href: 'https://mauops.com',
+    external: true,
+  },
+  {
+    n: '02',
+    title: 'Schalmont School Board',
+    text: 'Elected trustee in 2023, reelected in 2026 to a second term on the Board of Education.',
+    meta: 'On Facebook',
+    href: 'https://www.facebook.com/people/Will-Mau-for-Schalmont-Board-of-Education/61567429940268/',
+    external: true,
+  },
+  {
+    n: '03',
+    title: 'Scouting',
+    text: 'Committee chair for the Scout troop that meets at Jefferson Elementary in Rotterdam.',
+    meta: 'Volunteer',
+    href: null,
+    external: false,
+  },
+  {
+    n: '04',
+    title: 'Résumé',
+    text: 'Experience, education, and civic work, on one page you can read or download.',
+    meta: 'On this site',
+    href: '/resume',
+    external: false,
+  },
+];
+---
+
+<Base
+  title="Will Mau — Rotterdam, New York"
+  description="Will Mau of Rotterdam, New York. School board member at Schalmont Central School District, Scout leader, and founder of Mauops."
+>
+  <main id="main">
+    {/* ---------- HERO ---------- */}
+    <section class="hero">
+      <SiteHeader />
+      <div class="wrap hero__inner">
+        <p class="kicker hero__kicker" data-reveal>Rotterdam, New York</p>
+
+        <div class="hero__grid">
+          <h1 class="hero__name" data-reveal data-reveal-delay="1">
+            <span class="hero__line">Will</span>
+            <span class="hero__line">Mau<span class="hero__dot">.</span></span>
+          </h1>
+
+          <div class="hero__photo" data-reveal data-reveal-delay="2">
+            <Image
+              src={headshot}
+              alt="Will Mau"
+              widths={[320, 480, 640]}
+              sizes="(max-width: 760px) 70vw, 34vw"
+            />
+          </div>
+        </div>
+
+        <p class="hero__lede" data-reveal data-reveal-delay="3">
+          Husband and dad in Rotterdam. School board member, Scout leader,
+          and founder of <span class="hero__accent">Mauops</span>.
+        </p>
+
+        <div class="hero__rule" data-reveal data-reveal-delay="4">
+          <span class="hero__scroll">Scroll to see what I'm working on</span>
+          <span class="hero__arrow" aria-hidden="true">&#8595;</span>
+        </div>
+      </div>
+    </section>
+
+    {/* ---------- NOW ---------- */}
+    <section class="now section" id="now">
+      <div class="wrap">
+        <div class="now__head" data-reveal>
+          <p class="kicker now__kicker">What I'm doing now</p>
+          <h2 class="now__title">Four things have my attention.</h2>
+        </div>
+
+        <ul class="now__list">
+          {
+            now.map((item, i) => {
+              const Tag = item.href ? 'a' : 'div';
+              const linkProps = item.external
+                ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
+                : item.href
+                  ? { href: item.href }
+                  : {};
+              return (
+                <li>
+                  <Tag
+                    class:list={['row', { 'row--link': item.href }]}
+                    data-reveal
+                    data-reveal-delay={Math.min(i + 1, 4)}
+                    {...linkProps}
+                  >
+                    <span class="row__n">{item.n}</span>
+                    <span class="row__body">
+                      <span class="row__title">{item.title}</span>
+                      <span class="row__text">{item.text}</span>
+                    </span>
+                    <span class="row__meta">{item.meta}</span>
+                    {item.href && (
+                      <span class="row__arrow" aria-hidden="true">&#8599;</span>
+                    )}
+                  </Tag>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ---------- ABOUT SNAPSHOT ---------- */}
+    <section class="snap">
+      <div class="wrap">
+        <p class="kicker snap__kicker" data-reveal>A bit of background</p>
+        <p class="snap__text" data-reveal data-reveal-delay="1">
+          I got into public service by showing up. Three years ago I started
+          going to Schalmont board meetings because my daughter's kindergarten
+          class was too big. I kept showing up. Eventually I ran.
+        </p>
+        <a href="/about" class="snap__link" data-reveal data-reveal-delay="2">
+          Read the whole story
+          <span class="snap__arrow" aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+</Base>
+
+<style>
+  /* ---------- HERO ---------- */
+  .hero {
+    background: var(--ink);
+    color: var(--on-dark);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -25%;
+    right: -10%;
+    width: 45%;
+    aspect-ratio: 1;
+    background: radial-gradient(
+      circle,
+      rgba(111, 207, 151, 0.16),
+      transparent 68%
+    );
+    pointer-events: none;
+  }
+  .hero__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    position: relative;
+    z-index: 1;
+  }
+  .hero__kicker {
+    color: var(--green);
+    margin-bottom: clamp(1.5rem, 4vw, 2.75rem);
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .hero__name {
+    font-size: clamp(4.75rem, 16.5vw, 15.5rem);
+    line-height: 0.84;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+  }
+  .hero__line { display: block; }
+  .hero__dot { color: var(--green); }
+  .hero__photo {
+    position: relative;
+    isolation: isolate;
+    max-width: 360px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .hero__photo::before {
+    content: '';
+    position: absolute;
+    inset: auto -1.1rem -1.1rem auto;
+    width: 70%;
+    height: 70%;
+    background: var(--green);
+    z-index: -1;
+  }
+  .hero__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 22%;
+  }
+  .hero__lede {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 3.2vw, 2.4rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    max-width: 24ch;
+    margin-top: clamp(2.25rem, 6vw, 4rem);
+  }
+  .hero__accent {
+    color: var(--green);
+  }
+  .hero__rule {
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .hero__scroll {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--on-dark-soft);
+  }
+  .hero__arrow {
+    color: var(--green);
+    font-size: 1.25rem;
+    animation: bob 2s var(--ease) infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  /* ---------- NOW ---------- */
+  .now { background: var(--paper); }
+  .now__head {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .now__kicker { color: var(--green-deep); }
+  .now__title {
+    font-size: clamp(2.1rem, 5.5vw, 4.25rem);
+    letter-spacing: -0.035em;
+    max-width: 16ch;
+  }
+  .now__list { list-style: none; }
+  .now__list li { border-top: 1px solid var(--line-light); }
+  .now__list li:last-child { border-bottom: 1px solid var(--line-light); }
+
+  .row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: clamp(1rem, 4vw, 3rem);
+    padding-block: clamp(1.6rem, 3.5vw, 2.6rem);
+    color: var(--text);
+    transition: padding-left 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .row--link:hover {
+    padding-left: clamp(0.6rem, 2vw, 1.5rem);
+    background: var(--paper-pure);
+  }
+  .row__n {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--green-deep);
+    letter-spacing: 0;
+  }
+  .row__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .row__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 3.8vw, 3rem);
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .row__text {
+    font-size: 1rem;
+    color: var(--text-soft);
+    max-width: 46ch;
+    line-height: 1.55;
+  }
+  .row__meta {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    text-align: right;
+  }
+  .row__arrow {
+    font-size: 1.6rem;
+    color: var(--ink);
+    transition: transform 0.25s var(--ease);
+  }
+  .row--link:hover .row__arrow {
+    transform: translate(0.3rem, -0.3rem);
+    color: var(--green-deep);
+  }
+
+  /* ---------- ABOUT SNAPSHOT ---------- */
+  .snap {
+    background: var(--ink);
+    color: var(--on-dark);
+    padding-block: clamp(5rem, 13vw, 11rem);
+  }
+  .snap__kicker {
+    color: var(--green);
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .snap__text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 4.2vw, 3.4rem);
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+  }
+  .snap__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: clamp(2rem, 5vw, 3.25rem);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--green);
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--green);
+  }
+  .snap__arrow { transition: transform 0.22s var(--ease); }
+  .snap__link:hover .snap__arrow { transform: translateX(0.35rem); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 760px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: clamp(2rem, 8vw, 3rem);
+    }
+    .hero__photo { order: -1; max-width: 240px; margin-inline: 0; }
+    .row {
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        'n meta'
+        'body body';
+      gap: 0.5rem 1.5rem;
+    }
+    .row__n { grid-area: n; }
+    .row__meta { grid-area: meta; }
+    .row__body { grid-area: body; margin-top: 0.6rem; }
+    .row__arrow { display: none; }
+  }
+</style>

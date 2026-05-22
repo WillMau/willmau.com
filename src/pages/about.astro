@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<Base
+  title="About — Will Mau"
+  description="The longer story: how Will Mau got into public service, his family and Rotterdam roots, and what he works on now."
+>
+  <main id="main">
+    <section class="page-hero">
+      <SiteHeader />
+      <div class="wrap page-hero__inner">
+        <p class="kicker page-hero__kicker" data-reveal>About</p>
+        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
+          The longer<br />story.
+        </h1>
+        <p class="page-hero__note" data-reveal data-reveal-delay="2">
+          This page is next. It will carry the full origin story, the
+          kindergarten class size that started it, family and Rotterdam
+          roots, and the work happening now.
+        </p>
+      </div>
+    </section>
+    <SiteFooter />
+  </main>
+</Base>

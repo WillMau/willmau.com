@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<Base
+  title="Résumé — Will Mau"
+  description="The professional and civic résumé of Will Mau: experience, education, and volunteer work, with a downloadable PDF."
+>
+  <main id="main">
+    <section class="page-hero">
+      <SiteHeader />
+      <div class="wrap page-hero__inner">
+        <p class="kicker page-hero__kicker" data-reveal>Résumé</p>
+        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
+          Experience,<br />on one page.
+        </h1>
+        <p class="page-hero__note" data-reveal data-reveal-delay="2">
+          This page is next. It will hold the web résumé, experience,
+          education, civic work, and skills, plus a clean PDF download.
+        </p>
+      </div>
+    </section>
+    <SiteFooter />
+  </main>
+</Base>
