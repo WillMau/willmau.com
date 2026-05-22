@@ -153,12 +153,15 @@ const now = [
       <div class="wrap">
         <div class="snap__inner">
           <p class="kicker snap__kicker" data-reveal>A bit of background</p>
-          <p class="snap__text" data-reveal data-reveal-delay="1">
-            I got into public service by showing up. Three years ago I started
-            going to Schalmont board meetings because my daughter's kindergarten
-            class was too big. I kept showing up. Eventually I ran.
+          <blockquote class="snap__quote" data-reveal data-reveal-delay="1">
+            I got into public service by showing up.
+          </blockquote>
+          <p class="snap__body" data-reveal data-reveal-delay="2">
+            Three years ago I started going to Schalmont board meetings
+            because my daughter's kindergarten class was too big. I kept
+            showing up. Eventually I ran.
           </p>
-          <a href="/about" class="snap__link" data-reveal data-reveal-delay="2">
+          <a href="/about" class="snap__link" data-reveal data-reveal-delay="3">
             Read the whole story
             <span class="snap__arrow" aria-hidden="true">&#8594;</span>
           </a>
@@ -265,14 +268,17 @@ const now = [
     height: clamp(64px, 5rem + 1vw, 88px);
     object-fit: contain;
   }
-  .card__icon { color: var(--green); display: block; }
-  .card__icon :global(svg) {
-    width: clamp(54px, 4rem + 1vw, 68px);
-    height: clamp(54px, 4rem + 1vw, 68px);
-  }
   .card__shield {
     width: auto;
     height: clamp(62px, 4.5rem + 1.5vw, 84px);
+  }
+  .card__emblem :global(img),
+  .card__shield {
+    transition: transform 0.26s var(--ease);
+  }
+  .card:hover .card__emblem :global(img),
+  .card:hover .card__shield {
+    transform: scale(1.045);
   }
   .card__emblem--mauops { background: #edeff6; }
   .card__emblem--board { background: #e9f2ec; }
@@ -421,13 +427,29 @@ const now = [
     color: var(--green);
     margin-bottom: 1rem;
   }
-  .snap__text {
+  .snap__quote {
     font-family: var(--font-serif);
-    font-size: clamp(1.35rem, 1.1rem + 1.1vw, 1.95rem);
-    line-height: 1.36;
-    letter-spacing: -0.012em;
+    font-weight: 600;
+    font-size: clamp(1.95rem, 1.3rem + 2.8vw, 3.5rem);
+    line-height: 1.14;
+    letter-spacing: -0.022em;
     color: var(--ink);
-    max-width: var(--measure);
+    max-width: 17ch;
+  }
+  .snap__quote::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    background: var(--green);
+    margin-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  }
+  .snap__body {
+    margin-top: clamp(1.25rem, 1rem + 1vw, 1.85rem);
+    font-size: 1.1rem;
+    line-height: 1.62;
+    color: var(--text-soft);
+    max-width: 48ch;
   }
   .snap__link {
     display: inline-flex;
