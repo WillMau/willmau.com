@@ -30,7 +30,7 @@ const initiatives = [
     summary:
       'An Azure OpenAI agent reads incoming support cases, classifies them, and resolves routine ones (passcode resets, registration changes, license lookups) end to end.',
     detail:
-      'The system auto-handles about 68% of incoming cases at roughly $4 a month in API costs, and writes a structured handoff for cases that need a human. The most visible outcome: the support team scaled from 6 people to 3, with response time improving rather than degrading.',
+      'The system auto-handles about 68% of incoming cases end to end and writes a structured handoff for cases that need a human. The visible outcome: Client Success spends time on relationships and complex cases instead of routine resets, and response times improve rather than degrade.',
   },
   {
     stat: '10 sec',
@@ -39,7 +39,7 @@ const initiatives = [
     summary:
       'Every inbound lead is auto-classified and answered with a personalized first-touch email in about ten seconds, live in production.',
     detail:
-      'Before approving the build, I directed a study of 1,064 converted leads over 24 months to find what actually predicts conversion. The system now classifies roughly 600 leads a month, suppresses about 11% as junk before a VP sees them, and reclaims an estimated 50 to 100 hours of manual triage monthly across five regional VPs.',
+      'Before approving the build, I directed a deep study of historical converted leads to find what actually predicts conversion. The system now classifies inbound leads in real time, suppresses junk before a sales rep sees it, and reclaims an estimated 50 to 100 hours of manual triage monthly across the regional sales team.',
   },
   {
     stat: '95%',
@@ -60,13 +60,13 @@ const initiatives = [
       'Legal still owns the underlying contract template, but each new agreement now flows through automation instead of email chains, reclaiming hundreds of hours annually across legal, sales, and operations and shortening the path from interested customer to signed agreement.',
   },
   {
-    stat: 'Daily',
-    statLabel: 'who-to-call list for the sales team',
+    stat: 'Monthly',
+    statLabel: 'refresh of who to call next',
     title: 'Customer-health system',
     summary:
-      'A daily report that surfaces which customers are low on assessment credits, which inventory is stagnant, and how fast each account is burning credits.',
+      'A monthly report that ranks customers by risk and opportunity, low usage, slowing renewal signals, so sales knows who to call next.',
     detail:
-      'The data lived in the assessment platform; the customer relationship lived in Salesforce, and nobody was joining them. The system now computes reorder opportunities and churn risk every day and emits a one-page report with one-click outreach buttons that sales opens like a dashboard.',
+      'Usage data and the customer relationship lived in different systems, and nobody was joining them. The refresh now surfaces reorder opportunities and churn risk, ranked by velocity, with one-click outreach so sales opens it like a working list.',
   },
   {
     stat: '4 signals',
