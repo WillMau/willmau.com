@@ -68,6 +68,15 @@ const initiatives = [
     detail:
       'The data lived in the assessment platform; the customer relationship lived in Salesforce, and nobody was joining them. The system now computes reorder opportunities and churn risk every day and emits a one-page report with one-click outreach buttons that sales opens like a dashboard.',
   },
+  {
+    stat: '4 signals',
+    statLabel: 'of AI account intelligence on every record',
+    title: 'Account intelligence at a glance',
+    summary:
+      'A custom Lightning Web Component on every Salesforce Account, plus an AI-generated dossier the VPs use as pre-call prep.',
+    detail:
+      'The LWC surfaces context that used to be buried under five tabs of fields: logo, coverage tier, open pipeline, account owner and manager, territory, and industry. An accompanying AI research output aggregates public evidence across four signals (L&D investment, leadership change, M&A activity, and executive perspective on people and leadership) so regional VPs walk into every call with the same brief.',
+  },
 ];
 
 const experience = [
@@ -511,6 +520,50 @@ const jsonLd = {
 
     <SiteFooter />
   </main>
+
+  <script>
+    const initCountUp = () => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = document.querySelectorAll('.r-card__num:not([data-counted])');
+      if (!els.length) return;
+      if (reduced || !('IntersectionObserver' in window)) {
+        els.forEach((el) => el.setAttribute('data-counted', '1'));
+        return;
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            if (el.dataset.counted) return;
+            el.dataset.counted = '1';
+            const text = el.textContent.trim();
+            const m = text.match(/^(\d+)(.*)$/);
+            if (!m) { io.unobserve(el); return; }
+            const target = parseInt(m[1], 10);
+            const suffix = m[2];
+            const dur = 900;
+            const t0 = performance.now();
+            el.textContent = '0' + suffix;
+            const tick = (now) => {
+              const p = Math.min((now - t0) / dur, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              const v = Math.round(target * eased);
+              el.textContent = v + suffix;
+              if (p < 1) requestAnimationFrame(tick);
+              else el.textContent = text;
+            };
+            requestAnimationFrame(tick);
+            io.unobserve(el);
+          });
+        },
+        { threshold: 0.4 },
+      );
+      els.forEach((el) => io.observe(el));
+    };
+    initCountUp();
+    document.addEventListener('astro:after-swap', initCountUp);
+  </script>
 </Base>
 
 <style>
