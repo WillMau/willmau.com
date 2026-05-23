@@ -327,25 +327,8 @@ const jsonLd = {
       </div>
     </section>
 
-    {/* ---------- HOW I LEAD ---------- */}
-    <section class="section r-section">
-      <div class="wrap">
-        <h2 class="r-h2" data-reveal>How I lead</h2>
-        <div class="r-principles">
-          {
-            principles.map((p, i) => (
-              <div class="r-principle" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
-                <h3 class="r-principle__title">{p.title}</h3>
-                <p class="r-principle__text">{p.text}</p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
     {/* ---------- SELECTED WORK ---------- */}
-    <section class="section r-section r-section--alt">
+    <section class="section r-section">
       <div class="wrap">
         <h2 class="r-h2" data-reveal>Selected work</h2>
         <p class="r-lede" data-reveal>
@@ -370,6 +353,26 @@ const jsonLd = {
             ))
           }
         </div>
+      </div>
+    </section>
+
+    {/* ---------- HOW I LEAD ---------- */}
+    <section class="section r-section r-section--alt">
+      <div class="wrap">
+        <h2 class="r-h2" data-reveal>How I lead</h2>
+        <ol class="r-principles">
+          {
+            principles.map((p, i) => (
+              <li class="r-principle" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <span class="r-principle__n">{String(i + 1).padStart(2, '0')}</span>
+                <div class="r-principle__body">
+                  <h3 class="r-principle__title">{p.title}</h3>
+                  <p class="r-principle__text">{p.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
       </div>
     </section>
 
@@ -431,17 +434,19 @@ const jsonLd = {
           are paying for software they barely use and doing by hand what
           should be automated. The same approach fixes that.
         </p>
-        <div class="r-offerings">
+        <ul class="r-offerings">
           {
             offerings.map((o, i) => (
-              <div class="r-offering" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
-                <span class="r-offering__dur">{o.dur}</span>
-                <h3 class="r-offering__title">{o.title}</h3>
+              <li class="r-offering" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <div class="r-offering__head">
+                  <h3 class="r-offering__title">{o.title}</h3>
+                  <span class="r-offering__dur">{o.dur}</span>
+                </div>
                 <p class="r-offering__text">{o.text}</p>
-              </div>
+              </li>
             ))
           }
-        </div>
+        </ul>
         <a
           class="r-linkedin"
           href="https://mauops.com"
@@ -599,20 +604,28 @@ const jsonLd = {
 
   /* ---------- PRINCIPLES ---------- */
   .r-principles {
+    list-style: none;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.1rem;
+    gap: clamp(1.6rem, 1.2rem + 1.4vw, 2.6rem) clamp(2rem, 1.5rem + 2vw, 3.5rem);
   }
   .r-principle {
-    background: var(--paper-pure);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: clamp(1.3rem, 1rem + 1vw, 1.85rem);
+    display: flex;
+    gap: 1.1rem;
+  }
+  .r-principle__n {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--green);
+    line-height: 1.1;
+    flex-shrink: 0;
+    min-width: 1.6rem;
   }
   .r-principle__title {
-    font-size: 1.18rem;
+    font-size: 1.15rem;
     color: var(--ink);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
   .r-principle__text {
     font-size: 0.99rem;
@@ -834,16 +847,26 @@ const jsonLd = {
 
   /* ---------- INDEPENDENT PRACTICE ---------- */
   .r-offerings {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.1rem;
+    list-style: none;
     margin-bottom: 1.6rem;
+    border-top: 1px solid var(--line);
   }
   .r-offering {
-    background: var(--paper-pure);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: clamp(1.2rem, 1rem + 0.9vw, 1.65rem);
+    padding-block: 1.15rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .r-offering__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .r-offering__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.18rem;
+    color: var(--ink);
   }
   .r-offering__dur {
     font-size: 0.72rem;
@@ -851,18 +874,15 @@ const jsonLd = {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--green-deep);
-  }
-  .r-offering__title {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 1.12rem;
-    color: var(--ink);
-    margin: 0.4rem 0 0.35rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .r-offering__text {
-    font-size: 0.94rem;
-    line-height: 1.5;
+    margin-top: 0.35rem;
+    font-size: 0.97rem;
+    line-height: 1.55;
     color: var(--text-soft);
+    max-width: 60ch;
   }
   .r-tags {
     list-style: none;
@@ -910,9 +930,6 @@ const jsonLd = {
   @media (max-width: 820px) {
     .r-work { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .r-skills { grid-template-columns: 1fr; gap: 1.75rem; }
-  }
-  @media (max-width: 820px) {
-    .r-offerings { grid-template-columns: 1fr; }
   }
   @media (max-width: 620px) {
     .r-principles { grid-template-columns: 1fr; }
