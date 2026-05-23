@@ -241,11 +241,13 @@ const offerings = [
 
 const education = [
   {
+    logo: '/logos/ua.jpg',
     role: 'M.A., American History',
     org: 'University at Albany',
     note: '2007 to 2010 · 4.0 GPA',
   },
   {
+    logo: '/logos/csr.png',
     role: 'B.A., History, Political Science & Education',
     org: 'The College of Saint Rose',
     note: '2003 to 2007 · 3.6 GPA · Student Association President',
@@ -506,8 +508,13 @@ const jsonLd = {
           {
             education.map((e) => (
               <div class="r-edu">
-                <p class="r-edu__role">{e.role}</p>
-                <p class="r-edu__org">{e.org} &middot; {e.note}</p>
+                <span class="r-edu__tile" aria-hidden="true">
+                  <img src={e.logo} alt="" loading="lazy" />
+                </span>
+                <div class="r-edu__body">
+                  <p class="r-edu__role">{e.role}</p>
+                  <p class="r-edu__org">{e.org} &middot; {e.note}</p>
+                </div>
               </div>
             ))
           }
@@ -963,7 +970,30 @@ const jsonLd = {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(2rem, 1.5rem + 3vw, 4rem);
   }
-  .r-edu { margin-bottom: 1.5rem; }
+  .r-edu {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+  }
+  .r-edu__tile {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .r-edu__tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .r-edu__body { min-width: 0; }
   .r-edu__role {
     font-family: var(--font-serif);
     font-weight: 600;
