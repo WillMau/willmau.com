@@ -42,6 +42,70 @@ const ogImage = new URL('/og.jpg', origin);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    {/* Site-wide structured data: Person + WebSite. Loads on every page so search engines see a consistent entity for "Will Mau" regardless of which page they crawl first. */}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': 'https://willmau.com/#person',
+          name: 'Will Mau',
+          givenName: 'William',
+          familyName: 'Mau',
+          alternateName: ['William Mau', 'Will Mau'],
+          description: 'Vice President of Operations at TalentSmartEQ, elected member of the Schalmont Central School District Board of Education, committee chair of Scouting America Troop 54, and founder of Mauops. Based in Rotterdam, New York.',
+          url: 'https://willmau.com/',
+          image: 'https://willmau.com/og.jpg',
+          jobTitle: 'Vice President of Operations',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'TalentSmartEQ',
+            url: 'https://www.talentsmarteq.com',
+          },
+          affiliation: [
+            { '@type': 'Organization', name: 'Schalmont Central School District Board of Education', url: 'https://www.schalmont.org/' },
+            { '@type': 'Organization', name: 'Scouting America, Troop 54', url: 'https://www.troop3054.org' },
+            { '@type': 'Organization', name: 'Mauops', url: 'https://mauops.com' },
+          ],
+          homeLocation: {
+            '@type': 'Place',
+            address: { '@type': 'PostalAddress', addressLocality: 'Rotterdam', addressRegion: 'NY', addressCountry: 'US' },
+          },
+          alumniOf: [
+            { '@type': 'CollegeOrUniversity', name: 'The College of Saint Rose', url: 'https://www.strose.edu' },
+            { '@type': 'CollegeOrUniversity', name: 'University at Albany, SUNY', url: 'https://www.albany.edu' },
+          ],
+          knowsAbout: [
+            'Revenue operations',
+            'Business technology',
+            'Salesforce administration',
+            'Apex and Lightning Web Components',
+            'AI automation',
+            'Azure OpenAI',
+            'Process improvement',
+            'Sales operations',
+            'School board governance',
+            'K-12 public education policy',
+            'Civic engagement',
+            'Scouting',
+          ],
+          sameAs: [
+            'https://www.linkedin.com/in/will-mau/',
+            'https://mauops.com',
+            'https://www.facebook.com/people/Will-Mau-for-Schalmont-Board-of-Education/61567429940268/',
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://willmau.com/#website',
+          name: 'Will Mau',
+          url: 'https://willmau.com/',
+          publisher: { '@id': 'https://willmau.com/#person' },
+          inLanguage: 'en-US',
+        },
+      ],
+    })} />
+
     <slot name="head" />
 
     <ClientRouter />
