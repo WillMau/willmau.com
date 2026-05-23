@@ -1,0 +1,102 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<Base
+  title="Page not found — Will Mau"
+  description="That page does not live here. Head back to willmau.com or jump to the résumé or about page."
+>
+  <main id="main">
+    <section class="nf">
+      <SiteHeader />
+      <div class="wrap nf__inner">
+        <p class="kicker nf__kicker" data-reveal>404</p>
+        <h1 class="nf__title" data-reveal data-reveal-delay="1">
+          That page is not here.
+        </h1>
+        <p class="nf__note" data-reveal data-reveal-delay="2">
+          The link may be old, the URL may be off, or the page may have moved.
+          Either way, here is where to go next.
+        </p>
+        <div class="nf__actions" data-reveal data-reveal-delay="3">
+          <a class="nf__btn nf__btn--primary" href="/">Back to willmau.com</a>
+          <a class="nf__btn" href="/resume">Résumé</a>
+          <a class="nf__btn" href="/about">About</a>
+        </div>
+      </div>
+    </section>
+    <SiteFooter />
+  </main>
+</Base>
+
+<style>
+  .nf {
+    background: var(--paper);
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .nf__inner {
+    padding: clamp(3rem, 6vw, 5.5rem) var(--gutter) clamp(3.5rem, 7vw, 6rem);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .nf__kicker {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    margin-bottom: 1.25rem;
+  }
+  .nf__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 1.6rem + 3.4vw, 3.6rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0 0 1.1rem;
+  }
+  .nf__note {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--text-soft);
+    margin: 0 auto 2.2rem;
+    max-width: 32rem;
+  }
+  .nf__actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+  }
+  .nf__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper-pure);
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+  .nf__btn:hover {
+    border-color: var(--green-deep);
+    transform: translateY(-1px);
+  }
+  .nf__btn--primary {
+    background: var(--ink);
+    color: var(--paper-pure);
+    border-color: var(--ink);
+  }
+  .nf__btn--primary:hover {
+    background: var(--green-deep);
+    border-color: var(--green-deep);
+  }
+</style>

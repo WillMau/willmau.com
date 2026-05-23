@@ -1,0 +1,375 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<Base
+  title="Civic Work | Will Mau"
+  description="Will Mau's civic work: elected member of the Schalmont Central School District Board of Education, committee chair of Scouting America Troop 54, plus civic updates."
+>
+  <main id="main">
+    <section class="page-hero">
+      <SiteHeader />
+      <div class="wrap page-hero__inner">
+        <p class="kicker page-hero__kicker" data-reveal>Civic work</p>
+        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
+          School board,<br />scouts, and<br />the work of<br />showing up.
+        </h1>
+        <p class="page-hero__note" data-reveal data-reveal-delay="2">
+          The volunteer roles I hold and a slow-cadence email for the people
+          who want to follow along.
+        </p>
+      </div>
+    </section>
+
+    <section class="civic">
+      <div class="wrap civic__wrap">
+        <div class="civic__col">
+
+          {/* School board */}
+          <article class="civic__block" data-reveal>
+            <p class="civic__label">Elected role</p>
+            <h2 class="civic__h2">Schalmont Board of Education</h2>
+            <p class="civic__meta">
+              Trustee &middot; Elected 2023, reelected May 2026 &middot; Term ends 2029
+            </p>
+            <p>
+              I serve on the seven-member board of the Schalmont Central School
+              District, which covers Rotterdam, Pattersonville, Duanesburg,
+              Delanson, and part of Schenectady. The work that mattered in my
+              first term: expanded Pre-K, the reopening of Woestina Elementary,
+              a Residential Trade Technology program at the high school, a
+              capital reserve fund, and a 1.95% tax levy that came in well
+              under the state cap.
+            </p>
+            <p>
+              The 2026 reelection campaign is preserved as an archive, with the
+              record, fiscal data, talking points, and the kindergarten origin
+              story intact.
+            </p>
+            <p class="civic__action">
+              <a class="civic__link" href="/archive/2026-election/index.html">
+                See the 2026 reelection campaign archive
+                <span aria-hidden="true">&#8594;</span>
+              </a>
+            </p>
+          </article>
+
+          {/* Scouts */}
+          <article class="civic__block" data-reveal>
+            <p class="civic__label">Volunteer</p>
+            <h2 class="civic__h2">Scouting America, Troop 54</h2>
+            <p class="civic__meta">
+              Committee chair &middot; Since 2024
+            </p>
+            <p>
+              I chair the troop committee for Troop 54 in Schenectady (national
+              charter number 3054). The committee handles strategic planning,
+              adult-leader development, and community engagement, the
+              behind-the-scenes work that lets the Scoutmaster focus on the
+              kids. I also built and maintain the troop website at
+              <a href="https://www.troop3054.org" target="_blank" rel="noopener noreferrer">troop3054.org</a>.
+            </p>
+          </article>
+
+          {/* Signup */}
+          <article class="civic__block civic__block--cta" data-reveal>
+            <p class="civic__label civic__label--accent">Stay in the loop</p>
+            <h2 class="civic__h2">Civic updates</h2>
+            <p>
+              A short, infrequent email when the school board is doing
+              something that affects you, when the annual budget vote is
+              coming up, or when there is a moment worth knowing about. No
+              fundraising, no spam, no algorithmic feed. Maybe five emails
+              a year.
+            </p>
+            <form
+              id="civic-signup"
+              class="civic-form"
+              action="https://assets.mailerlite.com/jsonp/2374393/forms/188288639710529388/subscribe"
+              method="POST"
+              novalidate
+            >
+              <div class="civic-form__fields">
+                <label class="sr-only" for="civic-name">First name (optional)</label>
+                <input
+                  id="civic-name"
+                  class="civic-form__input"
+                  type="text"
+                  name="fields[name]"
+                  placeholder="First name (optional)"
+                  autocomplete="given-name"
+                />
+                <label class="sr-only" for="civic-email">Email address</label>
+                <input
+                  id="civic-email"
+                  class="civic-form__input"
+                  type="email"
+                  name="fields[email]"
+                  placeholder="you@email.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <input type="hidden" name="ml-submit" value="1" />
+              <input type="hidden" name="anticsrf" value="true" />
+              <input type="hidden" name="fields[signup_source]" value="civic-page" />
+
+              {/* Honeypot: hidden from humans, bots fill it. */}
+              <div class="civic-form__pot" aria-hidden="true">
+                <label for="civic-website">Leave this field empty</label>
+                <input
+                  type="text"
+                  id="civic-website"
+                  name="website_url"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
+              <button type="submit" class="civic-form__btn">Subscribe</button>
+            </form>
+            <p id="civic-status" class="civic-form__status" role="status" aria-live="polite"></p>
+            <p class="civic-form__note">
+              Your address stays with me. It is not shared or sold.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+</Base>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('civic-signup');
+    const status = document.getElementById('civic-status');
+    if (!form || !status) return;
+
+    // Time-trap baseline: real users take more than ~2s to read and fill.
+    const renderedAt = Date.now();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot: humans never fill this field; bots typically do.
+      const pot = form.querySelector('input[name="website_url"]');
+      if (pot && pot.value) {
+        // Silently confirm to the bot so it does not retry.
+        status.textContent = "Thanks. You're on the list.";
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+        form.hidden = true;
+        return;
+      }
+
+      // Time-trap: instant submits are bots.
+      if (Date.now() - renderedAt < 2000) {
+        status.textContent = "Thanks. You're on the list.";
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+        form.hidden = true;
+        return;
+      }
+
+      const emailInput = form.querySelector('input[type="email"]');
+      const email = (emailInput && emailInput.value || '').trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        status.textContent = 'Please enter a valid email address.';
+        status.classList.remove('is-success');
+        status.classList.add('is-error');
+        return;
+      }
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Subscribing…';
+      try {
+        const formData = new FormData(form);
+        await fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData,
+        });
+        status.textContent = "Thanks. You're on the list. Expect about five emails a year, when something worth knowing about happens.";
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+        form.hidden = true;
+      } catch (err) {
+        status.textContent = 'Something went wrong. Please try again.';
+        status.classList.remove('is-success');
+        status.classList.add('is-error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  })();
+</script>
+
+<style>
+  .civic {
+    background: var(--paper);
+    padding: clamp(2rem, 1rem + 4vw, 4rem) 0 clamp(3rem, 2rem + 4vw, 5rem);
+  }
+  .civic__wrap { display: flex; justify-content: center; }
+  .civic__col { max-width: 38rem; width: 100%; }
+
+  .civic__block {
+    padding: 2.4rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .civic__block:first-child { border-top: 0; padding-top: 0; }
+  .civic__block p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.15rem);
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 1.1rem;
+  }
+  .civic__block a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--green-deep);
+    padding-bottom: 1px;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+  .civic__block a:hover { color: var(--green-deep); border-color: var(--ink); }
+
+  .civic__label {
+    font-family: var(--font-sans) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin: 0 0 0.5rem !important;
+    line-height: 1 !important;
+  }
+  .civic__label--accent { color: var(--green-deep); }
+
+  .civic__h2 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 1.2rem + 0.8vw, 1.9rem);
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
+  }
+  .civic__meta {
+    font-family: var(--font-sans) !important;
+    font-size: 0.88rem !important;
+    color: var(--text-soft);
+    margin: 0 0 1.3rem !important;
+  }
+
+  .civic__action { margin-top: 1.4rem; }
+  .civic__link {
+    font-family: var(--font-sans) !important;
+    font-size: 0.92rem !important;
+    font-weight: 600;
+    color: var(--ink) !important;
+    border-bottom: 1px solid var(--green-deep);
+    padding-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    transition: gap 0.18s ease, color 0.18s ease;
+  }
+  .civic__link:hover { color: var(--green-deep) !important; gap: 0.75em; }
+
+  .civic__block--cta {
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem);
+    margin-top: 2.6rem;
+  }
+
+  .civic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 0.5rem 0 0.6rem;
+  }
+  .civic-form[hidden] { display: none; }
+  .civic-form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .civic-form__input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.85rem 1rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .civic-form__input:focus {
+    outline: none;
+    border-color: var(--green-deep);
+    box-shadow: 0 0 0 3px rgba(20, 116, 70, 0.12);
+  }
+  .civic-form__btn {
+    align-self: flex-start;
+    padding: 0.85rem 1.4rem;
+    font: inherit;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.12s ease;
+  }
+  .civic-form__btn:hover { background: var(--ink-deep); transform: translateY(-1px); }
+  .civic-form__status {
+    font-family: var(--font-sans) !important;
+    font-size: 0.9rem !important;
+    margin: 0.4rem 0 0 !important;
+    color: var(--text-soft);
+    min-height: 1.4em;
+  }
+  .civic-form__status.is-success { color: var(--green-deep); }
+  .civic-form__status.is-error { color: #b54141; }
+  .civic-form__note {
+    font-family: var(--font-sans) !important;
+    font-size: 0.8rem !important;
+    color: var(--text-soft) !important;
+    margin: 0.8rem 0 0 !important;
+  }
+
+  .civic-form__pot {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

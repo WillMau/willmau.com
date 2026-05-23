@@ -2,11 +2,13 @@
 import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { Image } from 'astro:assets';
+import family from '../images/mau-family.webp';
 ---
 
 <Base
-  title="About — Will Mau"
-  description="The longer story: how Will Mau got into public service, his family and Rotterdam roots, and what he works on now."
+  title="About Will Mau"
+  description="The longer story: how Will Mau got into public service through a kindergarten class size, his family and Rotterdam roots, and what he works on now."
 >
   <main id="main">
     <section class="page-hero">
@@ -17,12 +19,167 @@ import SiteFooter from '../components/SiteFooter.astro';
           The longer<br />story.
         </h1>
         <p class="page-hero__note" data-reveal data-reveal-delay="2">
-          This page is next. It will carry the full origin story, the
-          kindergarten class size that started it, family and Rotterdam
-          roots, and the work happening now.
+          How I got here, what I actually do, and the people who decide
+          whether any of it matters.
         </p>
       </div>
     </section>
+
+    <section class="essay">
+      <div class="wrap essay__wrap">
+        <div class="essay__col">
+          <p class="essay__lede" data-reveal>
+            Three years ago I started showing up to Schalmont board meetings
+            because my daughter&rsquo;s kindergarten class was too big.
+          </p>
+
+          <p data-reveal>
+            I was not planning to run for anything. I just wanted to understand
+            the problem and see if it could be fixed. It could. Parents talked,
+            we worked with the administration, and we got an additional section
+            added the next school year. More importantly, the teachers got
+            more support.
+          </p>
+
+          <p data-reveal>
+            That experience taught me something I had not expected, which is
+            that most things in civic life are like that. The system is not
+            broken so much as it is quiet, waiting for someone to pay
+            attention, ask questions, and follow through. So a year later I
+            ran for the board. I have spent the last two years doing exactly
+            that, and in May 2026 voters reelected me to a second term.
+          </p>
+
+          <figure class="essay__photo" data-reveal>
+            <Image
+              src={family}
+              alt="Will Mau at home in Rotterdam with his wife and two children."
+              widths={[480, 720, 960]}
+              sizes="(max-width: 720px) 100vw, 720px"
+            />
+            <figcaption>
+              Home in Rotterdam with my wife and kids.
+            </figcaption>
+          </figure>
+
+          <h2 class="essay__h2" data-reveal>What I actually do</h2>
+
+          <p data-reveal>
+            My day job is Vice President of Operations at TalentSmartEQ, where
+            I sit on a four-person Executive Leadership Team and run operations
+            and technology for a remote-first emotional-intelligence training
+            company. The work is heavy on Salesforce, AI agents, and the
+            unglamorous infrastructure that keeps a company running. I like
+            that work.
+          </p>
+
+          <p data-reveal>
+            On the side, I run
+            <a href="https://mauops.com" target="_blank" rel="noopener noreferrer">Mauops</a>,
+            a solo Salesforce, AI, and automation consultancy for small
+            businesses. The same diagnosis works almost everywhere: most
+            companies pay for software they barely use and do by hand the
+            things that should be automated. There is no shortage of work.
+          </p>
+
+          <p data-reveal>
+            Outside of work, I chair the committee for Troop 3054, the local
+            Scout troop based in Schenectady. I serve on the Schalmont
+            Central School District Board of Education. My wife is a third
+            grade teacher. We have two kids in the district, both Schalmont
+            students.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>What ties it together</h2>
+
+          <p data-reveal>
+            If anything ties all of this together, it is the same instinct
+            that pulled me into that first board meeting. Notice the thing.
+            Ask the question. Build the system that keeps it from breaking
+            again next year. Then move on to the next thing.
+          </p>
+
+          <p data-reveal>
+            If you want the formal version, the
+            <a href="/resume">r&eacute;sum&eacute;</a> is here. If you want to
+            reach me, I am at
+            <a href="mailto:William.Mau@gmail.com">William.Mau@gmail.com</a>
+            or
+            <a href="https://www.linkedin.com/in/will-mau/" target="_blank" rel="noopener noreferrer">on LinkedIn</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <SiteFooter />
   </main>
 </Base>
+
+<style>
+  .essay {
+    background: var(--paper);
+    padding: clamp(2rem, 1rem + 4vw, 4rem) 0 clamp(3rem, 2rem + 4vw, 5rem);
+  }
+  .essay__wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .essay__col {
+    max-width: 36rem;
+    width: 100%;
+  }
+  .essay__col p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.18rem);
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 1.4rem;
+  }
+  .essay__lede {
+    font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.55rem) !important;
+    font-weight: 500;
+    line-height: 1.4 !important;
+    color: var(--ink);
+    margin-bottom: 2rem !important;
+  }
+  .essay__col a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--green-deep);
+    padding-bottom: 1px;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+  .essay__col a:hover {
+    color: var(--green-deep);
+    border-color: var(--ink);
+  }
+  .essay__h2 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 1.2rem + 0.6vw, 1.7rem);
+    color: var(--ink);
+    margin: 2.6rem 0 1.1rem;
+    line-height: 1.25;
+  }
+  .essay__photo {
+    margin: 2.6rem -2rem 2.6rem;
+    padding: 0;
+  }
+  .essay__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .essay__photo figcaption {
+    margin: 0.75rem 0.25rem 0;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    font-style: italic;
+    text-align: center;
+  }
+  @media (max-width: 640px) {
+    .essay__photo { margin: 2rem 0; }
+  }
+</style>

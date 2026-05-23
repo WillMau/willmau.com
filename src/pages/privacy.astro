@@ -1,0 +1,142 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const updated = 'May 23, 2026';
+---
+
+<Base
+  title="Privacy | Will Mau"
+  description="A short, honest page about what happens to your information when you use willmau.com or subscribe to the civic updates list."
+>
+  <main id="main">
+    <section class="page-hero">
+      <SiteHeader />
+      <div class="wrap page-hero__inner">
+        <p class="kicker page-hero__kicker" data-reveal>Privacy</p>
+        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
+          What happens<br />to your data.
+        </h1>
+        <p class="page-hero__note" data-reveal data-reveal-delay="2">
+          Short, honest, no legalese. Last updated {updated}.
+        </p>
+      </div>
+    </section>
+
+    <section class="essay">
+      <div class="wrap essay__wrap">
+        <div class="essay__col">
+
+          <p class="essay__lede" data-reveal>
+            This site collects almost nothing about you. Here is the
+            complete picture.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>What I collect and why</h2>
+          <p data-reveal>
+            The only personal information I collect through this site is
+            what you give me when you sign up for the civic updates list:
+            your email address, your first name if you choose to share it,
+            and which page of the site you signed up on. That information
+            is used to send you civic updates, roughly five emails a year.
+            Nothing more.
+          </p>
+          <p data-reveal>
+            If you email me directly at
+            <a href="mailto:will@willmau.com">will@willmau.com</a>, I keep
+            that email the way anyone keeps email. I do not add you to the
+            list without your asking.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>Where your data lives</h2>
+          <p data-reveal>
+            The civic updates list is hosted by
+            <a href="https://www.mailerlite.com" target="_blank" rel="noopener noreferrer">MailerLite</a>,
+            an email service used by tens of thousands of senders
+            worldwide. Your email address and name live there, not on
+            willmau.com. You can read
+            <a href="https://www.mailerlite.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">MailerLite&rsquo;s privacy policy</a>
+            if you want their full picture.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>What I do not do</h2>
+          <p data-reveal>
+            I do not sell your information. I do not share it with anyone.
+            I do not run ads against it. I do not trade it. The list exists
+            so I can occasionally send you something worth knowing about
+            Schalmont and the board, and that is the whole purpose.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>Cookies and tracking</h2>
+          <p data-reveal>
+            This site uses no tracking cookies. No Google Analytics, no
+            Facebook pixel, no advertising or behavioral tracking. The
+            only Google product connected to the site is Search Console,
+            which reads Google&rsquo;s own search data to show me what
+            queries bring people here. It never touches your browser and
+            never sets a cookie.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>Removing your information</h2>
+          <p data-reveal>
+            Every email I send has an unsubscribe link at the bottom. One
+            click removes you from the list. If you would like your data
+            deleted entirely, email me at
+            <a href="mailto:will@willmau.com">will@willmau.com</a> and I
+            will remove you from MailerLite and confirm.
+          </p>
+
+          <h2 class="essay__h2" data-reveal>Questions</h2>
+          <p data-reveal>
+            Email me at
+            <a href="mailto:will@willmau.com">will@willmau.com</a>. I read
+            every reply.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+</Base>
+
+<style>
+  .essay {
+    background: var(--paper);
+    padding: clamp(2rem, 1rem + 4vw, 4rem) 0 clamp(3rem, 2rem + 4vw, 5rem);
+  }
+  .essay__wrap { display: flex; justify-content: center; }
+  .essay__col { max-width: 36rem; width: 100%; }
+  .essay__col p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.15rem);
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 1.3rem;
+  }
+  .essay__lede {
+    font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.45rem) !important;
+    font-weight: 500;
+    line-height: 1.4 !important;
+    color: var(--ink);
+    margin-bottom: 2rem !important;
+  }
+  .essay__col a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--green-deep);
+    padding-bottom: 1px;
+    transition: color 0.18s ease, border-color 0.18s ease;
+  }
+  .essay__col a:hover { color: var(--green-deep); border-color: var(--ink); }
+  .essay__h2 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.6rem);
+    color: var(--ink);
+    margin: 2.4rem 0 0.9rem;
+    line-height: 1.25;
+  }
+</style>

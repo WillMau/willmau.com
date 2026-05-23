@@ -255,21 +255,25 @@ const education = [
 ];
 
 const certifications = [
-  'Salesforce Certified Administrator',
-  'Foundations of Project Management',
-  'Mastering Emotional Intelligence, Levels 1 & 2',
-  'New York State Teacher Certification, Social Studies 7-12',
-  'Marquis Who’s Who Honored Listee',
+  {
+    name: 'Salesforce Certified Administrator',
+    href: 'https://www.salesforce.com/trailblazer/wmau',
+  },
+  { name: 'Mastering Emotional Intelligence, Levels 1 & 2 (TalentSmartEQ)' },
+  { name: 'New York State Teacher Certification, Social Studies 7-12' },
+  { name: 'Foundations of Project Management (Google)' },
 ];
 
 const civic = [
   {
+    logo: '/logos/schalmont.svg',
     role: 'Elected Board of Education Member',
     org: 'Schalmont Central School District',
     dates: '2024 to present',
     text: 'Elected in 2023 and reelected in 2026. Two years of work including Pre-K expansion, the Woestina school reopening, a Residential Trade Technology program, and a 1.95% tax levy held well under the state cap.',
   },
   {
+    logo: '/logos/scouting.png',
     role: 'Troop Committee Chair',
     org: 'Scouting America, Troop 3054',
     dates: '2024 to present',
@@ -280,10 +284,22 @@ const civic = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': 'https://willmau.com/#person',
   name: 'Will Mau',
   alternateName: 'William Mau',
+  givenName: 'William',
+  familyName: 'Mau',
   jobTitle: 'Vice President of Operations',
-  worksFor: { '@type': 'Organization', name: 'TalentSmartEQ' },
+  description:
+    'Operations and technology executive at TalentSmartEQ. Fifteen-plus years across operations, revenue systems, and AI automation. Salesforce certified administrator.',
+  image: 'https://willmau.com/og.jpg',
+  email: 'mailto:William.Mau@gmail.com',
+  url: 'https://willmau.com/resume',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'TalentSmartEQ',
+    url: 'https://www.talentsmarteq.com',
+  },
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Rotterdam',
@@ -291,22 +307,98 @@ const jsonLd = {
     addressCountry: 'US',
   },
   alumniOf: [
-    { '@type': 'CollegeOrUniversity', name: 'University at Albany' },
-    { '@type': 'CollegeOrUniversity', name: 'The College of Saint Rose' },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'University at Albany',
+      url: 'https://www.albany.edu',
+    },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'The College of Saint Rose',
+    },
   ],
-  url: 'https://willmau.com/resume',
-  sameAs: ['https://www.linkedin.com/in/will-mau/', 'https://mauops.com'],
+  hasCredential: [
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Salesforce Certified Administrator',
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: 'Salesforce' },
+      url: 'https://www.salesforce.com/trailblazer/wmau',
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Mastering Emotional Intelligence, Levels 1 & 2',
+      recognizedBy: { '@type': 'Organization', name: 'TalentSmartEQ' },
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'New York State Teacher Certification, Social Studies 7-12',
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'New York State Education Department',
+      },
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Foundations of Project Management',
+      recognizedBy: { '@type': 'Organization', name: 'Google' },
+    },
+  ],
+  knowsAbout: [
+    'Revenue Operations',
+    'Sales Operations',
+    'Salesforce Administration',
+    'Apex Programming',
+    'Lightning Web Components',
+    'Process Automation',
+    'AI Agents',
+    'Azure OpenAI',
+    'Business Intelligence',
+    'Data Analytics',
+    'Microsoft 365',
+    'SharePoint',
+  ],
+  knowsLanguage: 'English',
+  memberOf: [
+    {
+      '@type': 'Organization',
+      name: 'Schalmont Central School District Board of Education',
+    },
+    {
+      '@type': 'Organization',
+      name: 'Scouting America, Troop 3054',
+    },
+  ],
+  sameAs: [
+    'https://www.linkedin.com/in/will-mau/',
+    'https://mauops.com',
+    'https://www.salesforce.com/trailblazer/wmau',
+  ],
+};
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://willmau.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Résumé', item: 'https://willmau.com/resume' },
+  ],
 };
 ---
 
 <Base
-  title="Will Mau, Operations & Technology Executive | Résumé"
-  description="The résumé of Will Mau: Vice President of Operations at TalentSmartEQ, fifteen-plus years across operations, revenue systems, and AI automation. Salesforce certified. Rotterdam, New York."
+  title="Will Mau, VP of Operations & AI Automation | Résumé"
+  description="Will Mau, VP of Operations at TalentSmartEQ. 15+ years in revenue operations, business technology, and AI automation. Salesforce certified. Rotterdam, NY."
 >
   <script
     type="application/ld+json"
     slot="head"
     set:html={JSON.stringify(jsonLd)}
+  />
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(breadcrumbs)}
   />
 
   <main id="main">
@@ -520,7 +612,20 @@ const jsonLd = {
           }
           <h3 class="r-subh">Certifications</h3>
           <ul class="r-tags">
-            {certifications.map((c) => <li class="r-tag">{c}</li>)}
+            {
+              certifications.map((c) =>
+                c.href ? (
+                  <li class="r-tag r-tag--link">
+                    <a href={c.href} target="_blank" rel="noopener noreferrer">
+                      {c.name}
+                      <span class="r-tag__arrow" aria-hidden="true">&#8599;</span>
+                    </a>
+                  </li>
+                ) : (
+                  <li class="r-tag">{c.name}</li>
+                )
+              )
+            }
           </ul>
         </div>
         <div data-reveal data-reveal-delay="1">
@@ -528,9 +633,14 @@ const jsonLd = {
           {
             civic.map((c) => (
               <div class="r-edu">
-                <p class="r-edu__role">{c.role}</p>
-                <p class="r-edu__org">{c.org} &middot; {c.dates}</p>
-                <p class="r-edu__text">{c.text}</p>
+                <span class="r-edu__tile r-edu__tile--contain" aria-hidden="true">
+                  <img src={c.logo} alt="" loading="lazy" />
+                </span>
+                <div class="r-edu__body">
+                  <p class="r-edu__role">{c.role}</p>
+                  <p class="r-edu__org">{c.org} &middot; {c.dates}</p>
+                  <p class="r-edu__text">{c.text}</p>
+                </div>
               </div>
             ))
           }
@@ -963,6 +1073,32 @@ const jsonLd = {
     color: var(--text);
   }
   .r-section--alt .r-tag { background: var(--paper); }
+  .r-tag--link { padding: 0; }
+  .r-tag--link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 999px;
+    transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  }
+  .r-tag--link a:hover,
+  .r-tag--link a:focus-visible {
+    color: var(--ink);
+    background: var(--green-soft, rgba(95, 158, 132, 0.12));
+  }
+  .r-tag__arrow {
+    font-size: 0.78rem;
+    color: var(--green-deep);
+    opacity: 0.7;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+  }
+  .r-tag--link a:hover .r-tag__arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+  }
 
   /* ---------- EDUCATION + CIVIC ---------- */
   .r-grid2 {
@@ -993,6 +1129,13 @@ const jsonLd = {
     height: 100%;
     object-fit: cover;
   }
+  .r-edu__tile--contain {
+    background: #fff;
+    padding: 4px;
+  }
+  .r-edu__tile--contain img {
+    object-fit: contain;
+  }
   .r-edu__body { min-width: 0; }
   .r-edu__role {
     font-family: var(--font-serif);
@@ -1007,6 +1150,29 @@ const jsonLd = {
     color: var(--green-deep);
   }
   .r-edu__text {
+    margin-top: 0.5rem;
+    font-size: 0.97rem;
+    line-height: 1.56;
+    color: var(--text-soft);
+  }
+
+  .r-civic {
+    margin-bottom: 1.5rem;
+  }
+  .r-civic:last-child { margin-bottom: 0; }
+  .r-civic__role {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .r-civic__org {
+    margin-top: 0.15rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+  .r-civic__text {
     margin-top: 0.5rem;
     font-size: 0.97rem;
     line-height: 1.56;

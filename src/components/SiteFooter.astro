@@ -22,16 +22,57 @@ const year = new Date().getFullYear();
         <p class="site-footer__label">This site</p>
         <a href="/about">About</a>
         <a href="/resume">Résumé</a>
+        <a href="/civic">Civic work</a>
       </nav>
-      <div class="site-footer__col">
-        <p class="site-footer__label">Archive</p>
-        <a href="/archive/2026-election/">See the 2026 reelection campaign archive</a>
-      </div>
+    </div>
+
+    <div class="site-footer__signup">
+      <p class="site-footer__label">Get civic updates</p>
+      <p class="site-footer__signup-note">
+        About five emails a year. School board work, budget votes, district news.
+        <a href="/civic">More on the civic page &rarr;</a>
+      </p>
+      <form
+        id="footer-signup"
+        class="footer-form"
+        action="https://assets.mailerlite.com/jsonp/2374393/forms/188288639710529388/subscribe"
+        method="POST"
+        novalidate
+      >
+        <label class="sr-only" for="footer-name">First name (optional)</label>
+        <input
+          id="footer-name"
+          class="footer-form__input"
+          type="text"
+          name="fields[name]"
+          placeholder="First name (optional)"
+          autocomplete="given-name"
+        />
+        <label class="sr-only" for="footer-email">Email address</label>
+        <input
+          id="footer-email"
+          class="footer-form__input"
+          type="email"
+          name="fields[email]"
+          placeholder="you@email.com"
+          autocomplete="email"
+          required
+        />
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+        <input type="hidden" name="fields[signup_source]" value="footer" />
+        <div class="footer-form__pot" aria-hidden="true">
+          <label for="footer-website">Leave this field empty</label>
+          <input type="text" id="footer-website" name="website_url" tabindex="-1" autocomplete="off" />
+        </div>
+        <button type="submit" class="footer-form__btn">Subscribe</button>
+      </form>
+      <p id="footer-status" class="footer-form__status" role="status" aria-live="polite"></p>
     </div>
 
     <div class="site-footer__base">
       <span>&copy; {year} Will Mau &middot; Rotterdam, New York</span>
-      <span>Built with Astro</span>
+      <a href="/privacy" class="site-footer__base-link">Privacy</a>
     </div>
   </div>
 </footer>
@@ -74,8 +115,9 @@ const year = new Date().getFullYear();
   }
   .site-footer__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    max-width: 32rem;
   }
   .site-footer__col {
     display: flex;
@@ -96,6 +138,96 @@ const year = new Date().getFullYear();
     width: fit-content;
   }
   .site-footer__col a:hover { color: var(--on-dark); }
+
+  .site-footer__signup {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(2rem, 4vw, 2.5rem);
+    border-top: 1px solid var(--line-dark);
+    max-width: 32rem;
+  }
+  .site-footer__signup-note {
+    font-size: 0.85rem;
+    color: var(--on-dark-soft);
+    margin: 0 0 0.9rem;
+    line-height: 1.5;
+  }
+  .site-footer__signup-note a {
+    color: var(--green-bright);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.18s var(--ease);
+  }
+  .site-footer__signup-note a:hover { border-bottom-color: var(--green-bright); }
+
+  .footer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footer-form[hidden] { display: none; }
+  .footer-form__input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.7rem 0.9rem;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  }
+  .footer-form__input:focus {
+    outline: none;
+    border-color: var(--green-bright);
+    box-shadow: 0 0 0 3px rgba(111, 207, 151, 0.25);
+  }
+  .footer-form__btn {
+    align-self: flex-start;
+    padding: 0.7rem 1.2rem;
+    font: inherit;
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--green-bright);
+    border: 1px solid var(--green-bright);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.18s var(--ease), transform 0.12s var(--ease);
+  }
+  .footer-form__btn:hover:not(:disabled) {
+    background: #8ed9af;
+    transform: translateY(-1px);
+  }
+  .footer-form__btn:disabled { opacity: 0.7; cursor: progress; }
+  .footer-form__pot {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .footer-form__status {
+    font-size: 0.85rem;
+    margin: 0.6rem 0 0;
+    color: var(--on-dark-soft);
+    min-height: 1.3em;
+  }
+  .footer-form__status.is-success { color: var(--green-bright); }
+  .footer-form__status.is-error { color: #ff8d8d; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .site-footer__base {
     margin-top: clamp(3rem, 6vw, 5rem);
     padding-top: 1.5rem;
@@ -107,7 +239,82 @@ const year = new Date().getFullYear();
     font-size: 0.82rem;
     color: var(--on-dark-soft);
   }
+  .site-footer__base-link {
+    color: var(--on-dark-soft);
+    transition: color 0.16s var(--ease);
+  }
+  .site-footer__base-link:hover { color: var(--on-dark); }
   @media (max-width: 640px) {
     .site-footer__grid { grid-template-columns: 1fr; gap: 2.25rem; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('footer-signup');
+    const status = document.getElementById('footer-status');
+    if (!form || !status) return;
+    const renderedAt = Date.now();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot
+      const pot = form.querySelector('input[name="website_url"]');
+      if (pot && pot.value) {
+        status.textContent = "Thanks. You're on the list.";
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+        form.hidden = true;
+        return;
+      }
+
+      // Time-trap
+      if (Date.now() - renderedAt < 2000) {
+        status.textContent = "Thanks. You're on the list.";
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+        form.hidden = true;
+        return;
+      }
+
+      const emailInput = form.querySelector('input[type="email"]');
+      const email = (emailInput && emailInput.value || '').trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        status.textContent = 'Please enter a valid email address.';
+        status.classList.remove('is-success');
+        status.classList.add('is-error');
+        return;
+      }
+
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Subscribing…';
+
+      try {
+        const formData = new FormData(form);
+        await fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData,
+        });
+        status.textContent = "Thanks. You're on the list.";
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+        form.hidden = true;
+      } catch (err) {
+        status.textContent = 'Something went wrong. Please try again.';
+        status.classList.remove('is-success');
+        status.classList.add('is-error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  })();
+</script>
