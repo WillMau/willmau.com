@@ -280,6 +280,10 @@ const certifications = [
     href: 'https://www.salesforce.com/trailblazer/wmau',
   },
   { name: 'Mastering Emotional Intelligence, Levels 1 & 2 (TalentSmartEQ)' },
+  {
+    name: 'Foundations of Project Management (Google)',
+    href: 'https://www.coursera.org/account/accomplishments/verify/KYZWAIFH2DPS',
+  },
   { name: 'New York State Teacher Certification, Social Studies 7-12' },
 ];
 
@@ -356,6 +360,12 @@ const jsonLd = {
         '@type': 'Organization',
         name: 'New York State Education Department',
       },
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Foundations of Project Management',
+      url: 'https://www.coursera.org/account/accomplishments/verify/KYZWAIFH2DPS',
+      recognizedBy: { '@type': 'Organization', name: 'Google' },
     },
   ],
   knowsAbout: [
