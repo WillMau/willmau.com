@@ -2,6 +2,24 @@
 import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { Image } from 'astro:assets';
+import aiLeaderImg from '../images/articles/ai-leader.webp';
+import decodingEmotionsImg from '../images/articles/decoding-emotions.webp';
+
+const writing = [
+  {
+    title: 'I Asked AI to Help Me Be a Better Leader. It Worked.',
+    source: 'TalentSmartEQ Blog',
+    href: 'https://www.talentsmarteq.com/i-asked-ai-to-help-me-be-a-better-leader-it-worked/',
+    image: aiLeaderImg,
+  },
+  {
+    title: 'Decoding Emotions with AI',
+    source: 'TalentSmartEQ Blog',
+    href: 'https://www.talentsmarteq.com/decoding-emotions-with-ai/',
+    image: decodingEmotionsImg,
+  },
+];
 
 const principles = [
   {
@@ -51,6 +69,15 @@ const initiatives = [
       'Salesforce stores opportunities as single mutable rows, so history evaporates the moment a stage changes. I directed a custom snapshot object, an Apex batch that runs every Monday at 5 AM, a 95%-coverage test suite, and a Lightning Web Component executive dashboard. It has run weekly since early 2026 with no manual intervention.',
   },
   {
+    stat: '6 weeks',
+    statLabel: 'multi-vendor incident response, closed with forensic report',
+    title: 'Cyber-incident response leadership',
+    summary:
+      'Led TalentSmartEQ’s response to a 2025 security event from initial discovery through closure. Coordinated outside forensics, outside counsel, IT infrastructure, and the cyber-insurance carrier across roughly six weeks of work.',
+    detail:
+      'The work spanned attorney-client-privileged communications, evidence preservation, vendor coordination under time pressure, executive briefings, and a fully documented forensic narrative submitted to the carrier at close. Most operations executives only see this in tabletop exercises. The system-level outcome: a cleaner playbook on the other side of the incident than we had going in, with clear vendor sequencing and decision-authority documentation.',
+  },
+  {
     stat: '100s',
     statLabel: 'of cross-team hours saved per year',
     title: 'Clickwrap legal re-architecture',
@@ -64,18 +91,9 @@ const initiatives = [
     statLabel: 'refresh of who to call next',
     title: 'Customer-health system',
     summary:
-      'A monthly report that ranks customers by risk and opportunity, low usage, slowing renewal signals, so sales knows who to call next.',
+      'A monthly report ranks customers by velocity and surfaces accounts running low on assessment credits or with stagnant inventory, then routes a working call list to the sales team. The signal that someone is about to reorder, or about to churn, used to live in two different systems. Now it shows up as a list.',
     detail:
       'Usage data and the customer relationship lived in different systems, and nobody was joining them. The refresh now surfaces reorder opportunities and churn risk, ranked by velocity, with one-click outreach so sales opens it like a working list.',
-  },
-  {
-    stat: '4 signals',
-    statLabel: 'of AI account intelligence on every record',
-    title: 'Account intelligence at a glance',
-    summary:
-      'A custom Lightning Web Component on every Salesforce Account, plus an AI-generated dossier the VPs use as pre-call prep.',
-    detail:
-      'The LWC surfaces context that used to be buried under five tabs of fields: logo, coverage tier, open pipeline, account owner and manager, territory, and industry. An accompanying AI research output aggregates public evidence across four signals (L&D investment, leadership change, M&A activity, and executive perspective on people and leadership) so regional VPs walk into every call with the same brief.',
   },
 ];
 
@@ -89,12 +107,14 @@ const experience = [
     place: 'Remote',
     text: 'Operations and technology leadership for a remote-first emotional-intelligence training company, as one of four members of the Executive Leadership Team.',
     bullets: [
-      'Transformed revenue operations across Salesforce, Pardot, and legal processes, reducing operational bottlenecks by nearly 90% and accelerating sales velocity and forecasting precision.',
+      'Transformed revenue operations across Salesforce, Pardot, and legal processes, reducing operational bottlenecks by 87% and accelerating sales velocity and forecasting precision.',
       'Implemented AI-driven automation and custom GPT workflows across quoting, onboarding, and reporting, freeing sales capacity while improving data quality and compliance.',
       'Directed enterprise system integrations across Salesforce, Pardot, QuickBooks, DocuSign, Conga, Microsoft 365, and Azure to unify reporting across sales, finance, and operations.',
       'Built executive dashboards and forecasting models that give leadership real-time visibility into pipeline health, conversion rates, and territory coverage.',
       'Launched an enterprise SharePoint intranet that centralized resources and accelerated onboarding and cross-functional collaboration.',
-      'Oversee technology, cybersecurity, and compliance across global teams in the U.S. and India.',
+      'Oversee technology, cybersecurity, GDPR and data-privacy compliance, and contract management across global teams in the U.S., India, Mexico, and Guatemala. Built the Guatemala function personally, sourcing candidates through a regional partner in 2025.',
+      'Led the response to a 2025 security event end to end, coordinating outside forensics, counsel, IT infrastructure, and the cyber-insurance carrier through to a final forensic report submitted at close.',
+      'Currently operating the launch of a new product line, from build specs through dev-partner coordination, pricing, and fulfillment.',
       'Promoted from Director of Sales Operations to Sr. Director of Operations to Vice President.',
     ],
   },
@@ -261,7 +281,6 @@ const certifications = [
   },
   { name: 'Mastering Emotional Intelligence, Levels 1 & 2 (TalentSmartEQ)' },
   { name: 'New York State Teacher Certification, Social Studies 7-12' },
-  { name: 'Foundations of Project Management (Google)' },
 ];
 
 const civic = [
@@ -338,11 +357,6 @@ const jsonLd = {
         name: 'New York State Education Department',
       },
     },
-    {
-      '@type': 'EducationalOccupationalCredential',
-      name: 'Foundations of Project Management',
-      recognizedBy: { '@type': 'Organization', name: 'Google' },
-    },
   ],
   knowsAbout: [
     'Revenue Operations',
@@ -387,8 +401,8 @@ const breadcrumbs = {
 ---
 
 <Base
-  title="Will Mau, VP of Operations & AI Automation | Résumé"
-  description="Will Mau, VP of Operations at TalentSmartEQ. 15+ years in revenue operations, business technology, and AI automation. Salesforce certified. Rotterdam, NY."
+  title="Will Mau, Operations & Technology Executive | Résumé"
+  description="Will Mau, VP of Operations and Executive Leadership Team member at TalentSmartEQ. 15+ years building revenue and AI systems at growth-stage companies. Salesforce certified. Rotterdam, NY."
 >
   <script
     type="application/ld+json"
@@ -409,7 +423,7 @@ const breadcrumbs = {
         <p class="kicker r-hero__kicker" data-reveal>Résumé</p>
         <h1 class="r-hero__name" data-reveal data-reveal-delay="1">Will Mau</h1>
         <p class="r-hero__role" data-reveal data-reveal-delay="1">
-          Operations &amp; Technology Executive &middot; AI &amp; Automation
+          Operations &amp; Technology Executive &middot; AI &amp; Automation &middot; Revenue Systems
         </p>
         <p class="r-hero__summary" data-reveal data-reveal-delay="2">
           I am an operations executive who builds the systems most VPs only
@@ -564,6 +578,31 @@ const breadcrumbs = {
           <span>Recent engagements and fixed-scope offerings at mauops.com</span>
           <span class="r-linkedin__arrow" aria-hidden="true">&#8599;</span>
         </a>
+      </div>
+    </section>
+
+    {/* ---------- PUBLISHED WRITING ---------- */}
+    <section class="section r-section r-section--alt">
+      <div class="wrap">
+        <h2 class="r-h2" data-reveal>Published writing</h2>
+        <ul class="r-writing">
+          {
+            writing.map((w, i) => (
+              <li class="r-writing__item" data-reveal data-reveal-delay={Math.min(i + 1, 4)}>
+                <a class="r-writing__link" href={w.href} target="_blank" rel="noopener noreferrer">
+                  <span class="r-writing__thumb">
+                    <Image src={w.image} alt="" widths={[160, 240, 320]} sizes="120px" loading="lazy" />
+                  </span>
+                  <span class="r-writing__text">
+                    <span class="r-writing__title">{w.title}</span>
+                    <span class="r-writing__source">{w.source}</span>
+                  </span>
+                  <span class="r-writing__arrow" aria-hidden="true">&#8599;</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </section>
 
@@ -1058,6 +1097,90 @@ const breadcrumbs = {
     color: var(--text-soft);
     max-width: 60ch;
   }
+
+  /* Published writing */
+  .r-writing {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .r-writing__item { margin: 0; }
+  .r-writing__link {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.9rem 1.1rem 0.9rem 0.9rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .r-writing__link:hover {
+    border-color: var(--green-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(20, 116, 70, 0.08);
+  }
+  .r-writing__thumb {
+    display: block;
+    width: 120px;
+    height: 78px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--paper);
+    flex-shrink: 0;
+  }
+  .r-writing__thumb :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .r-writing__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .r-writing__title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .r-writing__source {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .r-writing__arrow {
+    color: var(--green-deep);
+    font-size: 1.15rem;
+    transition: transform 0.22s ease;
+  }
+  .r-writing__link:hover .r-writing__arrow {
+    transform: translate(3px, -3px);
+  }
+  @media (max-width: 540px) {
+    .r-writing__link {
+      grid-template-columns: 80px 1fr;
+      gap: 0.9rem;
+      padding: 0.75rem;
+    }
+    .r-writing__thumb { width: 80px; height: 60px; }
+    .r-writing__title { font-size: 0.98rem; }
+    .r-writing__arrow { display: none; }
+  }
+
   .r-tags {
     list-style: none;
     display: flex;
