@@ -6,8 +6,9 @@ export default defineConfig({
   integrations: [
     sitemap({
       // The archive lives under public/archive/ as static files and is
-      // noindexed; keep it out of the sitemap regardless.
-      filter: (page) => !page.includes('/archive/'),
+      // noindexed; keep it out of the sitemap regardless. The Wood Badge
+      // page is shared by link only and is noindexed too.
+      filter: (page) => !page.includes('/archive/') && !page.includes('/woodbadge'),
     }),
   ],
   build: {
