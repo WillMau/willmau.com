@@ -35,7 +35,7 @@ import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
 const asOf = 'Oct 5, 2026';
 
 type Kind = 'done' | 'pend' | 'sched';
-interface Row { item: string; evidence: string; kind: Kind; status: string }
+interface Row { item: string; evidence: string; kind: Kind; status: string; href?: string }
 interface Stat { value: string; label: string }
 interface Point { lead?: string; text: string }
 interface Shot { img: ImageMetadata; alt: string; title: string; text: string; tall?: boolean; whole?: boolean }
@@ -81,7 +81,7 @@ const goals: Goal[] = [
       { item: 'Repeatable annual process documented', evidence: `"Pack-to-Troop Recruiting Cycle": the path from Lion to First Class, ground rules, the year month by month, who does what, and the numbers to keep. The fall sign-up, peer invitation and the crossover handoff are written in as yearly steps.`, kind: 'done', status: 'Done Oct 2026' },
       { item: `Posted on the portal's recruiting page`, evidence: `my.troop3054.org Recruiting page, How it works tab. Marked "Draft for review" until both units approve, then marked adopted.`, kind: 'done', status: 'Posted as draft' },
       { item: 'Annual review date', evidence: `Every May, by each unit's Key 3 and the troop committee.`, kind: 'done', status: 'Set: May' },
-      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'pend', status: 'At vote' },
+      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'sched', status: 'Oct 14' },
       { item: 'Approved by the troop committee', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
       { item: `Approved by the pack's Key 3, in writing`, evidence: `Requested early, per the ticket's own mitigation. Covers the pack website too.`, kind: 'pend', status: 'Requested' },
     ],
@@ -146,7 +146,7 @@ const goals: Goal[] = [
       { item: 'Planning procedure posted to the portal', evidence: `Meeting planning is written and posted: the "Planning Meetings (PLC)" section of the troop's app guide (troop3054.org/app.html) covers who writes plans, Scouting America's troop meeting plan with a Scout's name on each part, and the review after every meeting. The annual planning conference section is being added.`, kind: 'pend', status: 'In progress' },
       { item: `Procedure revised from the PLC's own review`, evidence: 'The PLC reviews the procedure after using it, and its changes go in before posting.', kind: 'sched', status: 'Spring 2027' },
       { item: `PLC's program-year calendar posted to the portal`, evidence: 'The calendar the PLC builds with the procedure.', kind: 'sched', status: 'By May 31' },
-      { item: 'Start time and location on every event', evidence: `The portal's Program page flags any event missing either one, so the check is built in.`, kind: 'pend', status: 'Check built' },
+      { item: 'Start time and location on every event', evidence: `47 of the 60 events on the 2026-27 calendar have both, and the portal's Program page flags the rest. The PLC's own calendar needs both on every event.`, kind: 'pend', status: '47 of 60' },
     ],
     milestones: {
       heading: 'Milestones (not pass conditions)',
@@ -195,9 +195,9 @@ const goals: Goal[] = [
     },
     rows: [
       { item: 'Matrix posted to the portal', evidence: `Roles & backups in the portal is the only place people get put on jobs. It feeds the public Get Involved page, so the website can't drift from the record.`, kind: 'done', status: 'Posted as draft' },
-      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'pend', status: 'At vote' },
+      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'sched', status: 'Oct 14' },
       { item: 'Adopted by recorded committee vote', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: 'A named holder for every role and single-point job', evidence: `Built from Scouting America's official position list: 9 of 10 committee and Key 3 roles are held, and the open seat is covered by the Committee Chair until someone takes it. Shared single-point jobs are listed by role: website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.`, kind: 'done', status: 'Done' },
+      { item: 'A named holder for every role and single-point job', evidence: `Built from Scouting America's official position list. The Oct 4 positions sheet has 9 of 10 committee and Key 3 seats held, with the open seat covered by the Committee Chair until someone takes it; those holders still need entering in the portal, which feeds the public Get Involved page. Shared single-point jobs are listed by role: website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.`, kind: 'pend', status: 'Portal update' },
       { item: 'A named backup wherever one has been found', evidence: 'Volunteer ask sent to all adult leaders, each backup confirmed one on one. 3 named so far.', kind: 'pend', status: 'In progress' },
       { item: 'Every remaining gap written down, with an owner', evidence: 'Every open seat and every role without a backup says what is at risk and who is working to close it.', kind: 'done', status: 'Written' },
       { item: 'Review rotation set at adoption', evidence: 'In the same motion: one or two committee documents reviewed each year.', kind: 'sched', status: 'Oct 14' },
@@ -229,10 +229,10 @@ const goals: Goal[] = [
       t: `Process drafted by October 31, 2026. Reviewed with the treasurer and presented to the committee by November 30, 2026. Adopted by recorded committee vote and published to the member portal by February 28, 2027.`,
     },
     rows: [
-      { item: 'Written process: when budgeting happens and who owns each step', evidence: 'One to two pages: when budgeting happens each year, who supplies which numbers, how the program calendar drives expenses, how income is estimated, and how the committee approves.', kind: 'pend', status: 'Draft by Oct 31' },
+      { item: 'Written process: when budgeting happens and who owns each step', evidence: `The troop's Financial Controls policy, posted on troop3054.org, already requires an annual budget developed by the Executive Committee. Still to add: when budgeting happens each year, who supplies which numbers, how the program calendar drives expenses, how income is estimated, and how the committee approves.`, kind: 'pend', status: 'In progress', href: 'https://www.troop3054.org/docs/Financial-Controls-Troop-3054-2025.pdf' },
       { item: 'Adopted by recorded committee vote, in the minutes', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: 'Published to the portal with a named maintainer', evidence: 'The Treasurer maintains it.', kind: 'pend', status: 'After vote' },
-      { item: `Next year's budgeting dates on the committee calendar`, evidence: 'Added once the process is adopted.', kind: 'pend', status: 'After vote' },
+      { item: 'Published to the portal with a named maintainer', evidence: 'The Treasurer maintains it.', kind: 'sched', status: 'After vote' },
+      { item: `Next year's budgeting dates on the committee calendar`, evidence: 'Added once the process is adopted.', kind: 'sched', status: 'After vote' },
     ],
     milestones: {
       heading: 'The process, run once (not a pass condition)',
@@ -296,7 +296,17 @@ const goals: Goal[] = [
 
 const progress = (g: Goal) => {
   const done = g.rows.filter((r) => r.kind === 'done').length;
-  return { done, total: g.rows.length, pct: Math.round((done / g.rows.length) * 100) };
+  const pend = g.rows.filter((r) => r.kind === 'pend').length;
+  const miles = g.milestones?.rows ?? [];
+  return {
+    done,
+    pend,
+    total: g.rows.length,
+    pct: Math.round((done / g.rows.length) * 100),
+    pendPct: Math.round((pend / g.rows.length) * 100),
+    milesDone: miles.filter((r) => r.kind === 'done').length,
+    milesTotal: miles.length,
+  };
 };
 
 const smartParts = [
@@ -370,11 +380,12 @@ const meta = [
 
 // The road to the beads, shown in the hero. The ticket step counts itself from the goal rows.
 const ticketDone = goals.reduce((n, g) => n + progress(g).done, 0);
+const ticketPend = goals.reduce((n, g) => n + progress(g).pend, 0);
 const ticketTotal = goals.reduce((n, g) => n + progress(g).total, 0);
 const trail = [
   { label: 'Course weekends', when: 'Aug and Sept 2026', state: 'done' },
   { label: 'Ticket approved', when: 'Sept 19, 2026', state: 'done' },
-  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met`, state: 'now' },
+  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met, ${ticketPend} in progress`, state: 'now' },
   { label: 'Beads', when: 'By Mar 20, 2028', state: 'next' },
 ];
 ---
@@ -556,11 +567,12 @@ const trail = [
                     </span>
                     <span class="wb-card__title">{g.title}</span>
                     <span class="wb-card__due">Due {g.due}</span>
-                    <span class="wb-bar" role="img" aria-label={`${p.done} of ${p.total} pass conditions met`}>
+                    <span class="wb-bar" role="img" aria-label={`${p.done} of ${p.total} pass conditions met, ${p.pend} in progress`}>
                       <span style={`width:${p.pct}%`}></span>
+                      <span class="wb-bar__part" style={`width:${p.pendPct}%`}></span>
                     </span>
                     <span class="wb-card__count">
-                      <strong>{p.done} of {p.total} pass conditions met.</strong> {g.next}.
+                      <strong>{p.done} of {p.total} met{p.pend > 0 && `, ${p.pend} in progress`}.</strong>{p.milesTotal > 0 && ` ${p.milesDone} of ${p.milesTotal} milestones done.`} {g.next}.
                     </span>
                   </a>
                 );
@@ -611,7 +623,7 @@ const trail = [
                     {g.rows.map((r) => (
                       <tr>
                         <td>{r.item}</td>
-                        <td>{r.evidence}</td>
+                        <td>{r.evidence}{r.href && <> <a class="wb-ev-link" href={r.href} target="_blank" rel="noopener">View it</a></>}</td>
                         <td><span class={`wb-chip wb-chip--${r.kind}`}>{r.status}</span></td>
                       </tr>
                     ))}
@@ -1255,11 +1267,20 @@ const trail = [
     background: var(--wb-sched-bg);
     overflow: hidden;
   }
+  .wb-bar { display: flex; }
   .wb-bar span {
     display: block;
     height: 100%;
     background: var(--green);
-    border-radius: inherit;
+  }
+  .wb-bar .wb-bar__part {
+    background: repeating-linear-gradient(135deg, rgba(77, 155, 113, 0.5) 0 4px, rgba(77, 155, 113, 0.22) 4px 8px);
+  }
+  .wb-ev-link {
+    color: var(--ink);
+    font-weight: 600;
+    border-bottom: 1px solid var(--green);
+    white-space: nowrap;
   }
 
   /* Measurable box */
