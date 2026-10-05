@@ -143,18 +143,19 @@ const goals: Goal[] = [
       t: `Handoff agreed with the Scoutmaster by October 31, 2026. Procedure drafted and the senior patrol leader walked through it by December 31, 2026. PLC's post-meeting review running by February 28, 2027. Annual planning conference held, the procedure revised from the PLC's feedback, and both it and the calendar posted to the portal by May 31, 2027.`,
     },
     rows: [
-      { item: 'Annual program planning procedure written', evidence: `Built on Scouting America's annual planning conference materials, written from what the PLC actually does this fall. The SPL walks through it one on one before it reaches the PLC.`, kind: 'sched', status: 'By Dec 31' },
-      { item: `Revised from the PLC's own review`, evidence: `After the planning conference, the PLC reviews the procedure itself, and its changes go in before posting.`, kind: 'sched', status: 'Spring 2027' },
-      { item: 'Program-year calendar built by the PLC with it', evidence: `At the annual planning conference, run by the SPL. The PLC picks the activities and puts a Scout's name on each.`, kind: 'sched', status: 'Spring 2027' },
-      { item: 'Start time and location on every event', evidence: `The portal's Program page flags any event missing either one, so the check is built in. The current calendar has 12 left, the PLC's first calendar task.`, kind: 'pend', status: 'Check built' },
-      { item: 'Procedure and calendar posted to the portal', evidence: 'Both go up after the conference.', kind: 'sched', status: 'By May 31' },
+      { item: 'Planning procedure posted to the portal', evidence: `Built on Scouting America's annual planning conference materials and written from what the PLC actually does this fall. Draft due Dec 31.`, kind: 'sched', status: 'By May 31' },
+      { item: `Procedure revised from the PLC's own review`, evidence: 'The PLC reviews the procedure after using it, and its changes go in before posting.', kind: 'sched', status: 'Spring 2027' },
+      { item: `PLC's program-year calendar posted to the portal`, evidence: 'The calendar the PLC builds with the procedure.', kind: 'sched', status: 'By May 31' },
+      { item: 'Start time and location on every event', evidence: `The portal's Program page flags any event missing either one, so the check is built in.`, kind: 'pend', status: 'Check built' },
     ],
     milestones: {
       heading: 'Milestones (not pass conditions)',
       rows: [
         { item: 'Handoff agreed with the Scoutmaster', evidence: 'PLC meeting held; adults give feedback rather than plans. The committee moved from planning to supporting this program year, to be recorded in the Oct 14 minutes.', kind: 'done', status: 'Oct 2026' },
         { item: 'A place for the PLC to plan, in the portal', evidence: `A Plan card on every meeting and outing, built on Scouting America's troop meeting plan: each part of the meeting, duty patrol, the Scout who leads each part, uniform and what to bring.`, kind: 'done', status: 'Live Oct 5' },
+        { item: 'Procedure drafted; SPL walked through it one on one', evidence: 'Before it reaches the PLC.', kind: 'sched', status: 'By Dec 31' },
         { item: `PLC's post-meeting review running`, evidence: `A three-line review after each event: what worked, what didn't, what to change. Next step: a PLC training night, with Scout sign-ins set up first.`, kind: 'pend', status: 'By Feb 28' },
+        { item: 'Annual planning conference', evidence: `The SPL runs it; the PLC picks the activities and puts a Scout's name on each. The current calendar has 12 events still missing a time or place, the PLC's first calendar task.`, kind: 'sched', status: 'Spring 2027' },
       ],
     },
     stats: {
@@ -360,6 +361,7 @@ const nextCycle = [
 
 const meta = [
   ['Course', 'Twin Rivers Council Wood Badge 2026'],
+  ['Course number', '10-364-26'],
   ['Patrol', 'Buffalo'],
   ['Ticket approved', 'Sept 19, 2026'],
   ['Completion deadline', 'Mar 20, 2028'],
@@ -438,18 +440,56 @@ const trail = [
       </div>
     </section>
 
+    {/* What Wood Badge is: stands on its own for readers outside Scouting. */}
+    <section id="about-wood-badge" class="wb-about" aria-labelledby="about-wb-title">
+      <div class="wrap wb-about__grid">
+        <div class="wb-about__text">
+          <p class="wb-label">New to Wood Badge? &middot; Since 1919</p>
+          <h2 id="about-wb-title" class="wb-h2">What Wood Badge is</h2>
+          <p>
+            Wood Badge is Scouting's advanced leadership course for adult
+            volunteers. It began with the first course at Gilwell Park,
+            England, in September 1919, and Scouting associations around the
+            world have run it ever since.
+          </p>
+          <p>
+            The course is only the start. Each participant writes a ticket: a
+            short set of personal goals, reviewed and approved by course staff,
+            that puts what the course teaches to work back home. There are 18
+            months to finish it. My course ran over two weekends at Camp
+            Wakpominee, and this page is my ticket.
+          </p>
+          <p>
+            Finishing the ticket earns the Wood Badge itself: two wooden beads
+            on a leather thong, worn with the Gilwell neckerchief and its
+            MacLaren tartan patch, and a leather woggle.
+          </p>
+          <p class="wb-about__skip">
+            <a href="#status">Already a Wood Badger? Skip to where each goal stands <span aria-hidden="true">&#8594;</span></a>
+          </p>
+        </div>
+        <div>
+          <div class="wb-about__photos">
+            <Image class="wb-about__print wb-about__print--main" src={gilwell1919} alt="The first Wood Badge course, seated and standing around a campfire, Gilwell Park, 1919" widths={[480, 700]} sizes="(max-width: 860px) 90vw, 480px" loading="lazy" />
+            <Image class="wb-about__print wb-about__print--inset" src={regalia} alt="Wood Badge beads and woggle on a tan Gilwell neckerchief with its tartan patch" widths={[320, 641]} sizes="(max-width: 860px) 50vw, 280px" loading="lazy" />
+          </div>
+          <p class="wb-about__caption"><strong>Gilwell Park, September 1919:</strong> the first Wood Badge course. <strong>Inset:</strong> what the ticket earns, the beads, Gilwell neckerchief and woggle.</p>
+        </div>
+      </div>
+    </section>
+
     <div class="wb">
       <div class="wrap wb__layout">
         <nav class="wb-toc" aria-label="On this page">
           <p class="wb-toc__label">On this page</p>
           <ol>
+            <li><a href="#about-wood-badge">What Wood Badge is</a></li>
             <li><a href="#vision">Vision</a></li>
             <li><a href="#status">Where things stand</a></li>
             {goals.map((g) => (
               <li><a href={`#${g.id}`}><span class="wb-toc__n">{g.n}</span>{g.short}</a></li>
             ))}
             <li><a href="#systems">Systems built</a></li>
-            <li><a href="#tradition">The tradition</a></li>
             <li><a href="#shaped">How the ticket was shaped</a></li>
             <li><a href="#next-year">Who runs it next year</a></li>
             <li><a href="#on-request">Available on request</a></li>
@@ -736,32 +776,6 @@ const trail = [
               screenshots rather than through reviewer accounts. A live
               walkthrough is <a href="#on-request">available on request</a>.
             </p>
-          </section>
-
-          {/* The tradition */}
-          <section id="tradition" class="wb-sec">
-            <div class="wb-head">
-              <p class="wb-label">Since 1919</p>
-              <h2 class="wb-h2">The tradition</h2>
-            </div>
-            <p class="wb-lede">
-              Wood Badge is Scouting's advanced leadership course for adult
-              volunteers. The first course ran at Gilwell Park, England, in
-              September 1919. Every participant finishes the same way: by
-              working a ticket of written goals back home, within 18 months.
-              Completing it earns the two wooden beads on a leather thong, the
-              Gilwell neckerchief with its MacLaren tartan patch, and the woggle.
-            </p>
-            <div class="wb-tradition">
-              <figure>
-                <Image src={gilwell1919} alt="The first Wood Badge course, seated and standing around a campfire, Gilwell Park, 1919" widths={[480, 700]} sizes="(max-width: 720px) 100vw, 420px" loading="lazy" />
-                <figcaption><strong>Gilwell Park, September 1919.</strong> The first Wood Badge course.</figcaption>
-              </figure>
-              <figure>
-                <Image src={regalia} alt="Wood Badge beads and woggle on a tan Gilwell neckerchief with its tartan patch" widths={[480, 641]} sizes="(max-width: 720px) 100vw, 420px" loading="lazy" />
-                <figcaption><strong>What the ticket earns.</strong> The beads, the Gilwell neckerchief and the woggle.</figcaption>
-              </figure>
-            </div>
           </section>
 
           {/* How the ticket was shaped */}
@@ -1506,27 +1520,80 @@ const trail = [
     gap: 0 2rem;
   }
 
-  /* Tradition */
-  .wb-tradition {
+  /* What Wood Badge is: a neckerchief-tan band that reads on its own */
+  .wb-about {
+    position: relative;
+    background: #efe6d2;
+    border-bottom: 1px solid var(--line);
+    padding-block: clamp(2.6rem, 1.8rem + 3vw, 4.2rem);
+  }
+  .wb-about::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: var(--wb-tartan);
+  }
+  .wb-about__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-    gap: 1.2rem;
-    margin-top: 1.4rem;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(1.8rem, 4vw, 3.5rem);
+    align-items: center;
   }
-  .wb-tradition :global(img) {
-    width: 100%;
+  .wb-about .wb-label { color: #7a5a1e; }
+  .wb-about__text .wb-h2 { margin-bottom: 1rem; }
+  .wb-about__text p:not(.wb-label) {
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.15rem);
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 58ch;
+  }
+  .wb-about__text p + p { margin-top: 0.9rem; }
+  .wb-about__text .wb-about__skip {
+    font-family: var(--font-sans) !important;
+    font-size: 0.92rem !important;
+    margin-top: 1.4rem !important;
+  }
+  .wb-about__skip a {
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom: 1px solid var(--green);
+    padding-bottom: 2px;
+  }
+  .wb-about__photos {
+    position: relative;
+    padding: 0 0 22% 0;
+  }
+  .wb-about__photos :global(.wb-about__print) {
+    display: block;
     height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
+    border: 6px solid #fff;
+    border-radius: 4px;
+    box-shadow: 0 14px 30px -16px rgba(16, 36, 26, 0.6);
   }
-  .wb-tradition figcaption {
-    font-size: 0.85rem;
-    color: var(--text-soft);
-    margin-top: 0.5rem;
+  .wb-about__photos :global(.wb-about__print--main) {
+    width: 86%;
+    transform: rotate(-1.5deg);
   }
-  .wb-tradition figcaption strong { color: var(--ink); font-weight: 600; }
+  .wb-about__photos :global(.wb-about__print--inset) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    transform: rotate(2.5deg);
+  }
+  .wb-about__caption {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #5a5040;
+    margin-top: 1rem;
+    max-width: 52ch;
+  }
+  .wb-about__caption strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 860px) {
+    .wb-about__grid { grid-template-columns: minmax(0, 1fr); }
+  }
   .wb-credits { font-size: 0.78rem; }
 
   /* Timeline */
