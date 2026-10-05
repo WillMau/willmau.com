@@ -1,0 +1,1319 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+import recruitingHow from '../images/woodbadge/portal-recruiting-how.jpg';
+import recruitingYear from '../images/woodbadge/portal-recruiting.jpg';
+import newScoutNight from '../images/woodbadge/kit-adventureon.jpg';
+import openHouseSign from '../images/woodbadge/kit-openhouse.jpg';
+import packJoin from '../images/woodbadge/pack-join.jpg';
+import packCrossover from '../images/woodbadge/pack-troop-crossover.jpg';
+import portalProgram from '../images/woodbadge/portal-program.jpg';
+import portalPlan from '../images/woodbadge/portal-plan.jpg';
+import troopCalendar from '../images/woodbadge/troop-calendar-list.jpg';
+import troopInvolved from '../images/woodbadge/troop-involved-positions.jpg';
+import councilBoard from '../images/woodbadge/council-trained-board.jpg';
+import troopHome from '../images/woodbadge/troop-home.jpg';
+import troopGovernance from '../images/woodbadge/troop-governance.jpg';
+import packCalendar from '../images/woodbadge/pack-calendar.jpg';
+import packMobile from '../images/woodbadge/pack-home-mobile.jpg';
+
+/*
+  Every status on this page is a snapshot. When the work moves, update asOf
+  and the rows; the status cards count themselves from the rows.
+  Kept off this page on purpose: volunteer and family names, the troop's
+  bank details, and reviewer names and contact information.
+*/
+const asOf = 'Oct 5, 2026';
+
+type Kind = 'done' | 'pend' | 'sched';
+interface Row { item: string; evidence: string; kind: Kind; status: string }
+interface Stat { value: string; label: string }
+interface Point { lead?: string; text: string }
+interface Shot { img: ImageMetadata; alt: string; title: string; text: string; tall?: boolean; whole?: boolean }
+interface Note { who: string; said: string; answer: string }
+interface Goal {
+  id: string;
+  n: number;
+  title: string;
+  short: string;
+  due: string;
+  badge: { kind: Kind; label: string };
+  next: string;
+  summary: string;
+  smart: { s: string; m: string; a: string; r: string; t: string };
+  rows: Row[];
+  stats?: { heading: string; items: Stat[]; after?: string };
+  points?: { heading: string; items: Point[] };
+  shots?: Shot[];
+  onRequest?: string;
+  notes: Note[];
+  aside?: string;
+}
+
+const goals: Goal[] = [
+  {
+    id: 'recruiting',
+    n: 1,
+    title: 'Joint troop and pack recruiting process',
+    short: 'Recruiting',
+    due: 'Apr 30, 2027',
+    badge: { kind: 'pend', label: 'Awaiting approvals' },
+    next: 'Committee and pack Key 3 approvals next',
+    summary: `Document a repeatable annual recruiting process run jointly by Troop 3054 and Pack 3054, and post it on the recruiting page of the troop portal.`,
+    smart: {
+      s: `I will write a repeatable annual recruiting process for the troop and the pack and publish it on the recruiting page of the Troop 3054 portal. It points every family into Scouting America's official join path, both units' BeAScout pins and Invitation Manager, and covers the fall sign-up, peer invitation our Scouts run themselves, and the crossover handoff from Arrow of Light into the troop. Constraint: no page of ours sits in the registration path or stores a lead, so nothing here leaves the units a tool to maintain.`,
+      m: `This goal is complete when a repeatable annual recruiting process is documented and posted on the recruiting page of the Troop 3054 portal, with a named maintainer and an annual review date. Because it is a joint troop and pack plan, that requires it to be drafted and approved by the troop committee and by the pack's key three. Running the fall sign-up and one crossover-season event is how the process gets tested before it is posted.`,
+      a: `Configuring the BeAScout pins and Invitation Manager is setup work inside my.scouting that I can do myself, and the writing is mine. Roadblocks: the pack has its own leadership and calendar and runs on its key three rather than a committee, and pack recruiting pays the troop back at crossover rather than this year. Mitigation is the Pack Minute already standing on our committee agenda as where this gets worked monthly, one named owner per unit, and getting the pack's approval in writing early rather than at the end.`,
+      r: `A coordinated recruiting effort grows the pack and the troop together, and that protects the youth experience: more Scouts means more patrols, more real leadership jobs, and a program that can run. Membership is committee work and it decides whether either unit exists in ten years. In a district this size the pack is the troop's recruiting engine, so a troop-only plan is a plan to shrink slowly.`,
+      t: `Process drafted by October 31, 2026. Both units' BeAScout pins verified and Invitation Manager in use by November 30, 2026. Fall sign-up run by December 31, 2026. Approved by the troop committee and the pack's key three by January 31, 2027. Crossover-season event run and the process posted to the portal's recruiting page by April 30, 2027.`,
+    },
+    rows: [
+      { item: 'Process documented', evidence: `"Pack-to-Troop Recruiting Cycle": the path from Lion to First Class, ground rules, the year month by month, who does what, the numbers to keep, and lessons from this fall.`, kind: 'done', status: 'Done Oct 2026' },
+      { item: `Posted on the portal's recruiting page`, evidence: `my.troop3054.org Recruiting page with four tabs: This year, Posts, How it works, Brand. Marked "Draft for review" until both units approve.`, kind: 'done', status: 'Posted as draft' },
+      { item: 'Annual review date', evidence: `Reviewed every May by each unit's Key 3 and the troop committee.`, kind: 'done', status: 'Set' },
+      { item: 'Named maintainer', evidence: 'Named at adoption.', kind: 'pend', status: 'At vote' },
+      { item: 'Troop committee approval', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
+      { item: 'Pack Key 3 approval, in writing', evidence: `Requested early, per the ticket's own mitigation. Covers the pack website too.`, kind: 'pend', status: 'Requested' },
+      { item: 'Tested by the fall sign-up', evidence: `Open house tables, a joint New Scout Night on Sept 21, a 24-post campaign, a welcome email to 49 families, and follow-up on open inquiries. Fall sign-up closes Dec 31.`, kind: 'done', status: 'Ran fall 2026' },
+      { item: 'Tested by a crossover-season event', evidence: `Arrow of Light crossover at Blue & Gold, with troop Scouts running the bridge.`, kind: 'sched', status: 'Mar 15, 2027' },
+    ],
+    stats: {
+      heading: 'What ran this fall',
+      items: [
+        { value: '31', label: 'Cubs registered in the pack (Oct 4)' },
+        { value: '16', label: 'Families who started an application or asked' },
+        { value: '8', label: 'Arrow of Light Scouts, the next crossover class' },
+        { value: '8 → 5', label: 'New troop Scouts this year, still active in October' },
+      ],
+    },
+    points: {
+      heading: 'What the fall taught us, now written into the process',
+      items: [
+        { text: 'The meeting time and place belong on everything. A parent who has to ask has already started looking for a reason not to come.' },
+        { text: 'Seven applications sat at "Initiated" in my.Scouting, each on a countdown. Check Application Manager weekly in the fall.' },
+        { text: 'Answer every inquiry within 24 hours. Three inquiries from August and September were still marked "Opened" in October.' },
+        { text: 'At the Harvest Festival, troop Scouts taught at almost every station. That is the strongest recruiting picture either unit has.' },
+        { lead: 'National tools, not ours.', text: `Both units' BeAScout pins are set with online applications on, and Invitation Manager is in use, ahead of the Nov 30 milestone. troop3054.org/cubs and pack3054.org/join only forward to the pack's official my.Scouting application; no page of ours keeps a lead (checked Oct 5).` },
+      ],
+    },
+    shots: [
+      { img: recruitingHow, alt: 'Portal Recruiting page, How it works tab', title: 'The process in the portal.', text: 'Draft until both units vote.', tall: true },
+      { img: recruitingYear, alt: 'Portal Recruiting page, This year tab', title: `This year's details.`, text: 'Set once; every post fills them in.', tall: true },
+      { img: newScoutNight, alt: 'AdventureOn New Scout Night flyer for Sept 21', title: 'Joint New Scout Night,', text: 'Sept 21.', tall: true, whole: true },
+      { img: openHouseSign, alt: 'Open house sign with a QR code to join Cub Scouts', title: 'Open house sign.', text: 'The QR code goes straight to the official application.', tall: true },
+      { img: packJoin, alt: 'pack3054.org join page', title: 'pack3054.org/join.', text: 'Three steps, ending in the official application.' },
+      { img: packCrossover, alt: 'pack3054.org page pointing Arrow of Light families to Troop 3054', title: 'The handoff, in public.', text: 'The pack site points Arrow of Light families to the troop.' },
+    ],
+    notes: [
+      { who: 'Ticket counselor, Sept 2', said: 'Use national tools: the BeAScout pin is the join form, and applicants land in Invitation Manager. Invitation Manager is per unit, so use two unit lists and an agreed sharing rhythm.', answer: 'Done: both pins set, Invitation Manager in use, and one named owner in each unit who backs up the other (the pack and troop New Member Coordinators).' },
+      { who: 'Ticket counselor, Sept 2', said: 'Knowledge management: where it lives, who edits, who maintains, what review cadence.', answer: `It lives on the portal's Recruiting page. The Webmaster, Committee Chair, Scoutmaster and New Member Coordinator can edit; other leaders can read and copy. It is reviewed every May.` },
+    ],
+  },
+  {
+    id: 'planning',
+    n: 2,
+    title: 'Annual program planning procedure',
+    short: 'Program planning',
+    due: 'May 31, 2027',
+    badge: { kind: 'pend', label: 'Handoff underway' },
+    next: 'PLC training night and written procedure next',
+    summary: `Document an annual program planning procedure for the Patrol Leaders' Council, and prove it works with a Scout-built program year calendar posted to the troop portal.`,
+    smart: {
+      s: `I will write a short annual program planning procedure based on Scouting America's annual planning conference materials rather than something I invent, and coach the senior patrol leader through it one on one before it reaches the PLC. The Scoutmaster and I prepare, the senior patrol leader runs the conference, and the PLC picks the activities and puts a Scout's name on each. The PLC reviews each meeting it planned right after that meeting, so the procedure gets tested every few weeks rather than once a year. Constraint: youth-led does not mean unstructured, and the calendar the Scouts produce is a plan, not a contract.`,
+      m: `This goal is complete when two things are posted to the Troop 3054 portal: the annual program planning procedure, revised from the PLC's own review of it, and the program year calendar the PLC produces at the annual planning conference using it, with a start time and a location on every event. Changes the Scouts make to that calendar afterward do not undo completion.`,
+      a: `Writing the procedure is mine. Running the conference is theirs, which is the point. Roadblocks: adults filling silences out of habit, and a PLC that has not planned at this level before. Mitigation is agreeing with the Scoutmaster in advance on exactly what the committee stops doing, walking the senior patrol leader through the procedure beforehand rather than correcting him during the conference, and keeping the ask to a calendar rather than a fully worked plan for every event.`,
+      r: `The committee had been doing the Scouts' planning for them, which is the patrol method backwards. A troop where the Scouts build the year gets a program they chose and a dozen of them get real practice at planning something and being held to it. This is the change I asked the committee to make for this program year, and it is worth nothing if it depends on me being in the room.`,
+      t: `Handoff agreed with the Scoutmaster by October 31, 2026. Procedure drafted and the senior patrol leader walked through it by December 31, 2026. PLC's post-meeting review running by February 28, 2027. Annual planning conference held, the procedure revised from the PLC's feedback, and both it and the calendar posted to the portal by May 31, 2027.`,
+    },
+    rows: [
+      { item: 'Handoff agreed with the Scoutmaster', evidence: 'PLC meeting held; adults give feedback rather than plans. The committee moved from planning to supporting this program year, to be recorded in the Oct 14 minutes.', kind: 'done', status: 'Oct 2026' },
+      { item: 'A place for the PLC to plan, in the portal', evidence: `A Plan card on every meeting and outing, built on Scouting America's troop meeting plan: each part of the meeting, duty patrol, the Scout who leads each part, uniform and what to bring. Uniform and what to bring show on the public calendar.`, kind: 'done', status: 'Live Oct 5' },
+      { item: 'Procedure drafted; SPL walked through it one on one', evidence: 'Written from what the PLC actually does this fall.', kind: 'sched', status: 'By Dec 31' },
+      { item: `PLC's post-meeting review running`, evidence: `A three-line review after each event: what worked, what didn't, what to change. The Program page lists reviews still waiting. Next step: a PLC training night, with Scout sign-ins set up first.`, kind: 'pend', status: 'By Feb 28' },
+      { item: 'Start time and location on every event', evidence: `Events missing a time or place went from 25 to 12 on Oct 5. The remaining 12 are the PLC's first calendar task.`, kind: 'pend', status: '12 left' },
+      { item: 'Planning conference; procedure and calendar posted', evidence: `The SPL runs the conference; the PLC picks the activities and puts a Scout's name on each.`, kind: 'sched', status: 'Spring 2027' },
+    ],
+    stats: {
+      heading: 'What the planning record shows today',
+      items: [
+        { value: '1 of 4', label: 'Next meetings planned (Oct 5)' },
+        { value: '25 → 12', label: 'Events missing a time or place' },
+        { value: '3', label: 'Events the PLC added: Trunk-or-Treat, Trail of Treats, Pyramid Lake campout' },
+      ],
+      after: 'The first meeting plan (Oct 5, Trailer Cleanout, Class B) was entered by the Committee Chair as the model. From the training night on, plans are written by the SPL, ASPL, patrol leaders, Troop Guide, Scribe and Quartermaster.',
+    },
+    shots: [
+      { img: portalProgram, alt: 'Portal Program page', title: 'Program page.', text: `The PLC's planning dashboard: the next eight weeks, reviews waiting, events missing a time or place.`, tall: true },
+      { img: portalPlan, alt: 'Meeting Plan card with times for each part', title: 'Plan card.', text: `Scouting America's meeting parts, with times.`, tall: true },
+      { img: troopCalendar, alt: 'troop3054.org public calendar, list view', title: 'Public calendar.', text: 'Time and place on each event, fed live from the portal.' },
+    ],
+    notes: [
+      { who: 'Course director, Sept 14', said: 'For Goal 2, do you plan a feedback cycle with the PLC to iterate and refine the plan and build alignment?', answer: 'Yes, built into the rhythm: the PLC reviews each meeting right after it happens, so the loop runs every few weeks instead of once a year. The review lives on the same Plan card, and the Program page shows any review still waiting. After the annual conference, the PLC reviews the procedure itself before it is posted.' },
+      { who: 'Ticket counselor, Sept 2', said: `Don't over-delegate to youth. If you leave too much up to the kids they will default to less than is actually required for success.`, answer: `The plan template is Scouting America's, not a blank page: every meeting has the same parts, a time for each, and a Scout's name on each part.` },
+    ],
+  },
+  {
+    id: 'roles',
+    n: 3,
+    title: 'Adult roles and responsibilities matrix',
+    short: 'Roles matrix',
+    due: 'Jan 31, 2027',
+    badge: { kind: 'pend', label: 'Vote pending' },
+    next: 'Backups confirmed and committee vote next',
+    summary: 'Build a matrix of adult roles and responsibilities with named holders and backups, so the troop keeps operating through leadership changes and no single adult holds a job nobody else can do.',
+    smart: {
+      s: `I will document every key troop role and every shared responsibility that currently lives with one person: committee positions, social media administration, website and domain access, communications, bank account authorization and custody of key files. I will start from Scouting America's published position descriptions rather than my own wording, and confirm each entry one on one with the person holding it before it goes anywhere. Backups are asked individually rather than volunteered into in a meeting. Constraint: no passwords or credentials, only who holds access and how it transfers.`,
+      m: `This goal is complete when the roles and responsibilities matrix is posted to the Troop 3054 portal with a named maintainer and adopted by recorded committee vote. Every role and every shared responsibility the committee identifies as single-point carries a named holder, a named backup wherever one has been found, and any remaining gap written down with someone owning the job of closing it. Adoption also sets the review rotation, one or two committee documents a year rather than all of them at once.`,
+      a: `This is an inventory and a set of conversations, both within my reach as chair, and putting it to a vote is my own agenda, and the committee already votes on items using an abridged Robert's Rules, so adoption is an established practice rather than something new. Roadblocks: people are reluctant to be named as a backup, and some access is held by volunteers who have drifted away. Mitigation is the three-tier volunteer model, where backup is a small defined job rather than an open commitment.`,
+      r: `The troop currently depends on a handful of adults and I am one of them. A troop that cannot survive my leaving is not a troop I have actually served, and every week lost to an adult handoff going badly is a week of program the Scouts do not get back.`,
+      t: `Matrix drafted by November 30, 2026. Backups identified and confirmed by December 31, 2026. Adopted by recorded committee vote and published to the portal, with the review rotation set, by January 31, 2027.`,
+    },
+    rows: [
+      { item: 'Matrix built, posted to the portal', evidence: `Roles & backups in the portal is the only place people get put on jobs. It feeds the public Get Involved page, so the website can't drift from the record.`, kind: 'done', status: 'Posted as draft' },
+      { item: 'Every role has a named holder', evidence: `Built from Scouting America's official position list. As of Oct 4, 9 of 10 committee and Key 3 roles are held; Secretary is open.`, kind: 'done', status: '9 of 10' },
+      { item: 'Shared single-point responsibilities listed', evidence: 'Website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.', kind: 'done', status: 'Listed' },
+      { item: 'Remaining gaps written down, with an owner', evidence: 'Every open seat reads "covered by the Committee Chair until someone takes it," with the gap described. Every role without a backup says what is at risk and who is working to close it.', kind: 'done', status: 'Written' },
+      { item: 'Backups confirmed one on one', evidence: 'Volunteer ask sent to all adult leaders, with more than one backup welcome per role. 3 backups named so far.', kind: 'pend', status: 'By Dec 31' },
+      { item: 'Adopted by recorded committee vote, with maintainer', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
+      { item: 'Review rotation set', evidence: 'Set in the same motion: one or two committee documents reviewed each year.', kind: 'sched', status: 'Oct 14' },
+    ],
+    shots: [
+      { img: troopInvolved, alt: 'troop3054.org Get Involved page, adult positions', title: 'Get Involved page.', text: 'Every position and where help is needed, pulled live from the portal.' },
+      { img: councilBoard, alt: 'Twin Rivers Council 100% Trained Unit Board', title: '100% trained, both units.', text: 'Council board, Sept 2026. Pack 3054 and Troop 3054 are listed under Mohawk 03.' },
+    ],
+    onRequest: `The one-page positions summary and the portal's roles matrix name individual volunteers, so they are not shown here. Both are available on request.`,
+    notes: [
+      { who: 'Course director, Sept 14', said: 'Is there a plan to ensure alignment of the position descriptions before releasing it to the leaders?', answer: `Yes. Nobody is described in writing without seeing their own entry first. The descriptions start from Scouting America's published duties, so each conversation is "does this match what you actually do." Backups are asked individually, not volunteered into in a meeting, and the committee votes before anything is published.` },
+    ],
+    aside: `Two hats come off the Committee Chair when Training Coordinator is handed off: Youth Protection compliance sits with that role in Scouting America's duty list.`,
+  },
+  {
+    id: 'budget',
+    n: 4,
+    title: 'Annual budget process',
+    short: 'Budget process',
+    due: 'Feb 28, 2027',
+    badge: { kind: 'pend', label: 'Vote pending' },
+    next: 'Written process and committee vote next',
+    summary: `Establish a written annual budget process the committee owns and works from the troop's program calendar.`,
+    smart: {
+      s: `I will write the troop's annual budgeting process and bring it to the committee for adoption. The process sets when budgeting happens in the year, who supplies which numbers, how the program calendar drives the expense side, how income is estimated, and how the committee approves the result. Constraint: the treasurer's bookkeeping works and is not being replaced, and this goal is the process rather than any one year's numbers, so completing it does not wait on anyone else's schedule.`,
+      m: `Done when a one to two page written budgeting process exists naming when budgeting happens each year and who owns each step, the committee has adopted it by recorded vote in the minutes, and it is published to the portal with a named maintainer and next year's budgeting dates on the committee calendar. Building an actual budget from it is the obvious next step and I intend to do it, but it is not the pass condition here.`,
+      a: `Writing the process and putting it on a committee agenda are both entirely within my control as chair, which is the point of scoping the goal this way rather than around a budget that needs someone else's numbers on my timeline. Roadblocks: incomplete history to describe the estimating step, and a committee unused to voting on financial documents. This goal does not wait on goal 2: the process describes how a program calendar feeds a budget, and the troop has a calendar today. The two documents will co-evolve. Mitigation is writing the process from last year's actuals rather than from theory, and pairing the vote with the policy review already scheduled this fall.`,
+      r: `A fiscally strong troop is a troop that is ready to support the annual plan. Anything less puts the youth experience at risk and places undue financial burden on families. In the model I asked this committee to adopt, our job is money, logistics and paperwork, and money is first on that list.`,
+      t: `Process drafted by October 31, 2026. Reviewed with the treasurer and presented to the committee by November 30, 2026. Adopted by recorded committee vote and published to the member portal by February 28, 2027.`,
+    },
+    rows: [
+      { item: 'The process, run once', evidence: `The first annual budget was built in October from the Treasurer's statement: the program calendar sets the expense side, each line has an owner, the Treasurer reconciled every check, and the committee votes. Built before the process document, so the document describes what actually happened.`, kind: 'done', status: 'Oct 2026' },
+      { item: 'Actuals reconciled with the Treasurer', evidence: 'Every unclear check explained by the Treasurer on Oct 5. One small deposit is still unidentified and is recorded that way.', kind: 'done', status: 'Oct 5' },
+      { item: 'One to two page written process', evidence: 'When budgeting happens, who supplies which numbers, how the calendar drives expenses, how the committee approves.', kind: 'pend', status: 'Draft by Oct 31' },
+      { item: 'Adopted by recorded vote', evidence: 'The process on Oct 14; the budget itself on Nov 18 with the Treasurer present.', kind: 'sched', status: 'Oct 14 / Nov 18' },
+      { item: `Published with maintainer and next year's dates`, evidence: `The Treasurer maintains it; next year's dates go on the committee calendar.`, kind: 'pend', status: 'After vote' },
+    ],
+    stats: {
+      heading: 'What the first run showed',
+      items: [
+        { value: '$480', label: 'A year of troop costs: charter, ranks, merit badges, domain' },
+        { value: '$100', label: 'A year of troop income, from donations' },
+        { value: '~10 yrs', label: 'How long current reserves last with no new income' },
+      ],
+      after: `Popcorn commission goes to Scout accounts, not the troop, and families pay outing fees directly. Writing it down turned "we don't really have a budget" into a clear picture the committee can decide on: whether to set a small flat dues amount, and how much reserve to keep.`,
+    },
+    onRequest: 'The line-by-line 2026-27 budget, with the Treasurer\'s actuals beside each estimate, is available on request.',
+    notes: [
+      { who: 'Ticket counselor, Sept 2', said: 'Goal 4 put the Treasurer in the kill chain. No goal should have another person in it.', answer: `The goal was narrowed to the process only. The budget was still built, as the ticket intended, but completion never waited on anyone else's numbers.` },
+    ],
+    aside: 'Bonus: Twin Rivers Council adds 3% to the popcorn commission for units that submit an annual budget, calendar, succession plan and membership plan. Goals 1 through 4 produce all four, and the commission goes to Scout accounts.',
+  },
+  {
+    id: 'foundations',
+    n: 5,
+    title: 'Foundations Weekend, coached and documented',
+    short: 'Foundations Weekend',
+    due: 'Dec 31, 2026',
+    badge: { kind: 'sched', label: 'Nov 20-22' },
+    next: 'Advancement gap list due Oct 16',
+    summary: 'Coach the PLC through the first Troop 3054 Foundations Weekend and document the planning process so future years can repeat it without me.',
+    smart: {
+      s: `I will coach the PLC through developing the first Troop 3054 Foundations Weekend, a Scout-led campout where older Scouts teach the Scout through First Class requirements the attending Scouts still need, picked from our advancement records, and I will document the planning process for future years. Each Scout instructor chooses which requirement to teach rather than being handed one, and we walk through Teaching EDGE at a PLC meeting beforehand. The weekend is the November 20-22, 2026 troop trip to Camp Wakpominee. Constraint: it is Scout-taught. Adults supervise, drive and cook.`,
+      m: `This goal is complete when four things are done: the weekend is held, the PLC completes an after-action review, the planning procedure is posted to the Troop 3054 portal, and a placeholder for next year's Foundations Weekend is on the calendar.`,
+      a: `Working with the senior patrol leader, the assistant senior patrol leader and the Scoutmaster, I have the skills to teach the troop leadership team to run this kind of event and to document the process. The concept has been talked about and the weekend is already on the calendar. Roadblock: I do not yet have individual commitments from the Scouts who would instruct. Mitigation is that Life requirement 6 is teaching another Scout with Teaching EDGE from the Tenderfoot through First Class list, so for our Star Scouts this weekend is their own advancement, and each instructor gets a coaching session with a merit badge counselor beforehand.`,
+      r: `Reaching First Class in the first year is the strongest predictor of a Scout staying. This gives newer Scouts a concentrated path to it and gives older Scouts a real leadership assignment instead of a title, which serves both ends of the roster in the same weekend.`,
+      t: `Concept presented to the PLC and the site reservation confirmed by September 30, 2026. Advancement gap list built by October 16, 2026. Program schedule and Scout instructor assignments complete by October 30, 2026. Weekend held November 20-22, 2026. After-action review done, planning procedure posted to the portal and next year's placeholder on the calendar by December 31, 2026.`,
+    },
+    rows: [
+      { item: 'Concept to the PLC; weekend on the calendar', evidence: 'Troop trip to Camp Wakpominee, Nov 20-22, on the live calendar.', kind: 'done', status: 'Done' },
+      { item: 'Advancement gap list', evidence: 'The Scout through First Class requirements each attending Scout still needs, from advancement records.', kind: 'pend', status: 'Oct 16' },
+      { item: 'Program schedule and Scout instructors', evidence: 'Each instructor picks the requirement they teach; Teaching EDGE walk-through at a PLC meeting.', kind: 'pend', status: 'Oct 30' },
+      { item: 'Weekend held', evidence: 'Scout-taught; adults supervise, drive and cook.', kind: 'sched', status: 'Nov 20-22' },
+      { item: 'PLC after-action review', evidence: 'Added after the weekend.', kind: 'sched', status: 'By Dec 31' },
+      { item: `Planning procedure posted; next year's placeholder`, evidence: 'Added after the weekend.', kind: 'sched', status: 'By Dec 31' },
+    ],
+    notes: [
+      { who: 'Course director, Sept 14', said: 'What do you need to do to ensure that the older Scouts are prepared? Are you comfortable you will get their support?', answer: 'Three things: Scouts pick their requirement from the gap list rather than being handed one, each instructor gets a coaching session with a merit badge counselor beforehand, and the PLC walks through Teaching EDGE first. For Star Scouts, teaching a Tenderfoot through First Class skill with Teaching EDGE is Life requirement 6, so the weekend is their own advancement too.' },
+    ],
+    aside: 'This section fills in after the weekend: the schedule, instructor list, after-action review and photos, with no Scout faces shown.',
+  },
+];
+
+const progress = (g: Goal) => {
+  const done = g.rows.filter((r) => r.kind === 'done').length;
+  return { done, total: g.rows.length, pct: Math.round((done / g.rows.length) * 100) };
+};
+
+const smartParts = [
+  ['s', 'Specific'],
+  ['m', 'Measurable'],
+  ['a', 'Attainable'],
+  ['r', 'Relevant'],
+  ['t', 'Timely'],
+] as const;
+
+// Pack numbers by rank, council roster Oct 4 plus families in progress.
+const scoutPath = [
+  ['Lion', '1'],
+  ['Tiger', '3 + 3'],
+  ['Wolf', '4 + 1'],
+  ['Bear', '7 + 3'],
+  ['Webelos', '8 + 1'],
+  ['AOL', '8'],
+];
+
+const comingUp: Row[] = [
+  { item: 'Oct 14 committee meeting', evidence: 'Votes on the budget process, the roles matrix with its review rotation, and the recruiting process (troop side). Minutes record that program planning belongs to the PLC.', kind: 'sched', status: 'Scheduled' },
+  { item: 'October', evidence: 'Pack Key 3 written approval of the joint recruiting process and the pack website.', kind: 'pend', status: 'Requested' },
+  { item: 'Nov 18 committee meeting', evidence: 'Vote on the 2026-27 budget with the Treasurer present.', kind: 'sched', status: 'Scheduled' },
+  { item: 'Nov 20-22', evidence: 'Foundations Weekend at Camp Wakpominee.', kind: 'sched', status: 'Scheduled' },
+];
+
+const systemsShots: Shot[] = [
+  { img: troopHome, alt: 'troop3054.org home page', title: 'troop3054.org.', text: `The troop's front door.` },
+  { img: troopGovernance, alt: 'troop3054.org Committee and Governance page', title: 'Governance page.', text: 'Open meetings, published agendas and minutes.' },
+  { img: packCalendar, alt: 'pack3054.org calendar', title: 'Pack calendar.', text: 'Subscribe on a phone, filter by den, or show troop events alongside.' },
+  { img: packMobile, alt: 'pack3054.org on a phone', title: 'On a phone.', text: 'Both sites are built for the phone first.', tall: true },
+];
+
+const timeline = [
+  ['Aug 28-30', 'Wood Badge Weekend 1, Camp Wakpominee.'],
+  ['Aug 31', 'First ticket draft to my ticket counselor: five goals, all pointed at a troop that keeps running without depending on any one adult.'],
+  ['Sept 2 · First review', `"The ticket is the acorn, not the whole tree." No goal should have another person in its kill chain. Use national tools. Name where each document lives, who maintains it and when it is reviewed. Don't over-delegate to youth. Goal 4 narrowed to the process only.`],
+  ['Sept 9 · Second review', '"The scoping of this ticket is on point. Ambitious, but not killing yourself." Every measurable became one sentence a cold reader can check; Goal 2 restored its procedure document; Goal 5 was rewritten around coaching the PLC.'],
+  [`Sept 14 · Course director's questions`, 'A feedback cycle with the PLC (Goal 2), alignment of position descriptions (Goal 3), and preparing the older Scouts (Goal 5). Answered the same day: "Great insights. Please refine the goals with these and think we are looking good for your ticket."'],
+  ['Sept 19-20', 'Wood Badge Weekend 2. Final ticket sent.'],
+  ['Oct 2026', 'Work underway on all five goals.'],
+];
+
+const draftingRules = [
+  'Roles, not names, in the goal text.',
+  `No goal depends on another person producing work on my timeline, on a second annual cycle, or on another goal's output.`,
+  'Recruitment headcount is an outcome, never the pass condition.',
+  'Every Attainable names a real roadblock and its mitigation.',
+];
+
+const nextCycle = [
+  ['Joint New Scout Night and open house tables', 'Pack and troop New Member Coordinators', 'September'],
+  ['Foundations Weekend', 'Senior Patrol Leader and the PLC', 'November'],
+  ['Arrow of Light crossover at Blue & Gold', 'Cubmaster, with troop Scouts running the bridge', 'March'],
+  ['New Scouts camp with the troop within 30 days of crossing', 'Scoutmaster and Troop Guide', 'April'],
+  ['Annual planning conference', 'Senior Patrol Leader', 'Spring'],
+  [`Budget built from the PLC's new calendar`, 'Treasurer', 'After the conference'],
+  [`Recruiting review: last year's numbers, BeAScout pins`, `Each unit's Key 3 and the troop committee`, 'May'],
+  ['Committee document review rotation', 'Committee, one or two documents a year', 'Set at adoption'],
+];
+
+const meta = [
+  ['Course', 'Twin Rivers Council Wood Badge 2026'],
+  ['Ticket approved', 'Sept 14, 2026'],
+  ['Completion deadline', 'Mar 20, 2028'],
+  ['Status as of', asOf],
+];
+---
+
+<Base
+  title="Wood Badge Ticket | Will Mau"
+  description="Will Mau's Wood Badge ticket as Committee Chair of Scouting America Troop 3054: five goals that leave the troop running without depending on any one adult, with the evidence for each."
+>
+  <main id="main">
+    <section class="page-hero">
+      <SiteHeader />
+      <div class="wrap page-hero__inner wb-hero">
+        <div>
+          <p class="kicker page-hero__kicker" data-reveal>Wood Badge ticket</p>
+          <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
+            What keeps<br />running after<br />I stop.
+          </h1>
+          <p class="page-hero__note" data-reveal data-reveal-delay="2">
+            I chair the committee of Troop 3054, Mohawk District, Twin Rivers
+            Council. My Wood Badge ticket is five goals, each a written process
+            the committee owns, so the troop runs well without depending on any
+            one adult, including me. This page is the evidence, updated as the
+            work moves.
+          </p>
+          <dl class="wb-meta" data-reveal data-reveal-delay="3">
+            {meta.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div class="wb-beads" aria-hidden="true">
+          <span class="wb-beads__thong"></span>
+          <span class="wb-beads__bead"></span>
+          <span class="wb-beads__bead"></span>
+          <span class="wb-beads__thong"></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="wb">
+      <div class="wrap wb__layout">
+        <nav class="wb-toc" aria-label="On this page">
+          <p class="wb-toc__label">On this page</p>
+          <ol>
+            <li><a href="#vision">Vision</a></li>
+            <li><a href="#status">Where things stand</a></li>
+            {goals.map((g) => (
+              <li><a href={`#${g.id}`}><span class="wb-toc__n">{g.n}</span>{g.short}</a></li>
+            ))}
+            <li><a href="#systems">Systems built</a></li>
+            <li><a href="#shaped">How the ticket was shaped</a></li>
+            <li><a href="#next-year">Who runs it next year</a></li>
+            <li><a href="#on-request">Available on request</a></li>
+          </ol>
+        </nav>
+
+        <div class="wb__main">
+          {/* Vision */}
+          <section id="vision" class="wb-sec">
+            <p class="wb-label">My personal vision of success</p>
+            <div class="wb-prose wb-vision">
+              <p>
+                Troop 3054 should be able to run well without depending on any
+                one adult, including me. My vision is a troop where the Scouts
+                plan and lead the program, where the committee's job is money,
+                logistics, permits, drivers and paperwork rather than deciding
+                what the Scouts will do, and where every key responsibility has
+                more than one person who knows how to carry it.
+              </p>
+              <p>
+                That means leaving behind systems, not projects: a recruitment
+                cycle the pack and the troop run together every year, a Patrol
+                Leaders' Council that plans the program the way Scouting America
+                intends, a written record of who holds what and who backs them
+                up, a budget process the committee owns, and one weekend a year
+                where the older Scouts teach the younger ones what this is
+                supposed to feel like. Each of those lives somewhere findable,
+                with a name on it and a date it gets reviewed.
+              </p>
+            </div>
+            <p class="wb-pull">
+              The measure of success is not what I run while I am here. It is
+              what keeps running after I stop.
+            </p>
+          </section>
+
+          {/* Status */}
+          <section id="status" class="wb-sec">
+            <div class="wb-head">
+              <p class="wb-label">Status as of {asOf}</p>
+              <h2 class="wb-h2">Where each goal stands</h2>
+            </div>
+            <p class="wb-lede">
+              Every goal closes the same way: a written process, adopted by
+              recorded committee vote where required, posted to the troop portal
+              with a named maintainer, plus evidence that it ran once.
+            </p>
+            <div class="wb-cards">
+              {goals.map((g) => {
+                const p = progress(g);
+                return (
+                  <a class="wb-card" href={`#${g.id}`}>
+                    <span class="wb-card__top">
+                      <span class="wb-card__n">Goal {g.n}</span>
+                      <span class={`wb-chip wb-chip--${g.badge.kind}`}>{g.badge.label}</span>
+                    </span>
+                    <span class="wb-card__title">{g.title}</span>
+                    <span class="wb-card__due">Due {g.due}</span>
+                    <span class="wb-bar" role="img" aria-label={`${p.done} of ${p.total} done`}>
+                      <span style={`width:${p.pct}%`}></span>
+                    </span>
+                    <span class="wb-card__count">
+                      <strong>{p.done} of {p.total} done.</strong> {g.next}.
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+
+            <h3 class="wb-h3">Coming up</h3>
+            <div class="wb-table">
+              <table>
+                <thead>
+                  <tr><th scope="col">When</th><th scope="col">What happens</th><th scope="col">Status</th></tr>
+                </thead>
+                <tbody>
+                  {comingUp.map((r) => (
+                    <tr>
+                      <td>{r.item}</td>
+                      <td>{r.evidence}</td>
+                      <td><span class={`wb-chip wb-chip--${r.kind}`}>{r.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Goals */}
+          {goals.map((g) => (
+            <section id={g.id} class="wb-sec">
+              <div class="wb-head">
+                <p class="wb-label">Goal {g.n} &middot; due {g.due}</p>
+                <h2 class="wb-h2">{g.title}</h2>
+                <span class={`wb-chip wb-chip--${g.badge.kind}`}>{g.badge.label}</span>
+              </div>
+              <p class="wb-lede">{g.summary}</p>
+
+              <div class="wb-measure">
+                <p class="wb-measure__label">Done when</p>
+                <p class="wb-measure__text">{g.smart.m}</p>
+              </div>
+
+              <h3 class="wb-h3">Evidence against the measurable</h3>
+              <div class="wb-table">
+                <table>
+                  <thead>
+                    <tr><th scope="col">Pass condition</th><th scope="col">Evidence</th><th scope="col">Status</th></tr>
+                  </thead>
+                  <tbody>
+                    {g.rows.map((r) => (
+                      <tr>
+                        <td>{r.item}</td>
+                        <td>{r.evidence}</td>
+                        <td><span class={`wb-chip wb-chip--${r.kind}`}>{r.status}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {g.stats && (
+                <>
+                  <h3 class="wb-h3">{g.stats.heading}</h3>
+                  <div class="wb-stats">
+                    {g.stats.items.map((s) => (
+                      <div class="wb-stat">
+                        <strong>{s.value}</strong>
+                        <span>{s.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {g.id === 'recruiting' && (
+                    <>
+                      <p class="wb-small">The path a Scout takes, with this fall's pack numbers (council roster Oct 4, plus families in progress):</p>
+                      <ol class="wb-path">
+                        {scoutPath.map(([rank, count]) => (
+                          <li><strong>{rank}</strong>{count}</li>
+                        ))}
+                        <li class="wb-path__end"><strong>Troop</strong>Crossover</li>
+                      </ol>
+                    </>
+                  )}
+                  {g.stats.after && <p class="wb-body">{g.stats.after}</p>}
+                </>
+              )}
+
+              {g.points && (
+                <>
+                  <h3 class="wb-h3">{g.points.heading}</h3>
+                  <ul class="wb-list">
+                    {g.points.items.map((pt) => (
+                      <li>{pt.lead && <strong>{pt.lead} </strong>}{pt.text}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+
+              {g.shots && (
+                <>
+                  <h3 class="wb-h3">Artifacts</h3>
+                  <div class="wb-gallery">
+                    {g.shots.map((s) => (
+                      <figure>
+                        <a class:list={['wb-shot', { 'wb-shot--tall': s.tall, 'wb-shot--whole': s.whole }]} href={s.img.src} target="_blank" rel="noopener">
+                          <Image src={s.img} alt={s.alt} widths={[360, 720]} sizes="(max-width: 640px) 100vw, 260px" loading="lazy" />
+                        </a>
+                        <figcaption><strong>{s.title}</strong> {s.text}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {g.onRequest && <p class="wb-request-note">{g.onRequest} <a href="#on-request">How to ask</a></p>}
+
+              <h3 class="wb-h3">Feedback this goal answers</h3>
+              {g.notes.map((n) => (
+                <div class="wb-note">
+                  <blockquote class="wb-q">
+                    <p class="wb-q__who">{n.who}</p>
+                    <p>{n.said}</p>
+                  </blockquote>
+                  <p class="wb-body">{n.answer}</p>
+                </div>
+              ))}
+              {g.aside && <p class="wb-small">{g.aside}</p>}
+
+              <details class="wb-smart">
+                <summary>The full SMART goal, as approved</summary>
+                <dl>
+                  {smartParts.map(([k, label]) => (
+                    <div class="wb-smart__row">
+                      <dt><span class="wb-smart__letter">{k.toUpperCase()}</span>{label}</dt>
+                      <dd>{g.smart[k]}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p class="wb-small">Promotes membership growth and retention: Yes. Shows a line of sight to the youth: Yes.</p>
+              </details>
+            </section>
+          ))}
+
+          {/* Systems */}
+          <section id="systems" class="wb-sec">
+            <div class="wb-head">
+              <p class="wb-label">Where the work lives</p>
+              <h2 class="wb-h2">Systems built to hold the work</h2>
+            </div>
+            <p class="wb-lede">
+              Each goal's process lives somewhere findable, with a name on it and
+              a review date. Three systems hold them. All work on iPhone, Android
+              and PC, and day-to-day content is self-serve for leaders, so none
+              of it depends on one person to keep current.
+            </p>
+            <div class="wb-two">
+              <div>
+                <h3 class="wb-h3">Member portal &middot; my.troop3054.org</h3>
+                <ul class="wb-list">
+                  <li>Program planning: Plan cards, reviews and the Program page (Goal 2)</li>
+                  <li>Recruiting page with the joint process and post toolkit (Goal 1)</li>
+                  <li>Roles &amp; backups, feeding the public site (Goal 3)</li>
+                  <li>A calendar that feeds the public site and families' phone calendars</li>
+                  <li>Sign-in by emailed code, no passwords; access follows a person's position</li>
+                  <li>Youth protection by design: no private messages, and notifications pause overnight</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="wb-h3">Public sites &middot; troop3054.org and pack3054.org</h3>
+                <ul class="wb-list">
+                  <li>The two sites point to each other: "Ages 11 to 17? Visit Troop 3054" and "Visit Pack 3054"</li>
+                  <li>Every Join path ends at Scouting America's own application</li>
+                  <li>The pack's leader app updates the pack website and families' calendars with no publishing step</li>
+                  <li>A Committee &amp; Governance page publishes meeting dates, agendas and minutes</li>
+                  <li>Drawings instead of photos of children on the pack site</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 class="wb-h3">Continuity</h3>
+            <ul class="wb-list">
+              <li><strong>Written handoff guides.</strong> The pack site ships with a maintainer's guide for a non-programmer: how pages, the calendar and publishing work.</li>
+              <li><strong>Access recorded, not passwords.</strong> The roles matrix lists who holds the domain, hosting, bank and records, and how each transfers.</li>
+              <li><strong>Still to do:</strong> a second portal admin, and a one-page note of where each account lives and who holds it, for both units.</li>
+            </ul>
+
+            <h3 class="wb-h3">Screens</h3>
+            <div class="wb-gallery">
+              {systemsShots.map((s) => (
+                <figure>
+                  <a class:list={['wb-shot', { 'wb-shot--tall': s.tall, 'wb-shot--whole': s.whole }]} href={s.img.src} target="_blank" rel="noopener">
+                    <Image src={s.img} alt={s.alt} widths={[360, 720]} sizes="(max-width: 640px) 100vw, 260px" loading="lazy" />
+                  </a>
+                  <figcaption><strong>{s.title}</strong> {s.text}</figcaption>
+                </figure>
+              ))}
+            </div>
+            <p class="wb-small">
+              The portal holds youth information, so it appears here in dated
+              screenshots rather than through reviewer accounts. A live
+              walkthrough is <a href="#on-request">available on request</a>.
+            </p>
+          </section>
+
+          {/* How the ticket was shaped */}
+          <section id="shaped" class="wb-sec">
+            <div class="wb-head">
+              <p class="wb-label">Reviews</p>
+              <h2 class="wb-h2">How the ticket was shaped</h2>
+            </div>
+            <ol class="wb-timeline">
+              {timeline.map(([when, what]) => (
+                <li>
+                  <p class="wb-timeline__when">{when}</p>
+                  <p class="wb-body">{what}</p>
+                </li>
+              ))}
+            </ol>
+            <h3 class="wb-h3">Drafting rules the ticket kept</h3>
+            <ul class="wb-list">
+              {draftingRules.map((r) => <li>{r}</li>)}
+            </ul>
+          </section>
+
+          {/* Next cycle */}
+          <section id="next-year" class="wb-sec">
+            <div class="wb-head">
+              <p class="wb-label">The next cycle</p>
+              <h2 class="wb-h2">Who runs it next year</h2>
+            </div>
+            <p class="wb-lede">
+              The proof of the vision is that each process repeats on its own
+              schedule, with someone other than the Committee Chair named on it.
+            </p>
+            <div class="wb-table">
+              <table>
+                <thead>
+                  <tr><th scope="col">Recurring step</th><th scope="col">Owner</th><th scope="col">When</th></tr>
+                </thead>
+                <tbody>
+                  {nextCycle.map(([step, owner, when]) => (
+                    <tr>
+                      <td>{step}</td>
+                      <td>{owner}</td>
+                      <td>{when}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* On request */}
+          <section id="on-request" class="wb-sec">
+            <div class="wb-request">
+              <p class="wb-label">For reviewers</p>
+              <h2 class="wb-h2">Available on request</h2>
+              <p class="wb-body">
+                Some of the evidence names individual volunteers or families, or
+                shows the troop's accounts, so it is not on this page. Any of it
+                is available to my ticket counselor and course director:
+              </p>
+              <ul class="wb-list">
+                <li>The line-by-line 2026-27 troop budget, with the Treasurer's actuals</li>
+                <li>The adult positions summary and the portal's roles matrix, with names</li>
+                <li>A live walkthrough of the member portal</li>
+              </ul>
+              <p class="wb-body">
+                Ask at <a href="mailto:will@willmau.com">will@willmau.com</a>.
+              </p>
+              <p class="wb-small">Scout names and faces are not shown. Screenshots were taken {asOf}.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <SiteFooter />
+  </main>
+</Base>
+
+<style>
+  .wb {
+    --wb-done: #2f6b4b;
+    --wb-done-bg: #e2efe6;
+    --wb-pend: #7a5200;
+    --wb-pend-bg: #f8ecd0;
+    --wb-sched: var(--ink);
+    --wb-sched-bg: #e4e7f3;
+    --wb-tan: #b0956a;
+    background: var(--paper);
+    padding-block: clamp(2rem, 1rem + 4vw, 4rem) clamp(3rem, 2rem + 4vw, 5rem);
+  }
+
+  /* Hero additions */
+  .wb-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: end;
+  }
+  .wb-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem 2rem;
+    margin-top: 1.6rem;
+  }
+  .wb-meta dt {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .wb-meta dd {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .wb-beads {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+  .wb-beads__thong {
+    width: 2.6rem;
+    height: 3px;
+    border-radius: 2px;
+    background: #c9a777;
+  }
+  .wb-beads__bead {
+    width: 1.05rem;
+    height: 1.8rem;
+    border-radius: 0.55rem;
+    background: linear-gradient(180deg, #b88a56, #7a5530);
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.22);
+  }
+
+  /* Layout */
+  .wb__layout {
+    display: grid;
+    grid-template-columns: 12.5rem minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+  .wb__main { min-width: 0; }
+
+  .wb-toc {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+    font-size: 0.88rem;
+  }
+  .wb-toc__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 0.7rem;
+  }
+  .wb-toc ol {
+    list-style: none;
+    border-left: 2px solid var(--line);
+  }
+  .wb-toc a {
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.32rem 0 0.32rem 0.9rem;
+    margin-left: -2px;
+    border-left: 2px solid transparent;
+    color: var(--text-soft);
+    line-height: 1.35;
+    transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
+  }
+  .wb-toc a:hover {
+    color: var(--ink);
+    border-left-color: var(--green);
+  }
+  .wb-toc__n {
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Sections and type */
+  .wb-sec {
+    padding-block: 2.6rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 1rem;
+  }
+  .wb-sec:first-child { border-top: 0; padding-top: 0; }
+
+  .wb-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.9rem;
+  }
+  .wb-head .wb-label { flex-basis: 100%; margin-bottom: 0; }
+  .wb-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.6rem;
+  }
+  .wb-h2 {
+    font-size: clamp(1.55rem, 1.25rem + 1vw, 2.1rem);
+    color: var(--ink);
+  }
+  .wb-h3 {
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin: 2.1rem 0 0.8rem;
+  }
+  .wb-lede {
+    font-size: 1.08rem;
+    color: var(--text-soft);
+    max-width: 66ch;
+  }
+  .wb-body {
+    font-size: 1rem;
+    max-width: 68ch;
+    margin-top: 0.8rem;
+  }
+  .wb-body a,
+  .wb-small a,
+  .wb-request-note a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--green);
+  }
+  .wb-small {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    max-width: 68ch;
+    margin-top: 0.9rem;
+  }
+
+  .wb-prose p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.2rem);
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 64ch;
+  }
+  .wb-prose p + p { margin-top: 1.1rem; }
+  .wb-pull {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.7rem);
+    line-height: 1.3;
+    color: var(--ink);
+    max-width: 30ch;
+    margin-top: 1.8rem;
+    padding-left: 1.1rem;
+    border-left: 3px solid var(--green);
+  }
+
+  /* Status chips */
+  .wb-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .wb-chip::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .wb-chip--done { color: var(--wb-done); background: var(--wb-done-bg); }
+  .wb-chip--pend { color: var(--wb-pend); background: var(--wb-pend-bg); }
+  .wb-chip--sched { color: var(--wb-sched); background: var(--wb-sched-bg); }
+
+  /* Status cards */
+  .wb-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+  }
+  .wb-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.1rem 1.15rem 1.15rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--ink);
+    border-radius: var(--radius);
+    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  }
+  .wb-card:hover {
+    border-top-color: var(--green);
+    transform: translateY(-2px);
+  }
+  .wb-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .wb-card__n {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .wb-card__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .wb-card__due,
+  .wb-card__count {
+    font-size: 0.84rem;
+    color: var(--text-soft);
+    line-height: 1.45;
+  }
+  .wb-card__count strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .wb-bar {
+    display: block;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: var(--wb-sched-bg);
+    overflow: hidden;
+  }
+  .wb-bar span {
+    display: block;
+    height: 100%;
+    background: var(--green);
+    border-radius: inherit;
+  }
+
+  /* Measurable box */
+  .wb-measure {
+    margin-top: 1.4rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--green);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .wb-measure__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--wb-done);
+    margin-bottom: 0.35rem;
+  }
+  .wb-measure__text {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* Tables */
+  .wb-table {
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .wb-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+  .wb-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    background: rgba(29, 34, 71, 0.04);
+    padding: 0.65rem 0.9rem;
+  }
+  .wb-table td {
+    padding: 0.75rem 0.9rem;
+    border-top: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .wb-table td:first-child {
+    font-weight: 600;
+    color: var(--ink);
+    width: 28%;
+  }
+  .wb-table td:last-child {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  /* Numbers */
+  .wb-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+    gap: 0.75rem;
+  }
+  .wb-stat {
+    padding: 0.85rem 1rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .wb-stat strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.65rem;
+    line-height: 1.2;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .wb-stat span {
+    display: block;
+    font-size: 0.84rem;
+    line-height: 1.4;
+    color: var(--text-soft);
+    margin-top: 0.2rem;
+  }
+
+  .wb-path {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .wb-path li {
+    padding: 0.5rem 0.3rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .wb-path strong {
+    display: block;
+    font-size: 0.84rem;
+    color: var(--ink);
+  }
+  .wb-path .wb-path__end {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--on-dark-soft);
+  }
+  .wb-path .wb-path__end strong { color: var(--on-dark); }
+
+  /* Lists */
+  .wb-list {
+    padding-left: 1.2rem;
+    font-size: 1rem;
+    max-width: 68ch;
+  }
+  .wb-list li + li { margin-top: 0.45rem; }
+  .wb-list li::marker { color: var(--green); }
+  .wb-list strong { color: var(--ink); }
+
+  /* Gallery */
+  .wb-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+    gap: 1rem;
+  }
+  .wb-gallery figure { min-width: 0; }
+  .wb-shot {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: zoom-in;
+    transition: border-color 0.18s var(--ease);
+  }
+  /* Tall matches the portal's phone screenshots; whole shows a square flyer uncropped. */
+  .wb-shot--tall { aspect-ratio: 6 / 7; }
+  .wb-shot.wb-shot--whole :global(img) { object-fit: contain; }
+  .wb-shot:hover { border-color: var(--green); }
+  .wb-shot :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .wb-gallery figcaption {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--text-soft);
+    margin-top: 0.45rem;
+  }
+  .wb-gallery figcaption strong { color: var(--ink); font-weight: 600; }
+
+  .wb-request-note {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    margin-top: 1rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    max-width: 68ch;
+  }
+
+  /* Feedback */
+  .wb-note + .wb-note { margin-top: 1.4rem; }
+  .wb-q {
+    padding: 0.65rem 1rem;
+    border-left: 3px solid var(--wb-tan);
+    background: rgba(176, 149, 106, 0.09);
+    border-radius: 0 8px 8px 0;
+    max-width: 68ch;
+  }
+  .wb-q p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .wb-q .wb-q__who {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 0.2rem;
+  }
+
+  /* Full SMART goal */
+  .wb-smart {
+    margin-top: 2rem;
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .wb-smart summary {
+    cursor: pointer;
+    padding: 0.9rem 1.15rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .wb-smart summary::marker { color: var(--green); }
+  .wb-smart[open] summary { border-bottom: 1px solid var(--line); }
+  .wb-smart dl { padding: 0.4rem 1.15rem 0; }
+  .wb-smart > .wb-small { padding: 0 1.15rem 1.1rem; }
+  .wb-smart__row {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .wb-smart__row dt {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .wb-smart__letter {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--on-dark);
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+  }
+  .wb-smart__row dd {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Systems */
+  .wb-two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 0 2rem;
+  }
+
+  /* Timeline */
+  .wb-timeline {
+    list-style: none;
+    border-left: 2px solid var(--line);
+    margin-top: 1.2rem;
+    max-width: 68ch;
+  }
+  .wb-timeline li {
+    position: relative;
+    padding: 0 0 1.3rem 1.3rem;
+  }
+  .wb-timeline li::before {
+    content: '';
+    position: absolute;
+    left: -0.45rem;
+    top: 0.35rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--green);
+  }
+  .wb-timeline__when {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+  .wb-timeline .wb-body { margin-top: 0.2rem; }
+
+  /* On request */
+  .wb-request {
+    padding: clamp(1.4rem, 1rem + 1.5vw, 2.2rem);
+    background: var(--paper-pure);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .wb-request .wb-list { margin-top: 0.8rem; }
+
+  @media (max-width: 960px) {
+    .wb__layout { grid-template-columns: minmax(0, 1fr); }
+    .wb-toc { display: none; }
+    .wb-hero { grid-template-columns: minmax(0, 1fr); }
+    .wb-beads { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .wb-table thead { display: none; }
+    .wb-table table,
+    .wb-table tbody,
+    .wb-table tr,
+    .wb-table td {
+      display: block;
+      width: auto;
+    }
+    .wb-table tr { padding: 0.85rem 1rem; }
+    .wb-table tr + tr { border-top: 1px solid var(--line); }
+    .wb-table td,
+    .wb-table td:first-child,
+    .wb-table td:last-child {
+      width: auto;
+      padding: 0;
+      border: 0;
+    }
+    .wb-table td + td { margin-top: 0.35rem; }
+    .wb-path { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .wb-smart__row { grid-template-columns: minmax(0, 1fr); gap: 0.4rem; }
+  }
+</style>
