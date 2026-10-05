@@ -26,7 +26,9 @@ import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
 
 /*
   Every status on this page is a snapshot. When the work moves, update asOf
-  and the rows; the status cards count themselves from the rows.
+  and the rows. Rows are the pass conditions in each goal's approved
+  measurable, and only they count toward the status cards; milestones show
+  the process working but never count.
   Kept off this page on purpose: volunteer and family names, the troop's
   bank details, and reviewer names and contact information.
 */
@@ -49,6 +51,7 @@ interface Goal {
   summary: string;
   smart: { s: string; m: string; a: string; r: string; t: string };
   rows: Row[];
+  milestones?: { heading: string; rows: Row[] };
   stats?: { heading: string; items: Stat[]; after?: string };
   points?: { heading: string; items: Point[] };
   shots?: Shot[];
@@ -75,15 +78,21 @@ const goals: Goal[] = [
       t: `Process drafted by October 31, 2026. Both units' BeAScout pins verified and Invitation Manager in use by November 30, 2026. Fall sign-up run by December 31, 2026. Approved by the troop committee and the pack's key three by January 31, 2027. Crossover-season event run and the process posted to the portal's recruiting page by April 30, 2027.`,
     },
     rows: [
-      { item: 'Process documented', evidence: `"Pack-to-Troop Recruiting Cycle": the path from Lion to First Class, ground rules, the year month by month, who does what, the numbers to keep, and lessons from this fall.`, kind: 'done', status: 'Done Oct 2026' },
-      { item: `Posted on the portal's recruiting page`, evidence: `my.troop3054.org Recruiting page with four tabs: This year, Posts, How it works, Brand. Marked "Draft for review" until both units approve.`, kind: 'done', status: 'Posted as draft' },
-      { item: 'Annual review date', evidence: `Reviewed every May by each unit's Key 3 and the troop committee.`, kind: 'done', status: 'Set' },
-      { item: 'Named maintainer', evidence: 'Named at adoption.', kind: 'pend', status: 'At vote' },
-      { item: 'Troop committee approval', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: 'Pack Key 3 approval, in writing', evidence: `Requested early, per the ticket's own mitigation. Covers the pack website too.`, kind: 'pend', status: 'Requested' },
-      { item: 'Tested by the fall sign-up', evidence: `Open house tables, a joint New Scout Night on Sept 21, a 24-post campaign, a welcome email to 49 families, and follow-up on open inquiries. Peer invitation is working too: a friend brought in by a troop Scout joined in October. Fall sign-up closes Dec 31.`, kind: 'done', status: 'Ran fall 2026' },
-      { item: 'Tested by a crossover-season event', evidence: `Arrow of Light crossover at Blue & Gold, with troop Scouts running the bridge.`, kind: 'sched', status: 'Mar 15, 2027' },
+      { item: 'Repeatable annual process documented', evidence: `"Pack-to-Troop Recruiting Cycle": the path from Lion to First Class, ground rules, the year month by month, who does what, and the numbers to keep. The fall sign-up, peer invitation and the crossover handoff are written in as yearly steps.`, kind: 'done', status: 'Done Oct 2026' },
+      { item: `Posted on the portal's recruiting page`, evidence: `my.troop3054.org Recruiting page, How it works tab. Marked "Draft for review" until both units approve, then marked adopted.`, kind: 'done', status: 'Posted as draft' },
+      { item: 'Annual review date', evidence: `Every May, by each unit's Key 3 and the troop committee.`, kind: 'done', status: 'Set: May' },
+      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'pend', status: 'At vote' },
+      { item: 'Approved by the troop committee', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
+      { item: `Approved by the pack's Key 3, in writing`, evidence: `Requested early, per the ticket's own mitigation. Covers the pack website too.`, kind: 'pend', status: 'Requested' },
     ],
+    milestones: {
+      heading: 'How the process gets tested',
+      rows: [
+        { item: 'National tools in place', evidence: `Both units' BeAScout pins set with online applications on, and Invitation Manager in use. troop3054.org/cubs and pack3054.org/join only forward to the pack's official my.Scouting application; no page of ours keeps a lead (checked Oct 5).`, kind: 'done', status: 'Done early' },
+        { item: 'Fall sign-up', evidence: `Open house tables, a joint New Scout Night on Sept 21, a 24-post campaign, a welcome email to 49 families, and follow-up on open inquiries. Peer invitation is working too: a friend brought in by a troop Scout joined in October.`, kind: 'done', status: 'Ran fall 2026' },
+        { item: 'Crossover-season step', evidence: 'In the process and planned: the Arrow of Light crossover at Blue & Gold, with troop Scouts running the bridge.', kind: 'sched', status: 'Planned, Mar 15' },
+      ],
+    },
     stats: {
       heading: 'What ran this fall',
       items: [
@@ -102,7 +111,6 @@ const goals: Goal[] = [
         { text: 'Answer every inquiry within 24 hours. Three inquiries from August and September were still marked "Opened" in October.' },
         { text: 'At the Harvest Festival, troop Scouts taught at almost every station. That is the strongest recruiting picture either unit has.' },
         { text: 'Scouts recruit Scouts. In October a troop Scout invited a friend, and the friend joined: the peer invitation the ticket calls for, run by the Scouts themselves.' },
-        { lead: 'National tools, not ours.', text: `Both units' BeAScout pins are set with online applications on, and Invitation Manager is in use, ahead of the Nov 30 milestone. troop3054.org/cubs and pack3054.org/join only forward to the pack's official my.Scouting application; no page of ours keeps a lead (checked Oct 5).` },
       ],
     },
     shots: [
@@ -125,7 +133,7 @@ const goals: Goal[] = [
     short: 'Program planning',
     due: 'May 31, 2027',
     badge: { kind: 'pend', label: 'Handoff underway' },
-    next: 'PLC training night and written procedure next',
+    next: 'Written procedure next, by Dec 31',
     summary: `Document an annual program planning procedure for the Patrol Leaders' Council, and prove it works with a Scout-built program year calendar posted to the troop portal.`,
     smart: {
       s: `I will write a short annual program planning procedure based on Scouting America's annual planning conference materials rather than something I invent, and coach the senior patrol leader through it one on one before it reaches the PLC. The Scoutmaster and I prepare, the senior patrol leader runs the conference, and the PLC picks the activities and puts a Scout's name on each. The PLC reviews each meeting it planned right after that meeting, so the procedure gets tested every few weeks rather than once a year. Constraint: youth-led does not mean unstructured, and the calendar the Scouts produce is a plan, not a contract.`,
@@ -135,13 +143,20 @@ const goals: Goal[] = [
       t: `Handoff agreed with the Scoutmaster by October 31, 2026. Procedure drafted and the senior patrol leader walked through it by December 31, 2026. PLC's post-meeting review running by February 28, 2027. Annual planning conference held, the procedure revised from the PLC's feedback, and both it and the calendar posted to the portal by May 31, 2027.`,
     },
     rows: [
-      { item: 'Handoff agreed with the Scoutmaster', evidence: 'PLC meeting held; adults give feedback rather than plans. The committee moved from planning to supporting this program year, to be recorded in the Oct 14 minutes.', kind: 'done', status: 'Oct 2026' },
-      { item: 'A place for the PLC to plan, in the portal', evidence: `A Plan card on every meeting and outing, built on Scouting America's troop meeting plan: each part of the meeting, duty patrol, the Scout who leads each part, uniform and what to bring. Uniform and what to bring show on the public calendar.`, kind: 'done', status: 'Live Oct 5' },
-      { item: 'Procedure drafted; SPL walked through it one on one', evidence: 'Written from what the PLC actually does this fall.', kind: 'sched', status: 'By Dec 31' },
-      { item: `PLC's post-meeting review running`, evidence: `A three-line review after each event: what worked, what didn't, what to change. The Program page lists reviews still waiting. Next step: a PLC training night, with Scout sign-ins set up first.`, kind: 'pend', status: 'By Feb 28' },
-      { item: 'Start time and location on every event', evidence: `Events missing a time or place went from 25 to 12 on Oct 5. The remaining 12 are the PLC's first calendar task.`, kind: 'pend', status: '12 left' },
-      { item: 'Planning conference; procedure and calendar posted', evidence: `The SPL runs the conference; the PLC picks the activities and puts a Scout's name on each.`, kind: 'sched', status: 'Spring 2027' },
+      { item: 'Annual program planning procedure written', evidence: `Built on Scouting America's annual planning conference materials, written from what the PLC actually does this fall. The SPL walks through it one on one before it reaches the PLC.`, kind: 'sched', status: 'By Dec 31' },
+      { item: `Revised from the PLC's own review`, evidence: `After the planning conference, the PLC reviews the procedure itself, and its changes go in before posting.`, kind: 'sched', status: 'Spring 2027' },
+      { item: 'Program-year calendar built by the PLC with it', evidence: `At the annual planning conference, run by the SPL. The PLC picks the activities and puts a Scout's name on each.`, kind: 'sched', status: 'Spring 2027' },
+      { item: 'Start time and location on every event', evidence: `The portal's Program page flags any event missing either one, so the check is built in. The current calendar has 12 left, the PLC's first calendar task.`, kind: 'pend', status: 'Check built' },
+      { item: 'Procedure and calendar posted to the portal', evidence: 'Both go up after the conference.', kind: 'sched', status: 'By May 31' },
     ],
+    milestones: {
+      heading: 'Milestones (not pass conditions)',
+      rows: [
+        { item: 'Handoff agreed with the Scoutmaster', evidence: 'PLC meeting held; adults give feedback rather than plans. The committee moved from planning to supporting this program year, to be recorded in the Oct 14 minutes.', kind: 'done', status: 'Oct 2026' },
+        { item: 'A place for the PLC to plan, in the portal', evidence: `A Plan card on every meeting and outing, built on Scouting America's troop meeting plan: each part of the meeting, duty patrol, the Scout who leads each part, uniform and what to bring.`, kind: 'done', status: 'Live Oct 5' },
+        { item: `PLC's post-meeting review running`, evidence: `A three-line review after each event: what worked, what didn't, what to change. Next step: a PLC training night, with Scout sign-ins set up first.`, kind: 'pend', status: 'By Feb 28' },
+      ],
+    },
     stats: {
       heading: 'What the planning record shows today',
       items: [
@@ -168,7 +183,7 @@ const goals: Goal[] = [
     short: 'Roles matrix',
     due: 'Jan 31, 2027',
     badge: { kind: 'pend', label: 'Vote pending' },
-    next: 'Backups confirmed and committee vote next',
+    next: 'Committee vote Oct 14 next',
     summary: 'Build a matrix of adult roles and responsibilities with named holders and backups, so the troop keeps operating through leadership changes and no single adult holds a job nobody else can do.',
     smart: {
       s: `I will document every key troop role and every shared responsibility that currently lives with one person: committee positions, social media administration, website and domain access, communications, bank account authorization and custody of key files. I will start from Scouting America's published position descriptions rather than my own wording, and confirm each entry one on one with the person holding it before it goes anywhere. Backups are asked individually rather than volunteered into in a meeting. Constraint: no passwords or credentials, only who holds access and how it transfers.`,
@@ -178,13 +193,13 @@ const goals: Goal[] = [
       t: `Matrix drafted by November 30, 2026. Backups identified and confirmed by December 31, 2026. Adopted by recorded committee vote and published to the portal, with the review rotation set, by January 31, 2027.`,
     },
     rows: [
-      { item: 'Matrix built, posted to the portal', evidence: `Roles & backups in the portal is the only place people get put on jobs. It feeds the public Get Involved page, so the website can't drift from the record.`, kind: 'done', status: 'Posted as draft' },
-      { item: 'Every role has a named holder', evidence: `Built from Scouting America's official position list. As of Oct 4, 9 of 10 committee and Key 3 roles are held; Secretary is open.`, kind: 'done', status: '9 of 10' },
-      { item: 'Shared single-point responsibilities listed', evidence: 'Website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.', kind: 'done', status: 'Listed' },
-      { item: 'Remaining gaps written down, with an owner', evidence: 'Every open seat reads "covered by the Committee Chair until someone takes it," with the gap described. Every role without a backup says what is at risk and who is working to close it.', kind: 'done', status: 'Written' },
-      { item: 'Backups confirmed one on one', evidence: 'Volunteer ask sent to all adult leaders, with more than one backup welcome per role. 3 backups named so far.', kind: 'pend', status: 'By Dec 31' },
-      { item: 'Adopted by recorded committee vote, with maintainer', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: 'Review rotation set', evidence: 'Set in the same motion: one or two committee documents reviewed each year.', kind: 'sched', status: 'Oct 14' },
+      { item: 'Matrix posted to the portal', evidence: `Roles & backups in the portal is the only place people get put on jobs. It feeds the public Get Involved page, so the website can't drift from the record.`, kind: 'done', status: 'Posted as draft' },
+      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'pend', status: 'At vote' },
+      { item: 'Adopted by recorded committee vote', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
+      { item: 'A named holder for every role and single-point job', evidence: `Built from Scouting America's official position list: 9 of 10 committee and Key 3 roles are held, and the open seat is covered by the Committee Chair until someone takes it. Shared single-point jobs are listed by role: website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.`, kind: 'done', status: 'Done' },
+      { item: 'A named backup wherever one has been found', evidence: 'Volunteer ask sent to all adult leaders, each backup confirmed one on one. 3 named so far.', kind: 'pend', status: 'In progress' },
+      { item: 'Every remaining gap written down, with an owner', evidence: 'Every open seat and every role without a backup says what is at risk and who is working to close it.', kind: 'done', status: 'Written' },
+      { item: 'Review rotation set at adoption', evidence: 'In the same motion: one or two committee documents reviewed each year.', kind: 'sched', status: 'Oct 14' },
     ],
     shots: [
       { img: troopInvolved, alt: 'troop3054.org Get Involved page, adult positions', title: 'Get Involved page.', text: 'Every position and where help is needed, pulled live from the portal.' },
@@ -213,12 +228,19 @@ const goals: Goal[] = [
       t: `Process drafted by October 31, 2026. Reviewed with the treasurer and presented to the committee by November 30, 2026. Adopted by recorded committee vote and published to the member portal by February 28, 2027.`,
     },
     rows: [
-      { item: 'The process, run once', evidence: `The first annual budget was built in October from the Treasurer's statement: the program calendar sets the expense side, each line has an owner, the Treasurer reconciled every check, and the committee votes. Built before the process document, so the document describes what actually happened.`, kind: 'done', status: 'Oct 2026' },
-      { item: 'Actuals reconciled with the Treasurer', evidence: 'Every unclear check explained by the Treasurer on Oct 5. One small deposit is still unidentified and is recorded that way.', kind: 'done', status: 'Oct 5' },
-      { item: 'One to two page written process', evidence: 'When budgeting happens, who supplies which numbers, how the calendar drives expenses, how the committee approves.', kind: 'pend', status: 'Draft by Oct 31' },
-      { item: 'Adopted by recorded vote', evidence: 'The process on Oct 14; the budget itself on Nov 18 with the Treasurer present.', kind: 'sched', status: 'Oct 14 / Nov 18' },
-      { item: `Published with maintainer and next year's dates`, evidence: `The Treasurer maintains it; next year's dates go on the committee calendar.`, kind: 'pend', status: 'After vote' },
+      { item: 'Written process: when budgeting happens and who owns each step', evidence: 'One to two pages: when budgeting happens each year, who supplies which numbers, how the program calendar drives expenses, how income is estimated, and how the committee approves.', kind: 'pend', status: 'Draft by Oct 31' },
+      { item: 'Adopted by recorded committee vote, in the minutes', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
+      { item: 'Published to the portal with a named maintainer', evidence: 'The Treasurer maintains it.', kind: 'pend', status: 'After vote' },
+      { item: `Next year's budgeting dates on the committee calendar`, evidence: 'Added once the process is adopted.', kind: 'pend', status: 'After vote' },
     ],
+    milestones: {
+      heading: 'The process, run once (not a pass condition)',
+      rows: [
+        { item: 'First budget built with it', evidence: `Built in October from the Treasurer's statement: the program calendar sets the expense side and each line has an owner. Built before the process document, so the document describes what actually happened.`, kind: 'done', status: 'Oct 2026' },
+        { item: 'Actuals reconciled with the Treasurer', evidence: 'Every unclear check explained by the Treasurer on Oct 5. One small deposit is still unidentified and is recorded that way.', kind: 'done', status: 'Oct 5' },
+        { item: 'Budget vote', evidence: 'The 2026-27 budget itself, with the Treasurer present.', kind: 'sched', status: 'Nov 18' },
+      ],
+    },
     stats: {
       heading: 'What the first run showed',
       items: [
@@ -241,7 +263,7 @@ const goals: Goal[] = [
     short: 'Foundations Weekend',
     due: 'Dec 31, 2026',
     badge: { kind: 'sched', label: 'Nov 20-22' },
-    next: 'Advancement gap list due Oct 16',
+    next: 'The weekend, Nov 20-22, next',
     summary: 'Coach the PLC through the first Troop 3054 Foundations Weekend and document the planning process so future years can repeat it without me.',
     smart: {
       s: `I will coach the PLC through developing the first Troop 3054 Foundations Weekend, a Scout-led campout where older Scouts teach the Scout through First Class requirements the attending Scouts still need, picked from our advancement records, and I will document the planning process for future years. Each Scout instructor chooses which requirement to teach rather than being handed one, and we walk through Teaching EDGE at a PLC meeting beforehand. The weekend is the November 20-22, 2026 troop trip to Camp Wakpominee. Constraint: it is Scout-taught. Adults supervise, drive and cook.`,
@@ -251,13 +273,19 @@ const goals: Goal[] = [
       t: `Concept presented to the PLC and the site reservation confirmed by September 30, 2026. Advancement gap list built by October 16, 2026. Program schedule and Scout instructor assignments complete by October 30, 2026. Weekend held November 20-22, 2026. After-action review done, planning procedure posted to the portal and next year's placeholder on the calendar by December 31, 2026.`,
     },
     rows: [
-      { item: 'Concept to the PLC; weekend on the calendar', evidence: 'Troop trip to Camp Wakpominee, Nov 20-22, on the live calendar.', kind: 'done', status: 'Done' },
-      { item: 'Advancement gap list', evidence: 'The Scout through First Class requirements each attending Scout still needs, from advancement records.', kind: 'pend', status: 'Oct 16' },
-      { item: 'Program schedule and Scout instructors', evidence: 'Each instructor picks the requirement they teach; Teaching EDGE walk-through at a PLC meeting.', kind: 'pend', status: 'Oct 30' },
-      { item: 'Weekend held', evidence: 'Scout-taught; adults supervise, drive and cook.', kind: 'sched', status: 'Nov 20-22' },
+      { item: 'Weekend held', evidence: 'Troop trip to Camp Wakpominee, Nov 20-22. Scout-taught; adults supervise, drive and cook.', kind: 'sched', status: 'Nov 20-22' },
       { item: 'PLC after-action review', evidence: 'Added after the weekend.', kind: 'sched', status: 'By Dec 31' },
-      { item: `Planning procedure posted; next year's placeholder`, evidence: 'Added after the weekend.', kind: 'sched', status: 'By Dec 31' },
+      { item: 'Planning procedure posted to the portal', evidence: `Written from how this year's weekend was planned, so the next PLC can repeat it.`, kind: 'sched', status: 'By Dec 31' },
+      { item: `Next year's weekend on the calendar`, evidence: 'A placeholder for Foundations Weekend 2027.', kind: 'sched', status: 'By Dec 31' },
     ],
+    milestones: {
+      heading: 'Milestones (not pass conditions)',
+      rows: [
+        { item: 'Concept to the PLC; weekend on the calendar', evidence: 'Troop trip to Camp Wakpominee, Nov 20-22, on the live calendar.', kind: 'done', status: 'Done' },
+        { item: 'Advancement gap list', evidence: 'The Scout through First Class requirements each attending Scout still needs, from advancement records.', kind: 'pend', status: 'Oct 16' },
+        { item: 'Program schedule and Scout instructors', evidence: 'Each instructor picks the requirement they teach; Teaching EDGE walk-through at a PLC meeting.', kind: 'pend', status: 'Oct 30' },
+      ],
+    },
     notes: [
       { who: 'Course director, Sept 14', said: 'What do you need to do to ensure that the older Scouts are prepared? Are you comfortable you will get their support?', answer: 'Three things: Scouts pick their requirement from the gap list rather than being handed one, each instructor gets a coaching session with a merit badge counselor beforehand, and the PLC walks through Teaching EDGE first. For Star Scouts, teaching a Tenderfoot through First Class skill with Teaching EDGE is Life requirement 6, so the weekend is their own advancement too.' },
     ],
@@ -344,7 +372,7 @@ const ticketTotal = goals.reduce((n, g) => n + progress(g).total, 0);
 const trail = [
   { label: 'Course weekends', when: 'Aug and Sept 2026', state: 'done' },
   { label: 'Ticket approved', when: 'Sept 19, 2026', state: 'done' },
-  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} evidence items done`, state: 'now' },
+  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met`, state: 'now' },
   { label: 'Beads', when: 'By Mar 20, 2028', state: 'next' },
 ];
 ---
@@ -467,7 +495,9 @@ const trail = [
             <p class="wb-lede">
               Every goal closes the same way: a written process, adopted by
               recorded committee vote where required, posted to the troop portal
-              with a named maintainer, plus evidence that it ran once.
+              with a named maintainer. The bars count only the pass conditions in
+              each goal's approved measurable. Events and milestones that show a
+              process working are listed under each goal but don't count.
             </p>
             <div class="wb-cards">
               {goals.map((g) => {
@@ -480,11 +510,11 @@ const trail = [
                     </span>
                     <span class="wb-card__title">{g.title}</span>
                     <span class="wb-card__due">Due {g.due}</span>
-                    <span class="wb-bar" role="img" aria-label={`${p.done} of ${p.total} done`}>
+                    <span class="wb-bar" role="img" aria-label={`${p.done} of ${p.total} pass conditions met`}>
                       <span style={`width:${p.pct}%`}></span>
                     </span>
                     <span class="wb-card__count">
-                      <strong>{p.done} of {p.total} done.</strong> {g.next}.
+                      <strong>{p.done} of {p.total} pass conditions met.</strong> {g.next}.
                     </span>
                   </a>
                 );
@@ -525,7 +555,7 @@ const trail = [
                 <p class="wb-measure__text">{g.smart.m}</p>
               </div>
 
-              <h3 class="wb-h3">Evidence against the measurable</h3>
+              <h3 class="wb-h3">Pass conditions, from the measurable</h3>
               <div class="wb-table">
                 <table>
                   <thead>
@@ -542,6 +572,28 @@ const trail = [
                   </tbody>
                 </table>
               </div>
+
+              {g.milestones && (
+                <>
+                  <h3 class="wb-h3">{g.milestones.heading}</h3>
+                  <div class="wb-table wb-table--quiet">
+                    <table>
+                      <thead>
+                        <tr><th scope="col">Milestone</th><th scope="col">What happened</th><th scope="col">Status</th></tr>
+                      </thead>
+                      <tbody>
+                        {g.milestones.rows.map((r) => (
+                          <tr>
+                            <td>{r.item}</td>
+                            <td>{r.evidence}</td>
+                            <td><span class={`wb-chip wb-chip--${r.kind}`}>{r.status}</span></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
 
               {g.stats && (
                 <>
@@ -1251,6 +1303,12 @@ const trail = [
     width: 1%;
     white-space: nowrap;
   }
+
+  .wb-table--quiet {
+    background: transparent;
+    border-style: dashed;
+  }
+  .wb-table--quiet td:first-child { font-weight: 500; }
 
   /* Numbers */
   .wb-stats {
