@@ -327,9 +327,20 @@ const nextCycle = [
 
 const meta = [
   ['Course', 'Twin Rivers Council Wood Badge 2026'],
+  ['Patrol', 'Buffalo'],
   ['Ticket approved', 'Sept 19, 2026'],
   ['Completion deadline', 'Mar 20, 2028'],
   ['Status as of', asOf],
+];
+
+// The road to the beads, shown in the hero. The ticket step counts itself from the goal rows.
+const ticketDone = goals.reduce((n, g) => n + progress(g).done, 0);
+const ticketTotal = goals.reduce((n, g) => n + progress(g).total, 0);
+const trail = [
+  { label: 'Course weekends', when: 'Aug and Sept 2026', state: 'done' },
+  { label: 'Ticket approved', when: 'Sept 19, 2026', state: 'done' },
+  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} evidence items done`, state: 'now' },
+  { label: 'Beads', when: 'By Mar 20, 2028', state: 'next' },
 ];
 ---
 
@@ -339,36 +350,96 @@ const meta = [
 >
   {/* Shared by link with ticket reviewers; kept out of search results. */}
   <meta slot="head" name="robots" content="noindex, follow" />
-  <main id="main">
+  <main id="main" class="wb-page">
     <section class="page-hero">
       <SiteHeader />
-      <div class="wrap page-hero__inner wb-hero">
-        <div>
-          <p class="kicker page-hero__kicker" data-reveal>Wood Badge ticket</p>
-          <h1 class="page-hero__title" data-reveal data-reveal-delay="1">
-            What keeps<br />running after<br />I stop.
-          </h1>
-          <p class="page-hero__note" data-reveal data-reveal-delay="2">
-            I chair the committee of Troop 3054, Mohawk District, Twin Rivers
-            Council. My Wood Badge ticket is five goals, each a written process
-            the committee owns, so the troop runs well without depending on any
-            one adult, including me. This page is the evidence, updated as the
-            work moves.
-          </p>
-          <dl class="wb-meta" data-reveal data-reveal-delay="3">
-            {meta.map(([k, v]) => (
-              <div>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
-              </div>
+      <div class="wrap page-hero__inner">
+        {/* Wood Badge's own symbols (beads, thong, tartan), drawn here; no official emblem. */}
+        <div class="wb-banner" data-reveal>
+          <div class="wb-banner__body">
+            <p class="wb-banner__kicker">Wood Badge ticket &middot; Twin Rivers Council 2026</p>
+            <h1 class="wb-banner__title">What keeps running after I stop.</h1>
+            <p class="wb-banner__note">
+              I chair the committee of Troop 3054, Mohawk District, Twin Rivers
+              Council. My Wood Badge ticket is five goals, each a written process
+              the committee owns, so the troop runs well without depending on any
+              one adult, including me. This page is the evidence, updated as the
+              work moves.
+            </p>
+            <dl class="wb-meta">
+              {meta.map(([k, v]) => (
+                <div>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <svg class="wb-banner__beads" viewBox="0 0 280 300" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="wb-wood" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#4e2e15" />
+                <stop offset="0.22" stop-color="#8f5f32" />
+                <stop offset="0.45" stop-color="#d6a66b" />
+                <stop offset="0.62" stop-color="#b37c45" />
+                <stop offset="1" stop-color="#46280f" />
+              </linearGradient>
+              <radialGradient id="wb-glow" cx="0.5" cy="0.62" r="0.5">
+                <stop offset="0" stop-color="#f0b45e" stop-opacity="0.38" />
+                <stop offset="1" stop-color="#f0b45e" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="wb-thong" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="80">
+                <stop offset="0" stop-color="#6b3f1f" stop-opacity="0" />
+                <stop offset="1" stop-color="#6b3f1f" />
+              </linearGradient>
+              <linearGradient id="wb-thong-hi" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="80">
+                <stop offset="0" stop-color="#a8713f" stop-opacity="0" />
+                <stop offset="1" stop-color="#a8713f" />
+              </linearGradient>
+              <filter id="wb-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4" />
+              </filter>
+            </defs>
+            <circle cx="140" cy="215" r="118" fill="url(#wb-glow)" />
+            <g fill="none" stroke-linecap="round" filter="url(#wb-shadow)">
+              {/* Leather thong: around the neck, then down to a bead at each end. */}
+              <path d="M28 0 C 32 82, 94 134, 130 150 C 122 166, 115 180, 111 193" stroke="url(#wb-thong)" stroke-width="5" />
+              <path d="M252 0 C 248 82, 186 134, 150 150 C 158 168, 166 184, 172 199" stroke="url(#wb-thong)" stroke-width="5" />
+              <path d="M27 0 C 31 82, 93 133, 129 149" stroke="url(#wb-thong-hi)" stroke-width="1.4" opacity="0.7" />
+              <path d="M251 0 C 247 82, 185 133, 149 149" stroke="url(#wb-thong-hi)" stroke-width="1.4" opacity="0.7" />
+            </g>
+            {[
+              { x: 106, y: 231, r: 8 },
+              { x: 176, y: 237, r: -6 },
+            ].map((b) => (
+              <g transform={`translate(${b.x} ${b.y}) rotate(${b.r}) scale(1.25)`} filter="url(#wb-shadow)">
+                <path d="M-15 -31 Q -20 0 -15 31 L 15 31 Q 20 0 15 -31 Z" fill="url(#wb-wood)" />
+                <path d="M-9 -29 Q -12 0 -9 29 M5 -30 Q 8 0 5 30 M-2 -30 Q -4 0 -2 30" stroke="#3e230d" stroke-width="1" fill="none" opacity="0.3" />
+                <ellipse cx="0" cy="-31" rx="15" ry="4" fill="#c8945a" stroke="#6b4423" stroke-width="0.8" />
+                <ellipse cx="0" cy="-31" rx="3.4" ry="1.3" fill="#2a1708" />
+                <circle cx="0" cy="38" r="5" fill="#6b3f1f" />
+                <path d="M-2 41 l -4 11 M2 41 l 3 12" stroke="#6b3f1f" stroke-width="3" stroke-linecap="round" fill="none" />
+              </g>
             ))}
-          </dl>
-        </div>
-        <div class="wb-beads" aria-hidden="true">
-          <span class="wb-beads__thong"></span>
-          <span class="wb-beads__bead"></span>
-          <span class="wb-beads__bead"></span>
-          <span class="wb-beads__thong"></span>
+          </svg>
+
+          <ol class="wb-trail" aria-label="The road to the beads">
+            {trail.map((t) => (
+              <li class={`wb-trail__step wb-trail__step--${t.state}`}>
+                <span class="wb-trail__dot" aria-hidden="true">
+                  {t.state === 'next' && (
+                    <>
+                      <span class="wb-trail__bead"></span>
+                      <span class="wb-trail__bead"></span>
+                    </>
+                  )}
+                </span>
+                <span class="wb-trail__label">{t.label}</span>
+                <span class="wb-trail__when">{t.when}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
@@ -738,13 +809,72 @@ const meta = [
     padding-block: clamp(2rem, 1rem + 4vw, 4rem) clamp(3rem, 2rem + 4vw, 5rem);
   }
 
-  /* Hero additions */
-  .wb-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 2rem;
-    align-items: end;
+  /* Wood Badge palette: Gilwell green, neckerchief tan, bead gold, and a
+     MacLaren-style tartan like the neckerchief patch. */
+  .wb-page {
+    --wb-forest: #1c3a2a;
+    --wb-forest-deep: #10241a;
+    --wb-cream: #f6efe0;
+    --wb-cream-soft: rgba(246, 239, 224, 0.74);
+    --wb-gold: #dcb862;
+    --wb-tartan:
+      repeating-linear-gradient(90deg, transparent 0 6px, rgba(220, 184, 98, 0.95) 6px 7px, transparent 7px 18px, rgba(178, 52, 44, 0.92) 18px 20px, transparent 20px 32px, rgba(20, 32, 60, 0.78) 32px 44px),
+      repeating-linear-gradient(0deg, rgba(20, 32, 60, 0.45) 0 3px, transparent 3px 6px),
+      #2f6b45;
   }
+
+  /* Hero banner */
+  .wb-banner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: 1rem 2.5rem;
+    align-items: center;
+    padding: clamp(2rem, 1.4rem + 2.6vw, 3.4rem) clamp(1.4rem, 0.8rem + 3vw, 3.4rem) clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    color: var(--wb-cream);
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 45%, rgba(240, 180, 94, 0.16), transparent 70%),
+      linear-gradient(140deg, var(--wb-forest) 0%, var(--wb-forest-deep) 100%);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px -18px rgba(16, 36, 26, 0.55);
+  }
+  .wb-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 10px;
+    background: var(--wb-tartan);
+  }
+  .wb-banner__kicker {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--wb-gold);
+    margin-bottom: 0.9rem;
+  }
+  .wb-banner__title {
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--wb-cream);
+    max-width: 13ch;
+  }
+  .wb-banner__note {
+    margin-top: 1.1rem;
+    max-width: 58ch;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--wb-cream-soft);
+  }
+  .wb-banner__beads {
+    width: 100%;
+    height: auto;
+    align-self: end;
+    overflow: visible;
+  }
+
   .wb-meta {
     display: flex;
     flex-wrap: wrap;
@@ -752,35 +882,95 @@ const meta = [
     margin-top: 1.6rem;
   }
   .wb-meta dt {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-soft);
+    color: var(--wb-gold);
+    opacity: 0.85;
   }
   .wb-meta dd {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--ink);
+    color: var(--wb-cream);
   }
-  .wb-beads {
+
+  /* The road to the beads */
+  .wb-trail {
+    grid-column: 1 / -1;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 1.2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(246, 239, 224, 0.14);
+  }
+  .wb-trail__step {
+    position: relative;
+    padding-right: 1rem;
+  }
+  .wb-trail__step::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 26px;
+    right: 8px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(246, 239, 224, 0.18);
+  }
+  .wb-trail__step:last-child::after { display: none; }
+  .wb-trail__step--done::after { background: var(--wb-gold); }
+  .wb-trail__dot {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding-bottom: 0.4rem;
+    justify-content: center;
+    gap: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(246, 239, 224, 0.4);
+    margin-bottom: 0.7rem;
   }
-  .wb-beads__thong {
-    width: 2.6rem;
-    height: 3px;
-    border-radius: 2px;
-    background: #c9a777;
+  .wb-trail__step--done .wb-trail__dot {
+    background: var(--wb-gold);
+    border-color: var(--wb-gold);
   }
-  .wb-beads__bead {
-    width: 1.05rem;
-    height: 1.8rem;
-    border-radius: 0.55rem;
-    background: linear-gradient(180deg, #b88a56, #7a5530);
-    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.22);
+  .wb-trail__step--now .wb-trail__dot {
+    border-color: var(--wb-gold);
+    box-shadow: 0 0 0 0 rgba(220, 184, 98, 0.55);
+    animation: wb-pulse 2.2s var(--ease) infinite;
+  }
+  .wb-trail__step--next .wb-trail__dot {
+    width: auto;
+    height: 18px;
+    border: 0;
+    border-radius: 0;
+    justify-content: flex-start;
+  }
+  .wb-trail__bead {
+    width: 7px;
+    height: 14px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #5a3519, #d6a66b 45%, #7a4c24);
+  }
+  .wb-trail__label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--wb-cream);
+  }
+  .wb-trail__when {
+    display: block;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--wb-cream-soft);
+    margin-top: 0.15rem;
+  }
+  @keyframes wb-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 184, 98, 0.55); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 184, 98, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 184, 98, 0); }
   }
 
   /* Layout */
@@ -937,19 +1127,28 @@ const meta = [
     margin-top: 1.4rem;
   }
   .wb-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 1.1rem 1.15rem 1.15rem;
+    padding: calc(1.1rem + 5px) 1.15rem 1.15rem;
     background: var(--paper-pure);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--ink);
     border-radius: var(--radius);
-    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+    overflow: hidden;
+    transition: border-color 0.18s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  }
+  .wb-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 5px;
+    background: var(--wb-tartan);
   }
   .wb-card:hover {
-    border-top-color: var(--green);
+    border-color: rgba(29, 34, 71, 0.25);
     transform: translateY(-2px);
+    box-shadow: 0 10px 22px -14px rgba(16, 36, 26, 0.45);
   }
   .wb-card__top {
     display: flex;
@@ -1292,8 +1491,21 @@ const meta = [
   @media (max-width: 960px) {
     .wb__layout { grid-template-columns: minmax(0, 1fr); }
     .wb-toc { display: none; }
-    .wb-hero { grid-template-columns: minmax(0, 1fr); }
-    .wb-beads { display: none; }
+    .wb-banner { grid-template-columns: minmax(0, 1fr) 10rem; }
+  }
+
+  @media (max-width: 720px) {
+    .wb-banner { grid-template-columns: minmax(0, 1fr); }
+    .wb-banner__beads {
+      grid-row: 1;
+      width: 7.5rem;
+      margin-bottom: -0.5rem;
+    }
+    .wb-trail {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 1.3rem;
+    }
+    .wb-trail__step::after { display: none; }
   }
 
   @media (max-width: 640px) {
