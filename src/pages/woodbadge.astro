@@ -20,6 +20,9 @@ import troopHome from '../images/woodbadge/troop-home.jpg';
 import troopGovernance from '../images/woodbadge/troop-governance.jpg';
 import packCalendar from '../images/woodbadge/pack-calendar.jpg';
 import packMobile from '../images/woodbadge/pack-home-mobile.jpg';
+import woggleBeads from '../images/woodbadge/woggle-beads.png';
+import regalia from '../images/woodbadge/wood-badge-regalia.jpg';
+import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
 
 /*
   Every status on this page is a snapshot. When the work moves, update asOf
@@ -354,7 +357,7 @@ const trail = [
     <section class="page-hero">
       <SiteHeader />
       <div class="wrap page-hero__inner">
-        {/* Wood Badge's own symbols (beads, thong, tartan), drawn here; no official emblem. */}
+        {/* Wood Badge's traditional symbols (beads, woggle, tartan); no official emblem. */}
         <div class="wb-banner" data-reveal>
           <div class="wb-banner__body">
             <p class="wb-banner__kicker">Wood Badge ticket &middot; Twin Rivers Council 2026</p>
@@ -376,53 +379,14 @@ const trail = [
             </dl>
           </div>
 
-          <svg class="wb-banner__beads" viewBox="0 0 280 300" aria-hidden="true" focusable="false">
-            <defs>
-              <linearGradient id="wb-wood" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0" stop-color="#4e2e15" />
-                <stop offset="0.22" stop-color="#8f5f32" />
-                <stop offset="0.45" stop-color="#d6a66b" />
-                <stop offset="0.62" stop-color="#b37c45" />
-                <stop offset="1" stop-color="#46280f" />
-              </linearGradient>
-              <radialGradient id="wb-glow" cx="0.5" cy="0.62" r="0.5">
-                <stop offset="0" stop-color="#f0b45e" stop-opacity="0.38" />
-                <stop offset="1" stop-color="#f0b45e" stop-opacity="0" />
-              </radialGradient>
-              <linearGradient id="wb-thong" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="80">
-                <stop offset="0" stop-color="#6b3f1f" stop-opacity="0" />
-                <stop offset="1" stop-color="#6b3f1f" />
-              </linearGradient>
-              <linearGradient id="wb-thong-hi" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="80">
-                <stop offset="0" stop-color="#a8713f" stop-opacity="0" />
-                <stop offset="1" stop-color="#a8713f" />
-              </linearGradient>
-              <filter id="wb-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4" />
-              </filter>
-            </defs>
-            <circle cx="140" cy="215" r="118" fill="url(#wb-glow)" />
-            <g fill="none" stroke-linecap="round" filter="url(#wb-shadow)">
-              {/* Leather thong: around the neck, then down to a bead at each end. */}
-              <path d="M28 0 C 32 82, 94 134, 130 150 C 122 166, 115 180, 111 193" stroke="url(#wb-thong)" stroke-width="5" />
-              <path d="M252 0 C 248 82, 186 134, 150 150 C 158 168, 166 184, 172 199" stroke="url(#wb-thong)" stroke-width="5" />
-              <path d="M27 0 C 31 82, 93 133, 129 149" stroke="url(#wb-thong-hi)" stroke-width="1.4" opacity="0.7" />
-              <path d="M251 0 C 247 82, 185 133, 149 149" stroke="url(#wb-thong-hi)" stroke-width="1.4" opacity="0.7" />
-            </g>
-            {[
-              { x: 106, y: 231, r: 8 },
-              { x: 176, y: 237, r: -6 },
-            ].map((b) => (
-              <g transform={`translate(${b.x} ${b.y}) rotate(${b.r}) scale(1.25)`} filter="url(#wb-shadow)">
-                <path d="M-15 -31 Q -20 0 -15 31 L 15 31 Q 20 0 15 -31 Z" fill="url(#wb-wood)" />
-                <path d="M-9 -29 Q -12 0 -9 29 M5 -30 Q 8 0 5 30 M-2 -30 Q -4 0 -2 30" stroke="#3e230d" stroke-width="1" fill="none" opacity="0.3" />
-                <ellipse cx="0" cy="-31" rx="15" ry="4" fill="#c8945a" stroke="#6b4423" stroke-width="0.8" />
-                <ellipse cx="0" cy="-31" rx="3.4" ry="1.3" fill="#2a1708" />
-                <circle cx="0" cy="38" r="5" fill="#6b3f1f" />
-                <path d="M-2 41 l -4 11 M2 41 l 3 12" stroke="#6b3f1f" stroke-width="3" stroke-linecap="round" fill="none" />
-              </g>
-            ))}
-          </svg>
+          <Image
+            class="wb-banner__beads"
+            src={woggleBeads}
+            alt="Wood Badge beads on a leather thong, with the leather woggle"
+            widths={[280, 560]}
+            sizes="(max-width: 720px) 120px, 272px"
+            loading="eager"
+          />
 
           <ol class="wb-trail" aria-label="The road to the beads">
             {trail.map((t) => (
@@ -455,6 +419,7 @@ const trail = [
               <li><a href={`#${g.id}`}><span class="wb-toc__n">{g.n}</span>{g.short}</a></li>
             ))}
             <li><a href="#systems">Systems built</a></li>
+            <li><a href="#tradition">The tradition</a></li>
             <li><a href="#shaped">How the ticket was shaped</a></li>
             <li><a href="#next-year">Who runs it next year</a></li>
             <li><a href="#on-request">Available on request</a></li>
@@ -719,6 +684,32 @@ const trail = [
             </p>
           </section>
 
+          {/* The tradition */}
+          <section id="tradition" class="wb-sec">
+            <div class="wb-head">
+              <p class="wb-label">Since 1919</p>
+              <h2 class="wb-h2">The tradition</h2>
+            </div>
+            <p class="wb-lede">
+              Wood Badge is Scouting's advanced leadership course for adult
+              volunteers. The first course ran at Gilwell Park, England, in
+              September 1919. Every participant finishes the same way: by
+              working a ticket of written goals back home, within 18 months.
+              Completing it earns the two wooden beads on a leather thong, the
+              Gilwell neckerchief with its MacLaren tartan patch, and the woggle.
+            </p>
+            <div class="wb-tradition">
+              <figure>
+                <Image src={gilwell1919} alt="The first Wood Badge course, seated and standing around a campfire, Gilwell Park, 1919" widths={[480, 700]} sizes="(max-width: 720px) 100vw, 420px" loading="lazy" />
+                <figcaption><strong>Gilwell Park, September 1919.</strong> The first Wood Badge course.</figcaption>
+              </figure>
+              <figure>
+                <Image src={regalia} alt="Wood Badge beads and woggle on a tan Gilwell neckerchief with its tartan patch" widths={[480, 641]} sizes="(max-width: 720px) 100vw, 420px" loading="lazy" />
+                <figcaption><strong>What the ticket earns.</strong> The beads, the Gilwell neckerchief and the woggle.</figcaption>
+              </figure>
+            </div>
+          </section>
+
           {/* How the ticket was shaped */}
           <section id="shaped" class="wb-sec">
             <div class="wb-head">
@@ -786,6 +777,15 @@ const trail = [
                 Ask at <a href="mailto:will@willmau.com">will@willmau.com</a>.
               </p>
               <p class="wb-small">Scout names and faces are not shown. Screenshots were taken {asOf}.</p>
+              <p class="wb-small wb-credits">
+                Image credits, via Wikimedia Commons: Wood Badge and woggle by
+                Hideyuki Kamon, <a href="https://commons.wikimedia.org/wiki/File:Japanese_Wood_Badge_and_woggle.jpg" target="_blank" rel="noopener">CC BY-SA 2.0</a>,
+                background removed; MacLaren tartan by SGT141,
+                <a href="https://commons.wikimedia.org/wiki/File:MacLaren_Tartan.jpg" target="_blank" rel="noopener">CC BY-SA 3.0</a>;
+                <a href="https://commons.wikimedia.org/wiki/File:Wood_badge_regalia_1.jpg" target="_blank" rel="noopener">Wood Badge regalia</a> by Gadget850 and
+                <a href="https://commons.wikimedia.org/wiki/File:First_Wood_Badge_training_Gilwell_Park_September_1919.jpg" target="_blank" rel="noopener">the 1919 Gilwell photo</a>,
+                public domain.
+              </p>
             </div>
           </section>
         </div>
@@ -809,18 +809,15 @@ const trail = [
     padding-block: clamp(2rem, 1rem + 4vw, 4rem) clamp(3rem, 2rem + 4vw, 5rem);
   }
 
-  /* Wood Badge palette: Gilwell green, neckerchief tan, bead gold, and a
-     MacLaren-style tartan like the neckerchief patch. */
+  /* Wood Badge palette: Gilwell green, neckerchief tan, bead gold, and the
+     MacLaren tartan from the neckerchief patch. */
   .wb-page {
     --wb-forest: #1c3a2a;
     --wb-forest-deep: #10241a;
     --wb-cream: #f6efe0;
     --wb-cream-soft: rgba(246, 239, 224, 0.74);
     --wb-gold: #dcb862;
-    --wb-tartan:
-      repeating-linear-gradient(90deg, transparent 0 6px, rgba(220, 184, 98, 0.95) 6px 7px, transparent 7px 18px, rgba(178, 52, 44, 0.92) 18px 20px, transparent 20px 32px, rgba(20, 32, 60, 0.78) 32px 44px),
-      repeating-linear-gradient(0deg, rgba(20, 32, 60, 0.45) 0 3px, transparent 3px 6px),
-      #2f6b45;
+    --wb-tartan: url('../images/woodbadge/maclaren-tartan.jpg') center / 120px repeat, #1f4a32;
   }
 
   /* Hero banner */
@@ -833,7 +830,7 @@ const trail = [
     padding: clamp(2rem, 1.4rem + 2.6vw, 3.4rem) clamp(1.4rem, 0.8rem + 3vw, 3.4rem) clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
     color: var(--wb-cream);
     background:
-      radial-gradient(ellipse 60% 80% at 85% 45%, rgba(240, 180, 94, 0.16), transparent 70%),
+      radial-gradient(circle at 84% 42%, rgba(240, 180, 94, 0.32), transparent 26rem),
       linear-gradient(140deg, var(--wb-forest) 0%, var(--wb-forest-deep) 100%);
     border-radius: 18px;
     overflow: hidden;
@@ -843,7 +840,7 @@ const trail = [
     content: '';
     position: absolute;
     inset: 0 0 auto 0;
-    height: 10px;
+    height: 14px;
     background: var(--wb-tartan);
   }
   .wb-banner__kicker {
@@ -871,8 +868,8 @@ const trail = [
   .wb-banner__beads {
     width: 100%;
     height: auto;
-    align-self: end;
-    overflow: visible;
+    align-self: center;
+    filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.45));
   }
 
   .wb-meta {
@@ -1131,7 +1128,7 @@ const trail = [
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: calc(1.1rem + 5px) 1.15rem 1.15rem;
+    padding: calc(1.1rem + 6px) 1.15rem 1.15rem;
     background: var(--paper-pure);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -1142,7 +1139,7 @@ const trail = [
     content: '';
     position: absolute;
     inset: 0 0 auto 0;
-    height: 5px;
+    height: 6px;
     background: var(--wb-tartan);
   }
   .wb-card:hover {
@@ -1448,6 +1445,29 @@ const trail = [
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
     gap: 0 2rem;
   }
+
+  /* Tradition */
+  .wb-tradition {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1.2rem;
+    margin-top: 1.4rem;
+  }
+  .wb-tradition :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+  .wb-tradition figcaption {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-top: 0.5rem;
+  }
+  .wb-tradition figcaption strong { color: var(--ink); font-weight: 600; }
+  .wb-credits { font-size: 0.78rem; }
 
   /* Timeline */
   .wb-timeline {
