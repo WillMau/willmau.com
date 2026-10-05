@@ -129,11 +129,11 @@ const goals: Goal[] = [
   {
     id: 'planning',
     n: 2,
-    title: 'Annual program planning procedure',
-    short: 'Program planning',
+    title: 'Annual program calendar, built by the PLC',
+    short: 'Program calendar',
     due: 'May 31, 2027',
     badge: { kind: 'pend', label: 'Handoff underway' },
-    next: 'Written procedure next, by Dec 31',
+    next: 'Annual planning section next',
     summary: `Document an annual program planning procedure for the Patrol Leaders' Council, and prove it works with a Scout-built program year calendar posted to the troop portal.`,
     smart: {
       s: `I will write a short annual program planning procedure based on Scouting America's annual planning conference materials rather than something I invent, and coach the senior patrol leader through it one on one before it reaches the PLC. The Scoutmaster and I prepare, the senior patrol leader runs the conference, and the PLC picks the activities and puts a Scout's name on each. The PLC reviews each meeting it planned right after that meeting, so the procedure gets tested every few weeks rather than once a year. Constraint: youth-led does not mean unstructured, and the calendar the Scouts produce is a plan, not a contract.`,
@@ -255,7 +255,7 @@ const goals: Goal[] = [
     notes: [
       { who: 'Ticket counselor, Sept 2', said: 'Goal 4 put the Treasurer in the kill chain. No goal should have another person in it.', answer: `The goal was narrowed to the process only. The budget was still built, as the ticket intended, but completion never waited on anyone else's numbers.` },
     ],
-    aside: 'Bonus: Twin Rivers Council adds 3% to the popcorn commission for units that submit an annual budget, calendar, succession plan and membership plan. Goals 1 through 4 produce all four, and the commission goes to Scout accounts.',
+    aside: `Bonus: Twin Rivers Council's Pathfinder program adds 3% to the popcorn commission for units that submit an annual budget, calendar, succession plan and membership plan. Goals 1 through 4 produce all four, and the commission goes to Scout accounts.`,
   },
   {
     id: 'foundations',
@@ -538,6 +538,12 @@ const trail = [
               with a named maintainer. The bars count only the pass conditions in
               each goal's approved measurable. Events and milestones that show a
               process working are listed under each goal but don't count.
+            </p>
+            <p class="wb-small wb-pathfinder">
+              <strong>Lined up with the council's Pathfinder program.</strong>
+              Goals 1 through 4 produce the four plans Twin Rivers Council asks
+              units for: a membership plan (Goal 1), the annual calendar
+              (Goal 2), a succession plan (Goal 3) and a budget (Goal 4).
             </p>
             <div class="wb-cards">
               {goals.map((g) => {
@@ -1595,6 +1601,13 @@ const trail = [
     .wb-about__grid { grid-template-columns: minmax(0, 1fr); }
   }
   .wb-credits { font-size: 0.78rem; }
+  .wb-pathfinder {
+    padding: 0.6rem 0.9rem;
+    border-left: 3px solid var(--wb-gold, #dcb862);
+    background: rgba(220, 184, 98, 0.12);
+    border-radius: 0 8px 8px 0;
+  }
+  .wb-pathfinder strong { color: var(--ink); }
 
   /* Timeline */
   .wb-timeline {
