@@ -343,6 +343,56 @@ const systemsShots: Shot[] = [
   { img: packMobile, alt: 'pack3054.org on a phone', title: 'On a phone.', text: 'Both sites are built for the phone first.', tall: true },
 ];
 
+// Work done alongside the ticket since the course began. Not pass
+// conditions, and never counted in the status cards.
+const beyond = [
+  {
+    title: `Pack 3054's website and leader app`,
+    where: 'pack3054.org and my.pack3054.org · live Oct 5, 2026',
+    items: [
+      'Nine pages written for Jefferson Elementary families: how Cub Scouts works, the six dens by grade, joining in three steps, a family guide, and who runs the pack.',
+      `Pack leaders keep the calendar in their own app, signing in with an emailed code. The website, families' phone calendars and troop3054.org's pack switch all read from it, so there's nothing to publish.`,
+      'Families can filter the calendar by den, and a "Lion or Tiger?" switch shows only the den meetings Lions and Tigers come to. The whole year also prints as a PDF.',
+      `It's a separate app from the troop's, with its own accounts and data, and it runs on Cloudflare's free plan.`,
+      'Listed in Google Search Console, with a Google Business Profile, so a parent searching for Cub Scouts in Rotterdam finds it.',
+    ],
+  },
+  {
+    title: `The troop's books, in the member portal`,
+    where: 'my.troop3054.org · Oct 14-15, 2026',
+    items: [
+      'A double-entry ledger: every dollar moves from one account to another, so the books always balance. Nothing is deleted; a mistake is reversed by a matching entry.',
+      'Every Scout has their own account, opened with their last known balance.',
+      `A register for each account that reads like a checkbook, reconciling against the bank statement, and a monthly Treasurer's report that prints for the committee without naming Scouts.`,
+      'Popcorn payouts split the commission by what each Scout sold, to the cent, straight into their Scout account. The whole split is reviewed on screen before it is recorded.',
+      `Closing a year locks its entries, and next year's draft budget starts from the adopted one.`,
+      `Who sees what follows position. The Treasurer, the Committee Chair and their backups keep the books. The rest of the committee and the Scoutmaster read the budget, and other adult leaders read the popcorn payouts. Scouts and parents see none of it, and it opens only with the reader's own PIN.`,
+      'The books export to spreadsheets and to Beancount, an open accounting format, so the records never depend on this app.',
+    ],
+  },
+  {
+    title: 'More in the portal and on troop3054.org',
+    where: 'Sept and Oct 2026',
+    items: [
+      '"Using the Troop App," a public training guide at troop3054.org/app.html. Its screenshots come from a made-up demo troop, so no real Scout appears.',
+      `Sponsors can give online through Zeffy, which doesn't charge the troop fees.`,
+      'The public calendar shows event flyers, and its RSVP button signs a family in and lands them on that event.',
+      'Volunteer hours are logged on any event.',
+      'Sign in with Google, next to the emailed code.',
+    ],
+  },
+  {
+    title: 'Security and privacy',
+    where: 'Oct 2026',
+    items: [
+      'Admin tools need a Google sign-in. A PIN or an emailed code still gets a leader into the portal, but not into admin.',
+      `An October audit checked every one of the portal's 30 data routes while signed out. None returns anything without a sign-in.`,
+      'Finance records stay out of the weekly admin backup email. The people who keep the books download their own copy.',
+      'More than 550 automated checks cover sign-in, privacy, planning and the finances.',
+    ],
+  },
+];
+
 const timeline = [
   ['Aug 28-30', 'Wood Badge Weekend 1, Camp Wakpominee.'],
   ['Aug 31', 'First ticket draft to my ticket counselor: five goals, all pointed at a troop that keeps running without depending on any one adult.'],
@@ -506,6 +556,7 @@ const trail = [
               <li><a href={`#${g.id}`}><span class="wb-toc__n">{g.n}</span>{g.short}</a></li>
             ))}
             <li><a href="#systems">Systems built</a></li>
+            <li><a href="#beyond">Built alongside</a></li>
             <li><a href="#shaped">How the ticket was shaped</a></li>
             <li><a href="#next-year">Who runs it next year</a></li>
             <li><a href="#on-request">Available on request</a></li>
@@ -799,6 +850,32 @@ const trail = [
               screenshots rather than through reviewer accounts. A live
               walkthrough is <a href="#on-request">available on request</a>.
             </p>
+          </section>
+
+          {/* Beyond the ticket */}
+          <section id="beyond" class="wb-sec">
+            <div class="wb-head">
+              <p class="wb-label">Additional work</p>
+              <h2 class="wb-h2">Built alongside the ticket</h2>
+            </div>
+            <p class="wb-lede">
+              None of this is a pass condition, and none of it counts toward the
+              status above. It's what got built next to the five goals since the
+              course began. One tie back to Goal 3: who keeps the troop's books
+              comes straight from the roles matrix, so when the Treasurer or a
+              backup changes there, access to the books changes with it.
+            </p>
+            <div class="wb-two">
+              {beyond.map((b) => (
+                <div>
+                  <h3 class="wb-h3">{b.title}</h3>
+                  <p class="wb-beyond__where">{b.where}</p>
+                  <ul class="wb-list">
+                    {b.items.map((i) => <li>{i}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* How the ticket was shaped */}
@@ -1550,6 +1627,16 @@ const trail = [
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
     gap: 0 2rem;
+  }
+
+  /* Built alongside the ticket */
+  #beyond .wb-h3 { margin-bottom: 0.2rem; }
+  .wb-beyond__where {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-soft);
+    margin-bottom: 0.7rem;
   }
 
   /* What Wood Badge is: a neckerchief-tan band that reads on its own */
