@@ -12,7 +12,7 @@ import openHouseSign from '../images/woodbadge/kit-openhouse.jpg';
 import packJoin from '../images/woodbadge/pack-join.jpg';
 import packCrossover from '../images/woodbadge/pack-troop-crossover.jpg';
 import portalProgram from '../images/woodbadge/portal-program.jpg';
-import portalPlan from '../images/woodbadge/portal-plan.jpg';
+import portalPlan from '../images/woodbadge/portal-plan-2026-10.jpg';
 import troopCalendar from '../images/woodbadge/troop-calendar-list.jpg';
 import troopInvolved from '../images/woodbadge/troop-involved-positions.jpg';
 import councilBoard from '../images/woodbadge/council-trained-board.jpg';
@@ -32,7 +32,7 @@ import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
   Kept off this page on purpose: volunteer and family names, the troop's
   bank details, and reviewer names and contact information.
 */
-const asOf = 'Oct 5, 2026';
+const asOf = 'Oct 14, 2026';
 
 type Kind = 'done' | 'pend' | 'sched';
 interface Row { item: string; evidence: string; kind: Kind; status: string; href?: string }
@@ -67,8 +67,8 @@ const goals: Goal[] = [
     title: 'Joint troop and pack recruiting process',
     short: 'Recruiting',
     due: 'Apr 30, 2027',
-    badge: { kind: 'pend', label: 'Awaiting approvals' },
-    next: 'Committee and pack Key 3 approvals next',
+    badge: { kind: 'done', label: 'Approved Oct 14' },
+    next: 'Crossover at Blue & Gold, Mar 15, next',
     summary: `Document a repeatable annual recruiting process run jointly by Troop 3054 and Pack 3054, and post it on the recruiting page of the troop portal.`,
     smart: {
       s: `I will write a repeatable annual recruiting process for the troop and the pack and publish it on the recruiting page of the Troop 3054 portal. It points every family into Scouting America's official join path, both units' BeAScout pins and Invitation Manager, and covers the fall sign-up, peer invitation our Scouts run themselves, and the crossover handoff from Arrow of Light into the troop. Constraint: no page of ours sits in the registration path or stores a lead, so nothing here leaves the units a tool to maintain.`,
@@ -79,11 +79,11 @@ const goals: Goal[] = [
     },
     rows: [
       { item: 'Repeatable annual process documented', evidence: `"Pack-to-Troop Recruiting Cycle": the path from Lion to First Class, ground rules, the year month by month, who does what, and the numbers to keep. The fall sign-up, peer invitation and the crossover handoff are written in as yearly steps.`, kind: 'done', status: 'Done Oct 2026' },
-      { item: `Posted on the portal's recruiting page`, evidence: `my.troop3054.org Recruiting page, How it works tab. Marked "Draft for review" until both units approve, then marked adopted.`, kind: 'done', status: 'Posted as draft' },
-      { item: 'Annual review date', evidence: `Every May, by each unit's Key 3 and the troop committee.`, kind: 'done', status: 'Set: May' },
-      { item: 'Named maintainer', evidence: 'The Committee Chair and the New Member Coordinator maintain it, written into the Oct 14 adoption motion.', kind: 'done', status: 'Named' },
-      { item: 'Approved by the troop committee', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: `Approved by the pack's Key 3, in writing`, evidence: `Requested early, per the ticket's own mitigation. Covers the pack website too.`, kind: 'pend', status: 'Requested' },
+      { item: `Posted on the portal's recruiting page`, evidence: `my.troop3054.org Recruiting page, How it works tab. Both units approved it on Oct 14, so it moves from draft to adopted there.`, kind: 'done', status: 'Posted' },
+      { item: 'Annual review date', evidence: `Every August, before fall recruiting, as set in the Oct 14 motion.`, kind: 'done', status: 'Set: August' },
+      { item: 'Named maintainer', evidence: 'The New Member Coordinator, named in the Oct 14 motion. The Webmaster, Committee Chair and Scoutmaster can edit it too.', kind: 'done', status: 'Named' },
+      { item: 'Approved by the troop committee', evidence: 'Approved by recorded vote at the Oct 14 committee meeting, and in the minutes on troop3054.org.', kind: 'done', status: 'Oct 14', href: 'https://www.troop3054.org/governance.html' },
+      { item: `Approved by the pack's Key 3`, evidence: `Given at the Oct 14 committee meeting and recorded in the minutes, well ahead of the Jan 31 date.`, kind: 'done', status: 'Oct 14' },
     ],
     milestones: {
       heading: 'How the process gets tested',
@@ -123,7 +123,7 @@ const goals: Goal[] = [
     ],
     notes: [
       { who: 'Ticket counselor, Sept 2', said: 'Use national tools: the BeAScout pin is the join form, and applicants land in Invitation Manager. Invitation Manager is per unit, so use two unit lists and an agreed sharing rhythm.', answer: 'Done: both pins set, Invitation Manager in use, and one named owner in each unit who backs up the other (the pack and troop New Member Coordinators).' },
-      { who: 'Ticket counselor, Sept 2', said: 'Knowledge management: where it lives, who edits, who maintains, what review cadence.', answer: `It lives on the portal's Recruiting page. The Webmaster, Committee Chair, Scoutmaster and New Member Coordinator can edit; other leaders can read and copy. It is reviewed every May.` },
+      { who: 'Ticket counselor, Sept 2', said: 'Knowledge management: where it lives, who edits, who maintains, what review cadence.', answer: `It lives on the portal's Recruiting page. The Webmaster, Committee Chair, Scoutmaster and New Member Coordinator can edit; other leaders can read and copy. It is reviewed every August, before fall recruiting.` },
     ],
   },
   {
@@ -143,7 +143,7 @@ const goals: Goal[] = [
       t: `Handoff agreed with the Scoutmaster by October 31, 2026. Procedure drafted and the senior patrol leader walked through it by December 31, 2026. PLC's post-meeting review running by February 28, 2027. Annual planning conference held, the procedure revised from the PLC's feedback, and both it and the calendar posted to the portal by May 31, 2027.`,
     },
     rows: [
-      { item: 'Planning procedure posted to the portal', evidence: `Written and posted: the "Planning Meetings (PLC)" section of the troop's app guide covers who writes plans, Scouting America's troop meeting plan with a Scout's name on each part, and the review after every meeting. The PLC used it to plan the rest of the year through the fourth quarter, and the troop is now Scout-led.`, kind: 'done', status: 'Posted', href: 'https://www.troop3054.org/app.html#plc' },
+      { item: 'Planning procedure posted to the portal', evidence: `Written and posted: the "Planning Meetings (PLC)" section of the troop's app guide covers who writes plans, planning the month (the general idea for each meeting, who's teaching, what to wear and bring, and the rank requirements it covers), the one-line review after every meeting, and which committee position to ask for help. The PLC used it to plan the rest of the year through the fourth quarter, and the troop is now Scout-led.`, kind: 'done', status: 'Posted', href: 'https://www.troop3054.org/app.html#plc' },
       { item: `Procedure revised from the PLC's own review`, evidence: `The PLC used the procedure to plan the fourth quarter. Next, it reviews the procedure itself (what worked, what didn't, what to change), and its changes go into the posted version.`, kind: 'sched', status: 'By Oct 31' },
       { item: `PLC's program-year calendar posted to the portal`, evidence: `The full 2026-27 program year is on the portal calendar, 60 events through June 2027, and on the public calendar at troop3054.org. The PLC has planned through the fourth quarter (October to December), and the rest of the year follows the same procedure.`, kind: 'done', status: 'Posted' },
       { item: 'Start time and location on every event', evidence: `58 of the 61 events on the 2026-27 calendar have both. The other three, Blue & Gold and the two Memorial Day events, aren't confirmed yet and get a time and place when they're set; the portal's Program page flags them until then.`, kind: 'done', status: '58 of 61' },
@@ -152,9 +152,9 @@ const goals: Goal[] = [
       heading: 'Milestones (not pass conditions)',
       rows: [
         { item: 'Handoff agreed with the Scoutmaster', evidence: 'Recorded in the Sept 2 committee minutes, posted on troop3054.org: "The committee affirmed the troop\'s move to a fully Scout-led model." Adults give feedback rather than plans.', kind: 'done', status: 'Sept 2' },
-        { item: 'A place for the PLC to plan, in the portal', evidence: `A Plan card on every meeting and outing, built on Scouting America's troop meeting plan: each part of the meeting, duty patrol, the Scout who leads each part, uniform and what to bring.`, kind: 'done', status: 'Live Oct 5' },
-        { item: 'Procedure drafted; SPL walked through it one on one', evidence: 'Meeting planning is drafted and posted; the annual planning section is next. Then the SPL walks through it one on one, before it reaches the PLC.', kind: 'pend', status: 'By Dec 31' },
-        { item: `PLC's post-meeting review running`, evidence: `A three-line review after each event: what worked, what didn't, what to change. Next step: a PLC training night, with Scout sign-ins set up first.`, kind: 'pend', status: 'By Feb 28' },
+        { item: 'A place for the PLC to plan, in the portal', evidence: `Plan the month on the Program page, and a Plan card on every meeting and outing: what we're doing, who's teaching (a Scout or leader as point person), what to wear and bring, and the rank requirements it covers. Simplified on Oct 12 so it's an aid rather than extra work: the general idea, not a minute-by-minute schedule.`, kind: 'done', status: 'Live; simplified Oct 12' },
+        { item: 'Procedure drafted; SPL walked through it one on one', evidence: 'Meeting planning is drafted and posted, and the SPL is writing a first meeting plan, for first aid. The annual planning section is next, then the one-on-one walkthrough with the SPL before it reaches the PLC.', kind: 'pend', status: 'By Dec 31' },
+        { item: `PLC's post-meeting review running`, evidence: `A one-line review after each event, next to the plan. The PLC unticks any rank requirement it didn't get to, so Scouts only get credit for what was taught. Next step: a PLC training night, with Scout sign-ins set up first.`, kind: 'pend', status: 'By Feb 28' },
         { item: 'Annual planning conference', evidence: `The SPL runs it; the PLC picks the activities and puts a Scout's name on each. The current calendar has 12 events still missing a time or place, the PLC's first calendar task.`, kind: 'sched', status: 'Spring 2027' },
       ],
     },
@@ -169,12 +169,12 @@ const goals: Goal[] = [
     },
     shots: [
       { img: portalProgram, alt: 'Portal Program page', title: 'Program page.', text: `The PLC's planning dashboard: the next eight weeks, reviews waiting, events missing a time or place.`, tall: true },
-      { img: portalPlan, alt: 'Meeting Plan card with times for each part', title: 'Plan card.', text: `Scouting America's meeting parts, with times.`, tall: true },
+      { img: portalPlan, alt: 'Meeting Plan card: what to wear and bring, the focus, who is teaching, and the rank requirements it covers', title: 'Plan card.', text: `The general idea, who's teaching and what it covers. Shown with the app guide's made-up troop.`, tall: true },
       { img: troopCalendar, alt: 'troop3054.org public calendar, list view', title: 'Public calendar.', text: 'Time and place on each event, fed live from the portal.' },
     ],
     notes: [
       { who: 'Course director, Sept 14', said: 'For Goal 2, do you plan a feedback cycle with the PLC to iterate and refine the plan and build alignment?', answer: 'Yes, built into the rhythm: the PLC reviews each meeting right after it happens, so the loop runs every few weeks instead of once a year. The review lives on the same Plan card, and the Program page shows any review still waiting. After the annual conference, the PLC reviews the procedure itself before it is posted.' },
-      { who: 'Ticket counselor, Sept 2', said: `Don't over-delegate to youth. If you leave too much up to the kids they will default to less than is actually required for success.`, answer: `The plan template is Scouting America's, not a blank page: every meeting has the same parts, a time for each, and a Scout's name on each part.` },
+      { who: 'Ticket counselor, Sept 2', said: `Don't over-delegate to youth. If you leave too much up to the kids they will default to less than is actually required for success.`, answer: `It isn't a blank page: every plan names what the meeting is for and a Scout or leader as point person, it can tie the meeting to the rank requirements it covers, and the Program page shows adults any meeting that isn't planned yet.` },
     ],
   },
   {
@@ -183,8 +183,8 @@ const goals: Goal[] = [
     title: 'Adult roles and responsibilities matrix',
     short: 'Roles matrix',
     due: 'Jan 31, 2027',
-    badge: { kind: 'pend', label: 'Vote pending' },
-    next: 'Committee vote Oct 14 next',
+    badge: { kind: 'done', label: 'Adopted Oct 14' },
+    next: 'Backups confirmed one on one next, by Dec 31',
     summary: 'Build a matrix of adult roles and responsibilities with named holders and backups, so the troop keeps operating through leadership changes and no single adult holds a job nobody else can do.',
     smart: {
       s: `I will document every key troop role and every shared responsibility that currently lives with one person: committee positions, social media administration, website and domain access, communications, bank account authorization and custody of key files. I will start from Scouting America's published position descriptions rather than my own wording, and confirm each entry one on one with the person holding it before it goes anywhere. Backups are asked individually rather than volunteered into in a meeting. Constraint: no passwords or credentials, only who holds access and how it transfers.`,
@@ -194,13 +194,13 @@ const goals: Goal[] = [
       t: `Matrix drafted by November 30, 2026. Backups identified and confirmed by December 31, 2026. Adopted by recorded committee vote and published to the portal, with the review rotation set, by January 31, 2027.`,
     },
     rows: [
-      { item: 'Matrix posted to the portal', evidence: `Roles & backups in the portal is the only place people get put on jobs. It feeds the public Get Involved page, so the website can't drift from the record.`, kind: 'done', status: 'Posted as draft' },
-      { item: 'Named maintainer', evidence: 'Named in the adoption motion.', kind: 'sched', status: 'Oct 14' },
-      { item: 'Adopted by recorded committee vote', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: 'A named holder for every role and single-point job', evidence: `Built from Scouting America's official position list. The Oct 4 positions sheet has 9 of 10 committee and Key 3 seats held, with the open seat covered by the Committee Chair until someone takes it; those holders still need entering in the portal, which feeds the public Get Involved page. Shared single-point jobs are listed by role: website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.`, kind: 'pend', status: 'Portal update' },
-      { item: 'A named backup wherever one has been found', evidence: 'Volunteer ask sent to all adult leaders, each backup confirmed one on one. 3 named so far.', kind: 'pend', status: 'In progress' },
-      { item: 'Every remaining gap written down, with an owner', evidence: 'Every open seat and every role without a backup says what is at risk and who is working to close it.', kind: 'done', status: 'Written' },
-      { item: 'Review rotation set at adoption', evidence: 'In the same motion: one or two committee documents reviewed each year.', kind: 'sched', status: 'Oct 14' },
+      { item: 'Matrix posted to the portal', evidence: `Roles & backups in the portal is the only place people get put on jobs. It feeds the public Get Involved page, so the website can't drift from the record. Holders and backups were entered Oct 14 to match the adopted matrix.`, kind: 'done', status: 'Posted' },
+      { item: 'Named maintainer', evidence: 'The Committee Chair, named in the Oct 14 motion.', kind: 'done', status: 'Oct 14' },
+      { item: 'Adopted by recorded committee vote', evidence: 'Adopted Oct 14, and in the minutes on troop3054.org.', kind: 'done', status: 'Oct 14', href: 'https://www.troop3054.org/governance.html' },
+      { item: 'A named holder for every role and single-point job', evidence: `Built from Scouting America's official position list. Every committee and Key 3 seat has a holder except Secretary, which the Committee Chair covers until it's filled, and the portal and the public Get Involved page match the adopted matrix. Shared single-point jobs are listed by role: website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.`, kind: 'done', status: 'In the portal' },
+      { item: 'A named backup wherever one has been found', evidence: 'Eight backups named in the adopted matrix. Each one gets confirmed one on one with the person by the end of December.', kind: 'pend', status: '8 named' },
+      { item: 'Every remaining gap written down, with an owner', evidence: `Every open seat and every role without a backup says what is at risk and who is working to close it. Open now: Secretary, and a backup for the Scoutmaster.`, kind: 'done', status: 'Written' },
+      { item: 'Review rotation set at adoption', evidence: 'Set in the Oct 14 motion: the roles matrix each September, the budget process each May.', kind: 'done', status: 'Oct 14' },
     ],
     shots: [
       { img: troopInvolved, alt: 'troop3054.org Get Involved page, adult positions', title: 'Get Involved page.', text: 'Every position and where help is needed, pulled live from the portal.' },
@@ -218,8 +218,8 @@ const goals: Goal[] = [
     title: 'Annual budget process',
     short: 'Budget process',
     due: 'Feb 28, 2027',
-    badge: { kind: 'pend', label: 'Vote pending' },
-    next: 'Written process and committee vote next',
+    badge: { kind: 'done', label: 'Adopted Oct 14' },
+    next: 'Budget dates on the calendar next',
     summary: `Establish a written annual budget process the committee owns and works from the troop's program calendar.`,
     smart: {
       s: `I will write the troop's annual budgeting process and bring it to the committee for adoption. The process sets when budgeting happens in the year, who supplies which numbers, how the program calendar drives the expense side, how income is estimated, and how the committee approves the result. Constraint: the treasurer's bookkeeping works and is not being replaced, and this goal is the process rather than any one year's numbers, so completing it does not wait on anyone else's schedule.`,
@@ -229,27 +229,27 @@ const goals: Goal[] = [
       t: `Process drafted by October 31, 2026. Reviewed with the treasurer and presented to the committee by November 30, 2026. Adopted by recorded committee vote and published to the member portal by February 28, 2027.`,
     },
     rows: [
-      { item: 'Written process: when budgeting happens and who owns each step', evidence: `The troop's Financial Controls policy, posted on troop3054.org, already requires an annual budget developed by the Executive Committee. Still to add: when budgeting happens each year, who supplies which numbers, how the program calendar drives expenses, how income is estimated, and how the committee approves.`, kind: 'pend', status: 'In progress', href: 'https://www.troop3054.org/docs/Financial-Controls-Troop-3054-2025.pdf' },
-      { item: 'Adopted by recorded committee vote, in the minutes', evidence: 'Motion on the Oct 14 agenda.', kind: 'sched', status: 'Oct 14' },
-      { item: 'Published to the portal with a named maintainer', evidence: 'The Treasurer maintains it.', kind: 'sched', status: 'After vote' },
-      { item: `Next year's budgeting dates on the committee calendar`, evidence: 'Added once the process is adopted.', kind: 'sched', status: 'After vote' },
+      { item: 'Written process: when budgeting happens and who owns each step', evidence: `"How Troop 3054 Builds Its Budget": a calendar from the PLC's April 30 program calendar to the May vote, who supplies each line, how income is estimated, how reserves are used, and how the committee approves it. It sits beside the Financial Controls policy, which requires the annual budget.`, kind: 'done', status: 'Written', href: 'https://www.troop3054.org/docs/How-Troop-3054-Builds-Its-Budget.pdf' },
+      { item: 'Adopted by recorded committee vote, in the minutes', evidence: 'Adopted Oct 14, and in the minutes on troop3054.org.', kind: 'done', status: 'Oct 14', href: 'https://www.troop3054.org/governance.html' },
+      { item: 'Published to the portal with a named maintainer', evidence: `Posted Oct 14 on troop3054.org's Governance page, with the Treasurer as maintainer and a review each May. A link in the member portal is next.`, kind: 'pend', status: 'Posted; portal next' },
+      { item: `Next year's budgeting dates on the committee calendar`, evidence: 'The May 12, 2027 budget meeting is on the calendar, and every committee meeting lists its budget items. The April 30, May 5, May 8 and June 30 dates go on next.', kind: 'pend', status: 'In progress' },
     ],
     milestones: {
       heading: 'The process, run once (not a pass condition)',
       rows: [
         { item: 'First budget built with it', evidence: `Built in October from the Treasurer's statement: the program calendar sets the expense side and each line has an owner. Built before the process document, so the document describes what actually happened.`, kind: 'done', status: 'Oct 2026' },
         { item: 'Actuals reconciled with the Treasurer', evidence: 'Every unclear check explained by the Treasurer on Oct 5. One small deposit is still unidentified and is recorded that way.', kind: 'done', status: 'Oct 5' },
-        { item: 'Budget vote', evidence: 'The 2026-27 budget itself, with the Treasurer present.', kind: 'sched', status: 'Nov 18' },
+        { item: 'Budget vote', evidence: 'The 2026-27 budget itself, adopted Oct 14 alongside the process, a month earlier than planned.', kind: 'done', status: 'Oct 14' },
       ],
     },
     stats: {
       heading: 'What the first run showed',
       items: [
-        { value: '$480', label: 'A year of troop costs: charter, ranks, merit badges, domain' },
-        { value: '$100', label: 'A year of troop income, from donations' },
-        { value: '~10 yrs', label: 'How long current reserves last with no new income' },
+        { value: '$615', label: 'A year of troop costs in the adopted budget: charter, awards and program supplies' },
+        { value: '$105', label: 'A year of troop income, from donations' },
+        { value: '~6 yrs', label: 'How long reserves last at that rate with no new income' },
       ],
-      after: `Popcorn commission goes to Scout accounts, not the troop, and families pay outing fees directly. Writing it down turned "we don't really have a budget" into a clear picture the committee can decide on: whether to set a small flat dues amount, and how much reserve to keep.`,
+      after: `Popcorn commission goes to Scout accounts, not the troop, and families pay outing fees directly. Writing it down turned "we don't really have a budget" into a picture the committee could act on. It adopted the budget, draw from reserves and all, and talked through new income: a flat troop fee from fundraisers instead of a cut of Scouts' sales, grants, and bottle returns.`,
     },
     onRequest: 'The line-by-line 2026-27 budget, with the Treasurer\'s actuals beside each estimate, is available on request.',
     notes: [
@@ -328,11 +328,12 @@ const scoutPath = [
 ];
 
 const comingUp: Row[] = [
-  { item: 'Oct 14 committee meeting', evidence: 'Votes on the budget process, the roles matrix with its review rotation, and the recruiting process (troop side).', kind: 'sched', status: 'Scheduled' },
-  { item: 'October', evidence: 'Pack Key 3 written approval of the joint recruiting process and the pack website.', kind: 'pend', status: 'Requested' },
+  { item: 'By Oct 16', evidence: 'Advancement gap list for Foundations Weekend.', kind: 'pend', status: 'In progress' },
+  { item: 'By Oct 30', evidence: 'Foundations Weekend schedule and Scout instructors.', kind: 'sched', status: 'Planned' },
   { item: 'By Oct 31', evidence: 'The PLC reviews the planning procedure after using it for the fourth quarter; its changes go into the posted version.', kind: 'sched', status: 'Planned' },
-  { item: 'Nov 18 committee meeting', evidence: 'Vote on the 2026-27 budget with the Treasurer present.', kind: 'sched', status: 'Scheduled' },
+  { item: 'Nov 18 committee meeting', evidence: `Approve the Oct 14 minutes; the first Treasurer's report against the new budget.`, kind: 'sched', status: 'Scheduled' },
   { item: 'Nov 20-22', evidence: 'Foundations Weekend at Camp Wakpominee.', kind: 'sched', status: 'Scheduled' },
+  { item: 'By Dec 31', evidence: 'Every backup in the roles matrix confirmed one on one.', kind: 'sched', status: 'Planned' },
 ];
 
 const systemsShots: Shot[] = [
@@ -350,6 +351,7 @@ const timeline = [
   [`Sept 14 · Course director's questions`, 'A feedback cycle with the PLC (Goal 2), alignment of position descriptions (Goal 3), and preparing the older Scouts (Goal 5). Answered the same day: "Great insights. Please refine the goals with these and think we are looking good for your ticket." Final ticket sent that afternoon.'],
   ['Sept 19 · Approved', 'Wood Badge Weekend 2. The council Vice President of Program reviewed the ticket: "vision - i like it," all five goals "like it," and "approved."'],
   ['Oct 2026', 'Work underway on all five goals.'],
+  ['Oct 14 · Committee votes', `The committee adopted the roles matrix, the budget process and the 2026-27 budget, and approved the joint recruiting process, with the pack's Key 3 giving their OK the same night. All three votes landed months ahead of the ticket's dates.`],
 ];
 
 const draftingRules = [
@@ -367,7 +369,9 @@ const nextCycle = [
   ['Annual planning conference', 'Senior Patrol Leader', 'Spring'],
   [`Budget built from the PLC's new calendar`, 'Treasurer', 'After the conference'],
   [`Recruiting review: last year's numbers, BeAScout pins`, `Each unit's Key 3 and the troop committee`, 'May'],
-  ['Committee document review rotation', 'Committee, one or two documents a year', 'Set at adoption'],
+  ['Recruiting process review', 'New Member Coordinator', 'August'],
+  ['Roles matrix review', 'Committee Chair and the committee', 'September'],
+  ['Budget process review, at the budget vote', 'Treasurer and the committee', 'May'],
 ];
 
 const meta = [
@@ -752,7 +756,7 @@ const trail = [
               <div>
                 <h3 class="wb-h3">Member portal &middot; my.troop3054.org</h3>
                 <ul class="wb-list">
-                  <li>Program planning: Plan cards, reviews and the Program page (Goal 2)</li>
+                  <li>Program planning: plan the month, one-line reviews, and rank requirements tied to attendance (Goal 2)</li>
                   <li>Recruiting page with the joint process and post toolkit (Goal 1)</li>
                   <li>Roles &amp; backups, feeding the public site (Goal 3)</li>
                   <li>A calendar that feeds the public site and families' phone calendars</li>
