@@ -1,0 +1,14 @@
+{
+  // Contact form handler for willmau.com/trellis. Sends each message to
+  // william.mau@gmail.com from author@willmau.com, through Email Routing.
+  "name": "trellis-contact",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "send_email": [
+    { "name": "MAILER", "destination_address": "william.mau@gmail.com" }
+  ],
+  "ratelimits": [
+    { "name": "LIMITER", "namespace_id": "3054", "simple": { "limit": 5, "period": 60 } }
+  ]
+}

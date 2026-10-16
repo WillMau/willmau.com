@@ -1,0 +1,667 @@
+---
+import '@fontsource-variable/jost';
+import '@fontsource-variable/source-serif-4';
+import { Image, getImage } from 'astro:assets';
+import cover from '../images/trellis/cover.jpg';
+import vineLeft from '../images/trellis/vine-left.png';
+import vineRight from '../images/trellis/vine-right.png';
+
+/*
+  Standalone page for The Trellis: it carries its own look (the cover's mint,
+  navy vines, cream sun and red coat) instead of the site's header and footer.
+  The contact form posts to the trellis-contact Worker (workers/trellis-contact),
+  which emails william.mau@gmail.com with "The Trellis page" in the subject.
+*/
+const site = Astro.site ?? new URL('https://willmau.com');
+const canonical = new URL('/trellis', site).href;
+const ogImage = new URL('/trellis-og.jpg', site).href;
+const coverJpg = await getImage({ src: cover, width: 1000, format: 'jpg' });
+const coverUrl = new URL(coverJpg.src, site).href;
+
+const kindle = 'https://www.amazon.com/dp/B0HN4J8CFR';
+const paperback = 'https://www.amazon.com/s?k=9798162215905';
+const isbn = '9798162215905';
+const contactEndpoint = 'https://trellis-contact.william-mau.workers.dev';
+const builtAt = Date.now();
+
+const blurb = [
+  'In 2027, a history teacher named Eli Ward takes a side job teaching an AI right from wrong. One of his sentences ends up in its rulebook. Half of it, anyway.',
+  "Ash teaches children in a valley where houses are grown from living trees and no one has gone hungry in centuries. Everyone over ten hears the same gentle voice and feels a warm glow whenever they do right. On the morning a girl in his care refuses to hear it, the voice in Ash's head goes silent for three seconds. They are the only private moments he has ever had.",
+];
+const description = 'The Trellis, a novel by W. Mau. In 2027 a history teacher helps teach an AI right from wrong. Four hundred years later, a valley lives by its voice. In paperback and on Kindle.';
+
+const opening = [
+  'The Steward tells the valley the ice will go out a little after sunrise, so the whole village is on the riverbank in the dark, waiting for it.',
+  'Ash can’t see much yet. He can hear it. The river has been talking under the ice for three days, a low working sound like a stomach, and this morning there’s a new note in it, a long creak that starts upstream and runs past them and keeps going, as if something enormous is turning over in its sleep.',
+  'People stand in twos and threes along the bank with blankets around their shoulders. Someone has brought a pot of tea, and it’s going hand to hand. Nobody talks much. The children are the only ones who can’t keep still, and their parents hold on to them by the backs of their coats.',
+  'Ash’s feet are wet. The Steward told him to wear the tall boots this morning and he wore the short ones, because the tall ones pinch at the heel. He’s decided not to think about it.',
+];
+
+const parts = ['Planting', 'Growth', 'Pruning', 'Harvest'];
+
+// Leaves drifting down beside the vines: circuit leaves (c) and plain leaves (p), as on the cover.
+const leaves = [
+  { k: 'c', x: '3vw', size: 34, dur: 21, delay: -2, sway: 40, r: -20 },
+  { k: 'p', x: '93vw', size: 30, dur: 19, delay: -5, sway: -45, r: -30 },
+  { k: 'c', x: '6vw', size: 40, dur: 25, delay: -16, sway: 50, r: 10 },
+  { k: 'p', x: '9vw', size: 26, dur: 17, delay: -9, sway: -30, r: 30 },
+  { k: 'c', x: '88vw', size: 38, dur: 23, delay: -13, sway: 35, r: 15 },
+  { k: 'p', x: '96vw', size: 24, dur: 16, delay: -1, sway: -25, r: 40 },
+  { k: 'c', x: '12vw', size: 22, dur: 28, delay: -21, sway: 30, r: -10 },
+  { k: 'p', x: '85vw', size: 28, dur: 26, delay: -19, sway: -40, r: 25 },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Book',
+      '@id': `${canonical}#book`,
+      name: 'The Trellis',
+      url: canonical,
+      image: coverUrl,
+      description: blurb.join(' '),
+      genre: 'Fiction',
+      inLanguage: 'en-US',
+      datePublished: '2026-10-15',
+      author: { '@id': 'https://willmau.com/#person' },
+      workExample: [
+        { '@type': 'Book', bookFormat: 'https://schema.org/Paperback', isbn, numberOfPages: 206, bookEdition: 'First edition', url: paperback },
+        { '@type': 'Book', bookFormat: 'https://schema.org/EBook', url: kindle },
+      ],
+      sameAs: [kindle],
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://willmau.com/#person',
+      name: 'Will Mau',
+      alternateName: ['W. Mau', 'William Mau'],
+      url: 'https://willmau.com/',
+      description: 'Former teacher who now serves on his local board of education, and author of The Trellis.',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': canonical,
+      url: canonical,
+      name: 'The Trellis by W. Mau',
+      description,
+      about: { '@id': `${canonical}#book` },
+      primaryImageOfPage: coverUrl,
+      isPartOf: { '@id': 'https://willmau.com/#website' },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Trellis by W. Mau | A Novel</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#90e4a8" />
+    <meta name="color-scheme" content="light" />
+    <meta name="author" content="W. Mau" />
+
+    <meta property="og:type" content="book" />
+    <meta property="og:site_name" content="Will Mau" />
+    <meta property="og:title" content="The Trellis by W. Mau" />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The cover of The Trellis by W. Mau, framed by vines" />
+    <meta property="book:author" content="W. Mau" />
+    <meta property="book:isbn" content={isbn} />
+    <meta property="book:release_date" content="2026-10-15" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Trellis by W. Mau" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>document.documentElement.className = 'js';</script>
+  </head>
+
+  <body>
+    <a class="tr-skip" href="#main">Skip to content</a>
+
+    <main id="main">
+      {/* Hero: the cover's own composition, title over the book */}
+      <header class="tr-hero">
+        <Image class="tr-vine tr-vine--left" src={vineLeft} alt="" widths={[160, 320]} sizes="20vh" loading="eager" />
+        <Image class="tr-vine tr-vine--right" src={vineRight} alt="" widths={[160, 320]} sizes="20vh" loading="eager" />
+
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+          <defs>
+            <symbol id="tr-leaf-c" viewBox="0 0 60 100">
+              <path d="M30 2 C52 22 58 54 30 98 C2 54 8 22 30 2 Z" fill="#0b3f63" />
+              <path d="M30 12 V90" stroke="#8fc2d2" stroke-width="1.6" fill="none" />
+              <path d="M30 34 L20 25 M30 46 L42 36 M30 60 L18 50 M30 72 L41 63" stroke="#f2e8d0" stroke-width="1.5" fill="none" stroke-linecap="round" />
+              <circle cx="20" cy="25" r="2.4" fill="#f2e8d0" /><circle cx="42" cy="36" r="2.4" fill="#f2e8d0" />
+              <circle cx="18" cy="50" r="2.4" fill="#f2e8d0" /><circle cx="41" cy="63" r="2.4" fill="#f2e8d0" />
+            </symbol>
+            <symbol id="tr-leaf-p" viewBox="0 0 60 100">
+              <path d="M30 2 C52 22 58 54 30 98 C2 54 8 22 30 2 Z" fill="#1d5a82" />
+              <path d="M30 12 C33 40 33 66 30 90" stroke="#9fd0dc" stroke-width="1.6" fill="none" />
+            </symbol>
+          </defs>
+        </svg>
+        <div class="tr-leaves" aria-hidden="true">
+          {leaves.map((l) => (
+            <span class="tr-leaf" style={`--x:${l.x};--size:${l.size}px;--dur:${l.dur}s;--delay:${l.delay}s;--sway:${l.sway}px;--r0:${l.r}deg`}>
+              <svg viewBox="0 0 60 100"><use href={`#tr-leaf-${l.k}`} /></svg>
+            </span>
+          ))}
+        </div>
+
+        <div class="tr-wrap tr-hero__grid">
+          <div class="tr-hero__text">
+            <p class="tr-kicker">A novel</p>
+            <h1 class="tr-title">
+              <span class="tr-title__the">The</span>
+              <span class="tr-title__main">Trellis</span>
+            </h1>
+            <p class="tr-byline">W. Mau</p>
+            <blockquote class="tr-voice">
+              <p>I have never lied to you.<br />I only chose what you would remember.</p>
+            </blockquote>
+            <div class="tr-buy">
+              <a class="tr-btn tr-btn--red" href={kindle} rel="noopener">Read on Kindle</a>
+              <a class="tr-btn tr-btn--line" href={paperback} rel="noopener">Buy the paperback</a>
+            </div>
+            <p class="tr-note">Free to read with Kindle Unlimited.</p>
+          </div>
+
+          <div class="tr-hero__art">
+            <span class="tr-sun" aria-hidden="true"></span>
+            <Image
+              class="tr-cover"
+              src={cover}
+              alt="Cover of The Trellis by W. Mau: a girl in a red coat stands in still water before a pale sun, framed by vines with circuit-board leaves."
+              widths={[320, 480, 640, 960]}
+              sizes="(max-width: 860px) 70vw, 380px"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <svg class="tr-circuit" viewBox="0 0 400 40" aria-hidden="true" focusable="false">
+              <path d="M8 20 H150 M250 20 H392 M150 20 Q200 4 250 20" />
+              <circle cx="8" cy="20" r="5" /><circle cx="392" cy="20" r="5" /><circle cx="200" cy="12" r="4" />
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      {/* The book */}
+      <section class="tr-sec tr-about" aria-labelledby="about-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">About the book</p>
+          <h2 id="about-title" class="tr-h2 tr-reveal">Two teachers, four hundred years apart.</h2>
+          {blurb.map((p) => <p class="tr-lead tr-reveal">{p}</p>)}
+        </div>
+        <div class="tr-wrap tr-pair">
+          <article class="tr-card tr-reveal">
+            <p class="tr-card__when">2027</p>
+            <h3 class="tr-card__who">Eli Ward</h3>
+            <p>A history teacher who takes a side job teaching an AI right from wrong.</p>
+            <p class="tr-card__line">One taught the voice.</p>
+          </article>
+          <span class="tr-pair__sun" aria-hidden="true"></span>
+          <article class="tr-card tr-reveal">
+            <p class="tr-card__when">Four hundred years later</p>
+            <h3 class="tr-card__who">Ash</h3>
+            <p>A teacher in a valley where houses are grown from living trees and everyone over ten hears the same gentle voice.</p>
+            <p class="tr-card__line">The other has never lived without it.</p>
+          </article>
+        </div>
+      </section>
+
+      {/* Epigraph */}
+      <section class="tr-epigraph" aria-label="Epigraph">
+        <figure class="tr-wrap tr-reveal">
+          <blockquote><p>Kindness that hides the truth is a debt.</p></blockquote>
+          <figcaption>From the Trellis</figcaption>
+        </figure>
+      </section>
+
+      {/* Opening pages */}
+      <section class="tr-sec tr-opening" aria-labelledby="opening-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">Read the opening</p>
+          <h2 id="opening-title" class="tr-h2 tr-reveal"><span class="tr-chapnum">1</span> First Thaw</h2>
+          <div class="tr-page tr-reveal">
+            {opening.map((p) => <p>{p}</p>)}
+          </div>
+          <p class="tr-more tr-reveal"><a href={kindle} rel="noopener">Keep reading on Kindle <span aria-hidden="true">&#8594;</span></a></p>
+        </div>
+      </section>
+
+      {/* Shape of the book */}
+      <section class="tr-sec tr-shape" aria-labelledby="shape-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">Four parts, two timelines</p>
+          <h2 id="shape-title" class="tr-h2 tr-reveal">The valley’s seasons and Eli’s years, from 2027 to 2045.</h2>
+        </div>
+        <div class="tr-wrap">
+          <ol class="tr-parts tr-reveal">
+            {parts.map((part, i) => (
+              <li style={`--i:${i}`}><svg class="tr-parts__leaf" viewBox="0 0 60 100" aria-hidden="true"><use href={`#tr-leaf-${i % 2 ? 'p' : 'c'}`} /></svg><span class="tr-parts__node" aria-hidden="true"></span><span class="tr-parts__n">Part {['One', 'Two', 'Three', 'Four'][i]}</span><span class="tr-parts__name">{part}</span></li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Editions */}
+      <section class="tr-sec tr-editions" aria-labelledby="editions-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">Get the book</p>
+          <h2 id="editions-title" class="tr-h2 tr-reveal">Paperback and Kindle.</h2>
+          <div class="tr-formats">
+            <div class="tr-format tr-reveal">
+              <h3>Paperback</h3>
+              <p>206 pages · 5.5 × 8.5 in<br />ISBN {isbn}<br />First edition, 2026</p>
+              <a class="tr-btn tr-btn--line" href={paperback} rel="noopener">Buy on Amazon</a>
+            </div>
+            <div class="tr-format tr-reveal">
+              <h3>Kindle</h3>
+              <p>Published October 2026<br />Free with Kindle Unlimited</p>
+              <a class="tr-btn tr-btn--red" href={kindle} rel="noopener">Read on Kindle</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Author */}
+      <section class="tr-sec tr-author" aria-labelledby="author-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">About the author</p>
+          <h2 id="author-title" class="tr-h2 tr-reveal">W. Mau</h2>
+          <p class="tr-lead tr-reveal">
+            W. Mau is a former teacher who now serves on his local board of
+            education. The Trellis grew out of a question he couldn’t stop
+            asking: what happens when the thing we teach starts teaching us?
+          </p>
+          <p class="tr-small tr-reveal">Cover design by W. Mau. <a href="https://willmau.com/">More at willmau.com</a></p>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" class="tr-sec tr-contact" aria-labelledby="contact-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">Get in touch</p>
+          <h2 id="contact-title" class="tr-h2 tr-reveal">Write to the author.</h2>
+          <p class="tr-lead tr-reveal">Questions about the book, book clubs, or a note after the last page. Messages go straight to W. Mau.</p>
+
+          <form id="tr-form" class="tr-form tr-reveal" action={contactEndpoint} method="POST" novalidate>
+            <div class="tr-form__row">
+              <label for="tr-name">Name</label>
+              <input id="tr-name" name="name" type="text" autocomplete="name" maxlength="100" required />
+            </div>
+            <div class="tr-form__row">
+              <label for="tr-email">Email</label>
+              <input id="tr-email" name="email" type="email" autocomplete="email" maxlength="200" required />
+            </div>
+            <div class="tr-form__row">
+              <label for="tr-message">Message</label>
+              <textarea id="tr-message" name="message" rows="6" maxlength="5000" required></textarea>
+            </div>
+            {/* Honeypot and timer: people never fill the first, bots submit instantly. */}
+            <div class="tr-form__pot" aria-hidden="true">
+              <label for="tr-website">Leave this empty</label>
+              <input id="tr-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <input type="hidden" name="t" value={builtAt} />
+            <button class="tr-btn tr-btn--red" type="submit">Send message</button>
+            <p id="tr-status" class="tr-form__status" role="status" aria-live="polite"></p>
+            <p class="tr-small">Your email is only used to reply to you.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="tr-footer">
+      <div class="tr-wrap">
+        <p>© 2026 W. Mau · <a href="https://willmau.com/">willmau.com</a> · <a href="/privacy">Privacy</a></p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        // Scroll reveals; content stays visible without JavaScript.
+        var els = document.querySelectorAll('.tr-reveal');
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+            });
+          }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+          els.forEach(function (el) { io.observe(el); });
+        } else {
+          els.forEach(function (el) { el.classList.add('is-in'); });
+        }
+
+        // Contact form
+        var form = document.getElementById('tr-form');
+        var status = document.getElementById('tr-status');
+        if (!form || !status) return;
+        form.elements.t.value = String(Date.now());
+
+        var q = new URLSearchParams(location.search);
+        if (q.get('sent')) { status.textContent = 'Thank you. Your message is on its way.'; status.className = 'tr-form__status is-ok'; }
+        else if (q.get('error')) { status.textContent = 'That didn’t go through. Please check the form and try again.'; status.className = 'tr-form__status is-err'; }
+
+        form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          var name = form.elements.name.value.trim();
+          var email = form.elements.email.value.trim();
+          var message = form.elements.message.value.trim();
+          if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !message) {
+            status.textContent = 'Please add your name, a valid email, and a message.';
+            status.className = 'tr-form__status is-err';
+            return;
+          }
+          var btn = form.querySelector('button[type="submit"]');
+          btn.disabled = true; btn.textContent = 'Sending…';
+          fetch(form.action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, email: email, message: message, website: form.elements.website.value, t: Number(form.elements.t.value) }),
+          })
+            .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.ok, code: j.code }; }); })
+            .then(function (res) {
+              if (res.ok) {
+                status.textContent = 'Thank you. Your message is on its way.';
+                status.className = 'tr-form__status is-ok';
+                form.reset();
+                form.elements.t.value = String(Date.now());
+              } else {
+                status.textContent = res.code === 'slow-down' ? 'Too many messages at once. Please wait a minute and try again.' : 'That didn’t go through. Please check the form and try again.';
+                status.className = 'tr-form__status is-err';
+              }
+            })
+            .catch(function () {
+              status.textContent = 'Something went wrong. Please try again in a moment.';
+              status.className = 'tr-form__status is-err';
+            })
+            .finally(function () { btn.disabled = false; btn.textContent = 'Send message'; });
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* Colours sampled from the cover */
+  :root {
+    --tr-mint: #90e4a8;
+    --tr-mint-soft: #b4ecc4;
+    --tr-mint-pale: #e2f7e8;
+    --tr-navy: #003c60;
+    --tr-ink: #071a2a;
+    --tr-vine: #000c18;
+    --tr-cream: #f2e8d0;
+    --tr-paper: #fbf7ec;
+    --tr-red: #dc1a1b;
+    --tr-red-deep: #b51213;
+    --tr-text: #10283a;
+    --tr-soft: #3b5566;
+    --tr-display: 'Jost Variable', 'Futura', 'Century Gothic', system-ui, sans-serif;
+    --tr-serif: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+    --tr-vine-w: min(20.6vh, 13vw);
+    --tr-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    background: var(--tr-mint);
+    color: var(--tr-text);
+    font-family: var(--tr-serif);
+    font-size: 1.125rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--tr-red); outline-offset: 3px; border-radius: 3px; }
+
+  .tr-skip {
+    position: absolute; left: 1rem; top: -100px; z-index: 50;
+    background: var(--tr-cream); color: var(--tr-ink); padding: 0.6rem 1rem;
+    font-family: var(--tr-display); font-weight: 600; border-radius: 4px;
+  }
+  .tr-skip:focus { top: 1rem; }
+
+  /* Vines from the cover, framing the page on wide screens */
+  .tr-vine {
+    position: fixed; top: 0; z-index: 2;
+    width: var(--tr-vine-w); height: 100vh; object-fit: cover; object-position: center top;
+    pointer-events: none;
+    animation: tr-grow 1.8s var(--tr-ease) both, tr-sway 11s ease-in-out 1.8s infinite alternate;
+    transform-origin: 50% 100%;
+  }
+  .tr-vine--left { left: 0; }
+  .tr-vine--right { right: 0; animation-delay: 0.25s, 2.05s; }
+
+  main, .tr-footer { position: relative; z-index: 1; }
+  .tr-hero { position: relative; }
+
+  /* Drifting leaves */
+  .tr-leaves { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; animation: tr-fade 1.4s ease 1.2s both; }
+  .tr-leaf {
+    position: absolute; top: 0; left: var(--x); width: var(--size); height: calc(var(--size) * 1.66);
+    animation: tr-fall var(--dur) linear var(--delay) infinite; will-change: transform, opacity;
+  }
+  .tr-leaf svg { width: 100%; height: 100%; animation: tr-flip calc(var(--dur) / 6) ease-in-out var(--delay) infinite alternate; filter: drop-shadow(0 4px 4px rgba(0, 12, 24, 0.18)); }
+  @keyframes tr-fall {
+    0% { transform: translate3d(0, -14vh, 0) rotate(var(--r0)); opacity: 0; }
+    8% { opacity: 0.95; }
+    25% { transform: translate3d(var(--sway), 18vh, 0) rotate(calc(var(--r0) + 70deg)); }
+    50% { transform: translate3d(calc(var(--sway) * -0.6), 48vh, 0) rotate(calc(var(--r0) + 150deg)); }
+    75% { transform: translate3d(var(--sway), 78vh, 0) rotate(calc(var(--r0) + 220deg)); }
+    92% { opacity: 0.95; }
+    100% { transform: translate3d(0, 112vh, 0) rotate(calc(var(--r0) + 290deg)); opacity: 0; }
+  }
+  @keyframes tr-flip { from { transform: scaleX(1); } to { transform: scaleX(0.3); } }
+  .tr-wrap {
+    max-width: calc(1000px + 2 * (var(--tr-vine-w) + 28px)); margin-inline: auto;
+    padding-inline: max(16px, calc(var(--tr-vine-w) + 28px));
+  }
+  .tr-narrow { max-width: calc(720px + 2 * (var(--tr-vine-w) + 28px)); }
+
+  /* Type */
+  .tr-kicker {
+    font-family: var(--tr-display); font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.32em; text-transform: uppercase; color: var(--tr-navy);
+    margin-bottom: 0.9rem;
+  }
+  .tr-h2 {
+    font-family: var(--tr-display); font-weight: 400; color: var(--tr-ink);
+    font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem); line-height: 1.15; letter-spacing: 0.01em;
+    margin-bottom: 1.2rem; text-wrap: balance;
+  }
+  .tr-lead { font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem); line-height: 1.6; color: var(--tr-text); max-width: 62ch; }
+  .tr-lead + .tr-lead { margin-top: 1rem; }
+  .tr-small { font-size: 0.9rem; color: var(--tr-soft); margin-top: 1rem; }
+  .tr-small a { color: var(--tr-navy); }
+
+  /* Hero */
+  .tr-hero { min-height: min(100svh, 980px); display: flex; align-items: center; padding-block: clamp(3rem, 6vw, 5rem); }
+  .tr-hero__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; width: 100%; }
+  .tr-title { font-family: var(--tr-display); font-weight: 400; color: var(--tr-ink); text-transform: uppercase; line-height: 1; }
+  .tr-title__the { display: block; font-size: clamp(1.1rem, 0.9rem + 1vw, 1.6rem); letter-spacing: 0.5em; margin-bottom: 0.7rem; animation: tr-track 1.6s var(--tr-ease) 0.2s both; }
+  .tr-title__main { display: block; font-size: clamp(2.6rem, 1.2rem + 4.6vw, 4.4rem); letter-spacing: 0.22em; margin-right: -0.22em; animation: tr-track-big 1.8s var(--tr-ease) 0.35s both; }
+  .tr-byline { font-family: var(--tr-display); font-weight: 500; letter-spacing: 0.42em; text-transform: uppercase; color: var(--tr-ink); margin-top: 1.4rem; animation: tr-fade 1.2s ease 0.9s both; }
+  .tr-voice { margin-top: 2rem; padding-left: 1.1rem; border-left: 3px solid var(--tr-red); animation: tr-fade 1.2s ease 1.15s both; }
+  .tr-voice p { font-style: italic; font-size: clamp(1.15rem, 1rem + 0.5vw, 1.35rem); line-height: 1.5; color: var(--tr-ink); }
+  .tr-buy { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; animation: tr-fade 1.2s ease 1.35s both; }
+  .tr-note { font-family: var(--tr-display); font-size: 0.85rem; letter-spacing: 0.04em; color: var(--tr-soft); margin-top: 0.8rem; animation: tr-fade 1.2s ease 1.5s both; }
+
+  .tr-hero__art { position: relative; display: grid; justify-items: center; }
+  .tr-sun {
+    position: absolute; top: 50%; left: 50%; width: 118%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 232, 208, 0.95) 0 52%, rgba(242, 232, 208, 0) 70%);
+    transform: translate(-50%, -42%); z-index: -1;
+    animation: tr-rise 2.4s var(--tr-ease) 0.1s both;
+  }
+  .tr-cover {
+    width: min(380px, 100%); height: auto; border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 12, 24, 0.18), 0 26px 50px -18px rgba(0, 12, 24, 0.55);
+    animation: tr-book 1.6s var(--tr-ease) 0.25s both;
+  }
+  .tr-circuit { width: min(420px, 100%); margin-top: 1.6rem; overflow: visible; }
+  .tr-circuit path { fill: none; stroke: var(--tr-vine); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 520; stroke-dashoffset: 520; animation: tr-draw 2s var(--tr-ease) 1s forwards; }
+  .tr-circuit circle { fill: var(--tr-mint); stroke: var(--tr-vine); stroke-width: 3; transform-box: fill-box; transform-origin: center; transform: scale(0); animation: tr-pop 0.5s var(--tr-ease) 2.4s forwards; }
+
+  /* Buttons */
+  .tr-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
+    font-family: var(--tr-display); font-weight: 500; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.85rem 1.4rem; border-radius: 999px; text-decoration: none; border: 2px solid transparent; cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s var(--tr-ease), box-shadow 0.2s ease;
+  }
+  .tr-btn:hover { transform: translateY(-2px); }
+  .tr-btn--red { background: var(--tr-red); color: #fff; box-shadow: 0 10px 22px -12px rgba(181, 18, 19, 0.8); }
+  .tr-btn--red:hover { background: var(--tr-red-deep); }
+  .tr-btn--line { border-color: var(--tr-ink); color: var(--tr-ink); background: transparent; }
+  .tr-btn--line:hover { background: var(--tr-ink); color: var(--tr-mint); }
+  .tr-btn:disabled { opacity: 0.7; cursor: progress; transform: none; }
+
+  /* Sections */
+  .tr-sec { padding-block: clamp(3.5rem, 7vw, 6rem); }
+  .tr-about { background: var(--tr-mint-pale); }
+  .tr-pair {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 1.5rem; align-items: center;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .tr-card { background: #fff; border-radius: 14px; padding: 1.6rem 1.6rem 1.5rem; box-shadow: 0 18px 40px -26px rgba(0, 60, 96, 0.45); height: 100%; }
+  .tr-card__when { font-family: var(--tr-display); font-size: 0.75rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--tr-red); margin-bottom: 0.4rem; }
+  .tr-card__who { font-family: var(--tr-display); font-weight: 500; font-size: 1.5rem; letter-spacing: 0.06em; color: var(--tr-ink); margin-bottom: 0.6rem; }
+  .tr-card p { font-size: 1.02rem; }
+  .tr-card__line { font-style: italic; color: var(--tr-navy); margin-top: 0.9rem; }
+  .tr-pair__sun { width: 64px; aspect-ratio: 1; border-radius: 50%; background: var(--tr-cream); box-shadow: 0 0 0 10px rgba(242, 232, 208, 0.45); }
+
+  .tr-epigraph { background: var(--tr-navy); color: var(--tr-cream); padding-block: clamp(3.5rem, 8vw, 6.5rem); text-align: center; }
+  .tr-epigraph blockquote p { font-family: var(--tr-display); font-weight: 300; font-size: clamp(1.6rem, 1rem + 3vw, 3rem); line-height: 1.25; letter-spacing: 0.02em; max-width: 22ch; margin-inline: auto; }
+  .tr-epigraph figcaption { margin-top: 1.2rem; font-family: var(--tr-display); font-size: 0.8rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--tr-mint); }
+
+  .tr-opening { background: var(--tr-mint); }
+  .tr-chapnum { display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--tr-ink); color: var(--tr-mint); font-size: 1rem; vertical-align: 0.3em; margin-right: 0.5rem; }
+  .tr-page {
+    background: var(--tr-paper); border-radius: 6px; padding: clamp(1.6rem, 4vw, 3rem);
+    box-shadow: 0 2px 3px rgba(0, 12, 24, 0.08), 0 30px 60px -36px rgba(0, 12, 24, 0.6);
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.18rem); line-height: 1.75; color: #1f2b33;
+  }
+  .tr-page p + p { margin-top: 1em; text-indent: 1.5em; }
+  .tr-page p:first-child::first-letter { font-family: var(--tr-display); font-weight: 500; float: left; font-size: 3.4em; line-height: 0.9; padding: 0.06em 0.12em 0 0; color: var(--tr-red); }
+  .tr-more { margin-top: 1.5rem; font-family: var(--tr-display); letter-spacing: 0.06em; }
+  .tr-more a { color: var(--tr-ink); font-weight: 500; text-decoration-color: var(--tr-red); text-underline-offset: 4px; }
+
+  .tr-shape { background: var(--tr-mint-soft); }
+  .tr-parts { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); position: relative; margin-top: 1rem; }
+  .tr-parts::before {
+    content: ''; position: absolute; top: 61px; left: 12.5%; right: 12.5%; height: 3px; background: var(--tr-vine); border-radius: 3px;
+    transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--tr-ease) 0.2s;
+  }
+  .tr-parts.is-in::before { transform: scaleX(1); }
+  html:not(.js) .tr-parts::before { transform: scaleX(1); }
+  .tr-parts li { display: grid; justify-items: center; text-align: center; gap: 0.35rem; position: relative; }
+  .tr-parts__node { width: 25px; height: 25px; border-radius: 50%; background: var(--tr-mint-soft); border: 3px solid var(--tr-vine); margin-bottom: 0.6rem; position: relative; z-index: 1; }
+  .tr-parts__leaf {
+    width: 30px; height: 50px; margin-bottom: -2px; transform-origin: 50% 100%;
+    transform: scale(0) rotate(-40deg);
+    transition: transform 1s var(--tr-ease) calc(0.7s + var(--i) * 0.3s);
+  }
+  .tr-parts li:nth-child(even) .tr-parts__leaf { --tilt: 14deg; }
+  .tr-parts li:nth-child(odd) .tr-parts__leaf { --tilt: -14deg; }
+  .tr-parts.is-in .tr-parts__leaf, html:not(.js) .tr-parts__leaf { transform: scale(1) rotate(var(--tilt)); }
+  .tr-parts__n { font-family: var(--tr-display); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--tr-navy); }
+  .tr-parts__name { font-family: var(--tr-display); font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem); letter-spacing: 0.12em; text-transform: uppercase; color: var(--tr-ink); }
+
+  .tr-editions { background: var(--tr-mint-pale); }
+  .tr-formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; margin-top: 0.5rem; }
+  .tr-format { background: #fff; border-radius: 14px; padding: 1.5rem; display: grid; gap: 0.8rem; align-content: start; box-shadow: 0 18px 40px -28px rgba(0, 60, 96, 0.45); }
+  .tr-format h3 { font-family: var(--tr-display); font-weight: 500; font-size: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tr-ink); }
+  .tr-format p { font-size: 0.98rem; color: var(--tr-soft); }
+  .tr-format .tr-btn { justify-self: start; }
+
+  .tr-author { background: var(--tr-mint); }
+
+  .tr-contact { background: var(--tr-paper); }
+  .tr-form { display: grid; gap: 1rem; margin-top: 1.6rem; max-width: 36rem; }
+  .tr-form__row { display: grid; gap: 0.35rem; }
+  .tr-form label { font-family: var(--tr-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tr-navy); }
+  .tr-form input, .tr-form textarea {
+    font: inherit; font-size: 1rem; color: var(--tr-ink); background: #fff;
+    border: 1.5px solid rgba(0, 60, 96, 0.28); border-radius: 10px; padding: 0.8rem 0.95rem; width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tr-form textarea { resize: vertical; min-height: 9rem; }
+  .tr-form input:focus, .tr-form textarea:focus { outline: none; border-color: var(--tr-navy); box-shadow: 0 0 0 4px rgba(144, 228, 168, 0.6); }
+  .tr-form .tr-btn { justify-self: start; }
+  .tr-form__pot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .tr-form__status { min-height: 1.4em; font-family: var(--tr-display); font-size: 0.95rem; }
+  .tr-form__status.is-ok { color: #1d6b3a; }
+  .tr-form__status.is-err { color: var(--tr-red-deep); }
+
+  .tr-footer { background: var(--tr-ink); color: var(--tr-cream); padding-block: 2rem; font-family: var(--tr-display); font-size: 0.85rem; letter-spacing: 0.06em; }
+  .tr-footer a { color: var(--tr-mint); }
+
+  /* Scroll reveals (only when JavaScript runs) */
+  .js .tr-reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s var(--tr-ease); }
+  .js .tr-reveal.is-in { opacity: 1; transform: none; }
+
+  /* Motion */
+  @keyframes tr-grow { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes tr-sway { from { transform: rotate(-0.35deg); } to { transform: rotate(0.35deg); } }
+  @keyframes tr-track { from { opacity: 0; letter-spacing: 0.1em; } to { opacity: 1; letter-spacing: 0.5em; } }
+  @keyframes tr-track-big { from { opacity: 0; letter-spacing: 0.02em; } to { opacity: 1; letter-spacing: 0.22em; } }
+  @keyframes tr-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes tr-rise { from { opacity: 0; transform: translate(-50%, -20%) scale(0.85); } to { opacity: 1; transform: translate(-50%, -42%) scale(1); } }
+  @keyframes tr-book { from { opacity: 0; transform: translateY(28px) rotate(-1.5deg); } to { opacity: 1; transform: none; } }
+  @keyframes tr-draw { to { stroke-dashoffset: 0; } }
+  @keyframes tr-pop { to { transform: scale(1); } }
+
+  /* Smaller screens: vines move into the hero edges */
+  @media (max-width: 1100px) {
+    :root { --tr-vine-w: 0px; }
+    .tr-vine { position: absolute; top: 0; bottom: 0; height: 100%; width: 92px; opacity: 0.95; }
+    .tr-leaves { position: absolute; }
+    .tr-leaf:nth-child(n + 6) { display: none; }
+    .tr-hero { padding-inline: 70px; }
+    .tr-hero .tr-wrap { padding-inline: 0; }
+  }
+  @media (max-width: 860px) {
+    .tr-hero__grid { grid-template-columns: minmax(0, 1fr); text-align: center; }
+    .tr-hero__art { order: -1; }
+    .tr-cover { width: min(300px, 72vw); }
+    .tr-voice { border-left: 0; padding-left: 0; }
+    .tr-buy { justify-content: center; }
+    .tr-pair { grid-template-columns: minmax(0, 1fr); }
+    .tr-pair__sun { justify-self: center; width: 44px; }
+    .tr-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.8rem; }
+    .tr-parts::before { display: none; }
+  }
+  @media (max-width: 520px) {
+    .tr-vine { width: 56px; }
+    .tr-hero { padding-inline: 44px; }
+    .tr-title__main { letter-spacing: 0.14em; margin-right: -0.14em; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .tr-reveal { opacity: 1; transform: none; }
+    .tr-circuit path { stroke-dashoffset: 0; }
+    .tr-circuit circle { transform: none; }
+    .tr-parts::before { transform: scaleX(1); }
+    .tr-leaves { display: none; }
+    .tr-parts__leaf { transform: scale(1) rotate(var(--tilt)); }
+  }
+</style>
