@@ -7,6 +7,7 @@ import SchalmontShield from '../images/schalmont-shield.svg';
 import mauopsLogo from '../images/mauops-logo.png';
 import troopLogo from '../images/troop3054-logo.png';
 import headshot from '../images/will-headshot.jpg';
+import trellisCover from '../images/trellis/cover.jpg';
 
 const resumeIcon =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h7L18 7.6V21H6.5zM13 3v5h5M9.75 12.5h4.5M9.75 16h4.5"/></svg>';
@@ -130,6 +131,24 @@ const now = [
             })
           }
         </ul>
+
+        <a href="/trellis" class="resume-band resume-band--book" data-reveal>
+          <span class="book-band__cover">
+            <Image src={trellisCover} alt="The Trellis cover" widths={[72, 144]} sizes="56px" />
+          </span>
+          <span class="resume-band__text">
+            <span class="book-band__kicker">New novel</span>
+            <span class="resume-band__title">The Trellis</span>
+            <span class="resume-band__desc">
+              Two teachers, four hundred years apart. Out now in paperback and
+              on Kindle.
+            </span>
+          </span>
+          <span class="resume-band__cta">
+            See the book
+            <span class="resume-band__arrow" aria-hidden="true">&#8594;</span>
+          </span>
+        </a>
 
         <a href="/resume" class="resume-band" data-reveal>
           <span class="resume-band__icon" set:html={resumeIcon} />
@@ -416,6 +435,30 @@ const now = [
   }
   .resume-band:hover .resume-band__cta { color: var(--green); }
   .resume-band:hover .resume-band__arrow { transform: translateX(0.3rem); }
+
+  /* Book band: the résumé band with the cover and the book's mint */
+  .resume-band--book {
+    background: linear-gradient(90deg, #e3f7e9, var(--paper-pure) 72%);
+    border-color: rgba(77, 155, 113, 0.35);
+  }
+  .book-band__cover {
+    flex-shrink: 0;
+    width: clamp(44px, 2.6rem + 1vw, 56px);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px -8px rgba(0, 12, 24, 0.5);
+    transform: rotate(-2deg);
+    transition: transform 0.24s var(--ease);
+  }
+  .book-band__cover :global(img) { width: 100%; height: auto; }
+  .resume-band--book:hover .book-band__cover { transform: rotate(0) translateY(-2px); }
+  .book-band__kicker {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
 
   /* ---------- SNAPSHOT ---------- */
   .snap { background: var(--paper); }
