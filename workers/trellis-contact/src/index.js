@@ -4,7 +4,7 @@ import { EmailMessage } from 'cloudflare:email';
 // so it's clear where they came from.
 const TO = 'william.mau@gmail.com';
 const FROM = 'author@willmau.com';
-const PAGE = 'https://willmau.com/trellis';
+const PAGE = 'https://willmau.com/trellis/';
 const ALLOWED = ['https://willmau.com', 'https://www.willmau.com', 'http://localhost:4321', 'http://localhost:4329'];
 const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
 

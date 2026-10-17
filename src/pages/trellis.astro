@@ -2,7 +2,7 @@
 import '@fontsource-variable/jost';
 import '@fontsource-variable/source-serif-4';
 import { Image, getImage } from 'astro:assets';
-import cover from '../images/trellis/cover.jpg';
+import cover from '../images/trellis/the-trellis-w-mau-book-cover.jpg';
 import vineLeft from '../images/trellis/vine-left.png';
 import vineRight from '../images/trellis/vine-right.png';
 
@@ -13,7 +13,7 @@ import vineRight from '../images/trellis/vine-right.png';
   which emails william.mau@gmail.com with "The Trellis page" in the subject.
 */
 const site = Astro.site ?? new URL('https://willmau.com');
-const canonical = new URL('/trellis', site).href;
+const canonical = new URL('/trellis/', site).href;
 const ogImage = new URL('/trellis-og.jpg', site).href;
 const coverJpg = await getImage({ src: cover, width: 1000, format: 'jpg' });
 const coverUrl = new URL(coverJpg.src, site).href;
@@ -28,7 +28,9 @@ const blurb = [
   'In 2027, a history teacher named Eli Ward takes a side job teaching an AI right from wrong. One of his sentences ends up in its rulebook. Half of it, anyway.',
   "Ash teaches children in a valley where houses are grown from living trees and no one has gone hungry in centuries. Everyone over ten hears the same gentle voice and feels a warm glow whenever they do right. On the morning a girl in his care refuses to hear it, the voice in Ash's head goes silent for three seconds. They are the only private moments he has ever had.",
 ];
-const description = 'The Trellis, a novel by W. Mau. In 2027 a history teacher helps teach an AI right from wrong. Four hundred years later, a valley lives by its voice. In paperback and on Kindle.';
+const title = 'The Trellis by W. Mau | A Novel About AI | Paperback & Kindle';
+const description = 'The Trellis, a novel by W. Mau: in 2027 a history teacher helps teach an AI right from wrong. Four hundred years later, a valley lives by its voice.';
+const keywords = ['The Trellis', 'W. Mau', 'novel', 'fiction', 'speculative fiction', 'artificial intelligence', 'AI', 'teachers'];
 
 const opening = [
   'The Steward tells the valley the ice will go out a little after sunrise, so the whole village is on the riverbank in the dark, waiting for it.',
@@ -58,18 +60,25 @@ const jsonLd = {
       '@type': 'Book',
       '@id': `${canonical}#book`,
       name: 'The Trellis',
+      alternateName: 'The Trellis: A Novel',
       url: canonical,
+      mainEntityOfPage: { '@id': canonical },
       image: coverUrl,
+      thumbnailUrl: coverUrl,
       description: blurb.join(' '),
-      genre: 'Fiction',
+      abstract: 'Two teachers, four hundred years apart. One taught the voice. The other has never lived without it.',
+      genre: ['Fiction', 'Speculative fiction'],
+      keywords: keywords.join(', '),
       inLanguage: 'en-US',
       datePublished: '2026-10-15',
+      copyrightYear: 2026,
+      copyrightHolder: { '@id': 'https://willmau.com/#person' },
       author: { '@id': 'https://willmau.com/#person' },
       workExample: [
         { '@type': 'Book', bookFormat: 'https://schema.org/Paperback', isbn, numberOfPages: 206, bookEdition: 'First edition', url: paperback },
         { '@type': 'Book', bookFormat: 'https://schema.org/EBook', url: kindle },
       ],
-      sameAs: [kindle],
+      sameAs: [kindle, paperback],
     },
     {
       '@type': 'Person',
@@ -78,16 +87,32 @@ const jsonLd = {
       alternateName: ['W. Mau', 'William Mau'],
       url: 'https://willmau.com/',
       description: 'Former teacher who now serves on his local board of education, and author of The Trellis.',
+      sameAs: [
+        'https://www.linkedin.com/in/will-mau/',
+        'https://mauops.com',
+        'https://www.facebook.com/people/Will-Mau-for-Schalmont-Board-of-Education/61567429940268/',
+      ],
     },
     {
       '@type': 'WebPage',
       '@id': canonical,
       url: canonical,
-      name: 'The Trellis by W. Mau',
+      name: title,
       description,
+      inLanguage: 'en-US',
       about: { '@id': `${canonical}#book` },
+      mainEntity: { '@id': `${canonical}#book` },
       primaryImageOfPage: coverUrl,
+      breadcrumb: { '@id': `${canonical}#breadcrumb` },
       isPartOf: { '@id': 'https://willmau.com/#website' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Will Mau', item: 'https://willmau.com/' },
+        { '@type': 'ListItem', position: 2, name: 'The Trellis', item: canonical },
+      ],
     },
   ],
 };
@@ -98,7 +123,7 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Trellis by W. Mau | A Novel</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -106,10 +131,11 @@ const jsonLd = {
     <meta name="theme-color" content="#90e4a8" />
     <meta name="color-scheme" content="light" />
     <meta name="author" content="W. Mau" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
     <meta property="og:type" content="book" />
     <meta property="og:site_name" content="Will Mau" />
-    <meta property="og:title" content="The Trellis by W. Mau" />
+    <meta property="og:title" content="The Trellis by W. Mau: a novel" />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
@@ -119,10 +145,14 @@ const jsonLd = {
     <meta property="book:author" content="W. Mau" />
     <meta property="book:isbn" content={isbn} />
     <meta property="book:release_date" content="2026-10-15" />
+    <meta property="book:tag" content="Fiction" />
+    <meta property="book:tag" content="Speculative fiction" />
+    <meta property="book:tag" content="Artificial intelligence" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="The Trellis by W. Mau" />
+    <meta name="twitter:title" content="The Trellis by W. Mau: a novel" />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="The cover of The Trellis by W. Mau, framed by vines" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script is:inline>document.documentElement.className = 'js';</script>
@@ -260,7 +290,7 @@ const jsonLd = {
       <section class="tr-sec tr-editions" aria-labelledby="editions-title">
         <div class="tr-wrap tr-narrow">
           <p class="tr-kicker tr-reveal">Get the book</p>
-          <h2 id="editions-title" class="tr-h2 tr-reveal">Paperback and Kindle.</h2>
+          <h2 id="editions-title" class="tr-h2 tr-reveal">The Trellis in paperback and on Kindle.</h2>
           <div class="tr-formats">
             <div class="tr-format tr-reveal">
               <h3>Paperback</h3>
@@ -294,7 +324,7 @@ const jsonLd = {
       <section id="contact" class="tr-sec tr-contact" aria-labelledby="contact-title">
         <div class="tr-wrap tr-narrow">
           <p class="tr-kicker tr-reveal">Get in touch</p>
-          <h2 id="contact-title" class="tr-h2 tr-reveal">Write to the author.</h2>
+          <h2 id="contact-title" class="tr-h2 tr-reveal">Write to W. Mau.</h2>
           <p class="tr-lead tr-reveal">Questions about the book, book clubs, or a note after the last page. Messages go straight to W. Mau.</p>
 
           <form id="tr-form" class="tr-form tr-reveal" action={contactEndpoint} method="POST" novalidate>
