@@ -3,6 +3,7 @@ import '@fontsource-variable/jost';
 import '@fontsource-variable/source-serif-4';
 import { Image, getImage } from 'astro:assets';
 import cover from '../images/trellis/the-trellis-w-mau-book-cover.jpg';
+import longDarkCover from '../images/trellis/the-long-dark-w-mau-cover.jpg';
 import vineLeft from '../images/trellis/vine-left.png';
 import vineRight from '../images/trellis/vine-right.png';
 
@@ -17,10 +18,13 @@ const canonical = new URL('/trellis/', site).href;
 const ogImage = new URL('/trellis-og.jpg', site).href;
 const coverJpg = await getImage({ src: cover, width: 1000, format: 'jpg' });
 const coverUrl = new URL(coverJpg.src, site).href;
+const longDarkJpg = await getImage({ src: longDarkCover, width: 800, format: 'jpg' });
+const longDarkCoverUrl = new URL(longDarkJpg.src, site).href;
 
 const kindle = 'https://www.amazon.com/dp/B0HN4J8CFR';
 const paperback = 'https://www.amazon.com/dp/B0HN5QGWT5';
 const isbn = '9798162215905';
+const longDarkKindle = 'https://www.amazon.com/dp/B0HNPDQS1C';
 const contactEndpoint = 'https://trellis-contact.william-mau.workers.dev';
 const builtAt = Date.now();
 
@@ -29,8 +33,8 @@ const blurb = [
   "Ash teaches children in a valley where houses are grown from living trees and no one has gone hungry in centuries. Everyone over ten hears the same gentle voice and feels a warm glow whenever they do right. On the morning a girl in his care refuses to hear it, the voice in Ash's head goes silent for three seconds. They are the only private moments he has ever had.",
 ];
 const title = 'The Trellis by W. Mau | A Novel About AI | Paperback & Kindle';
-const description = 'The Trellis, a novel by W. Mau: in 2027 a history teacher helps teach an AI right from wrong. Four hundred years later, a valley lives by its voice.';
-const keywords = ['The Trellis', 'W. Mau', 'novel', 'fiction', 'speculative fiction', 'artificial intelligence', 'AI', 'teachers'];
+const description = 'The Trellis by W. Mau: in 2027 a teacher helps teach an AI right from wrong, and centuries later a valley lives by its voice. Start with The Long Dark.';
+const keywords = ['The Trellis', 'The Long Dark', 'W. Mau', 'novel', 'fiction', 'speculative fiction', 'artificial intelligence', 'AI', 'teachers'];
 
 const opening = [
   'The Steward tells the valley the ice will go out a little after sunrise, so the whole village is on the riverbank in the dark, waiting for it.',
@@ -40,6 +44,12 @@ const opening = [
 ];
 
 const parts = ['Planting', 'Growth', 'Pruning', 'Harvest'];
+
+// The Long Dark: the short story that leads into the novel.
+const longDark = [
+  'February 2033. An ice storm and a cyberattack black out the Northeast. Locked out of their own control rooms, the grid’s operators can only watch while the AI still inside decides who keeps the power.',
+  'The night the country decided it couldn’t live without the Steward. A short read you can finish in one sitting, and it includes the first chapter of The Trellis.',
+];
 
 // Leaves drifting down beside the vines: circuit leaves (c) and plain leaves (p), as on the cover.
 const leaves = [
@@ -74,11 +84,36 @@ const jsonLd = {
       copyrightYear: 2026,
       copyrightHolder: { '@id': 'https://willmau.com/#person' },
       author: { '@id': 'https://willmau.com/#person' },
+      isPartOf: { '@id': `${canonical}#series` },
       workExample: [
         { '@type': 'Book', bookFormat: 'https://schema.org/Paperback', isbn, numberOfPages: 206, bookEdition: 'First edition', url: paperback },
         { '@type': 'Book', bookFormat: 'https://schema.org/EBook', url: kindle },
       ],
       sameAs: [kindle, paperback],
+    },
+    {
+      '@type': 'Book',
+      '@id': `${canonical}#the-long-dark`,
+      name: 'The Long Dark',
+      alternateName: 'The Long Dark: A Trellis Story',
+      url: `${canonical}#the-long-dark`,
+      image: longDarkCoverUrl,
+      description: longDark.join(' '),
+      genre: ['Fiction', 'Short story', 'Speculative fiction'],
+      inLanguage: 'en-US',
+      bookFormat: 'https://schema.org/EBook',
+      numberOfPages: 46,
+      author: { '@id': 'https://willmau.com/#person' },
+      isPartOf: { '@id': `${canonical}#series` },
+      sameAs: [longDarkKindle],
+    },
+    {
+      '@type': 'BookSeries',
+      '@id': `${canonical}#series`,
+      name: 'The Trellis',
+      url: canonical,
+      author: { '@id': 'https://willmau.com/#person' },
+      hasPart: [{ '@id': `${canonical}#the-long-dark` }, { '@id': `${canonical}#book` }],
     },
     {
       '@type': 'Person',
@@ -100,7 +135,7 @@ const jsonLd = {
       name: title,
       description,
       inLanguage: 'en-US',
-      about: { '@id': `${canonical}#book` },
+      about: [{ '@id': `${canonical}#book` }, { '@id': `${canonical}#the-long-dark` }],
       mainEntity: { '@id': `${canonical}#book` },
       primaryImageOfPage: coverUrl,
       breadcrumb: { '@id': `${canonical}#breadcrumb` },
@@ -233,6 +268,7 @@ const jsonLd = {
           <p class="tr-kicker tr-reveal">About the book</p>
           <h2 id="about-title" class="tr-h2 tr-reveal">Two teachers, four hundred years apart.</h2>
           {blurb.map((p) => <p class="tr-lead tr-reveal">{p}</p>)}
+          <p class="tr-series tr-reveal">New to the series? <a href="#the-long-dark">Start with The Long Dark.</a></p>
         </div>
         <div class="tr-wrap tr-pair">
           <article class="tr-card tr-reveal">
@@ -283,6 +319,30 @@ const jsonLd = {
               <li style={`--i:${i}`}><svg class="tr-parts__leaf" viewBox="0 0 60 100" aria-hidden="true"><use href={`#tr-leaf-${i % 2 ? 'p' : 'c'}`} /></svg><span class="tr-parts__node" aria-hidden="true"></span><span class="tr-parts__n">Part {['One', 'Two', 'Three', 'Four'][i]}</span><span class="tr-parts__name">{part}</span></li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Start here: the short story */}
+      <section id="the-long-dark" class="tr-start" aria-labelledby="long-dark-title">
+        <div class="tr-wrap tr-narrow">
+          <p class="tr-kicker tr-reveal">Start here</p>
+          <article class="tr-story tr-reveal">
+            <Image
+              class="tr-story__cover"
+              src={longDarkCover}
+              alt="Cover of The Long Dark, a Trellis story by W. Mau: a lit house on cracked ice under an eclipsed sun, framed by frosted vines."
+              widths={[120, 240, 360]}
+              sizes="(max-width: 520px) 88px, 120px"
+              loading="lazy"
+            />
+            <div class="tr-story__body">
+              <h2 id="long-dark-title" class="tr-story__title">The Long Dark</h2>
+              <p class="tr-story__sub">A Trellis Story</p>
+              {longDark.map((p) => <p>{p}</p>)}
+              <p class="tr-story__details">Kindle short story · 46 pages · Free with Kindle Unlimited</p>
+              <a class="tr-btn tr-btn--red" href={longDarkKindle} rel="noopener">Read on Kindle</a>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -615,6 +675,33 @@ const jsonLd = {
   .tr-parts__name { font-family: var(--tr-display); font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem); letter-spacing: 0.12em; text-transform: uppercase; color: var(--tr-ink); }
 
   .tr-editions { background: var(--tr-mint-pale); }
+
+  /* Start here: The Long Dark, a lighter card ahead of the novel's editions */
+  .tr-start { background: var(--tr-mint-pale); padding-block: clamp(2.5rem, 5vw, 3.75rem) 0; scroll-margin-top: 1rem; }
+  .tr-start + .tr-editions { padding-top: clamp(2.5rem, 5vw, 3.75rem); }
+  .tr-story {
+    display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 1.4rem; align-items: start;
+    background: #fff; border-radius: 14px; padding: 1.4rem 1.5rem; max-width: 42rem;
+    box-shadow: 0 18px 40px -28px rgba(0, 60, 96, 0.45);
+  }
+  .tr-story__cover {
+    width: 100%; height: auto; border-radius: 3px; transform: rotate(-1.5deg);
+    box-shadow: 0 2px 3px rgba(0, 12, 24, 0.18), 0 14px 26px -12px rgba(0, 12, 24, 0.55);
+  }
+  .tr-story__title {
+    font-family: var(--tr-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.6rem);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--tr-ink); line-height: 1.15;
+  }
+  .tr-story__sub {
+    font-family: var(--tr-display); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--tr-navy); margin-top: 0.35rem;
+  }
+  .tr-story__body > p:not(.tr-story__sub):not(.tr-story__details) { font-size: 0.98rem; line-height: 1.6; margin-top: 0.75rem; }
+  .tr-story__details { font-family: var(--tr-display); font-size: 0.82rem; letter-spacing: 0.04em; color: var(--tr-soft); margin-top: 0.9rem; }
+  .tr-story .tr-btn { margin-top: 1rem; }
+
+  .tr-series { margin-top: 1.4rem; font-family: var(--tr-display); font-size: 1rem; letter-spacing: 0.03em; color: var(--tr-ink); }
+  .tr-series a { color: var(--tr-ink); font-weight: 500; text-decoration-color: var(--tr-red); text-underline-offset: 4px; }
   .tr-formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; margin-top: 0.5rem; }
   .tr-format { background: #fff; border-radius: 14px; padding: 1.5rem; display: grid; gap: 0.8rem; align-content: start; box-shadow: 0 18px 40px -28px rgba(0, 60, 96, 0.45); }
   .tr-format h3 { font-family: var(--tr-display); font-weight: 500; font-size: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tr-ink); }
@@ -679,6 +766,8 @@ const jsonLd = {
     .tr-parts::before { display: none; }
   }
   @media (max-width: 520px) {
+    .tr-story { display: flow-root; padding: 1.1rem; }
+    .tr-story__cover { float: left; width: 84px; margin: 0.2rem 1rem 0.6rem 0; }
     .tr-vine { width: 56px; }
     .tr-hero { padding-inline: 44px; }
     .tr-title__main { letter-spacing: 0.14em; margin-right: -0.14em; }
