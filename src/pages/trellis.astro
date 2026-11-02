@@ -285,6 +285,13 @@ const jsonLd = {
             <p class="tr-card__line">The other has never lived without it.</p>
           </article>
         </div>
+        <div class="tr-wrap tr-narrow">
+          <a class="tr-shift tr-reveal" href="/trellis/shift/">
+            <span class="tr-shift__kick">Try Eli's job</span>
+            <span class="tr-shift__title">Take a night shift teaching an AI right from wrong.</span>
+            <span class="tr-shift__meta">Four tasks · four dollars each · about five minutes <span aria-hidden="true">&#8594;</span></span>
+          </a>
+        </div>
       </section>
 
       {/* Epigraph */}
@@ -636,6 +643,19 @@ const jsonLd = {
   .tr-card p { font-size: 1.02rem; }
   .tr-card__line { font-style: italic; color: var(--tr-navy); margin-top: 0.9rem; }
   .tr-pair__sun { width: 64px; aspect-ratio: 1; border-radius: 50%; background: var(--tr-cream); box-shadow: 0 0 0 10px rgba(242, 232, 208, 0.45); }
+
+  /* Link to the night-shift interactive (/trellis/shift/), styled like Eli's rater console */
+  .tr-shift {
+    display: grid; gap: 0.4rem; margin-top: clamp(2rem, 4vw, 2.75rem); padding: 1.4rem 1.6rem;
+    background: var(--tr-ink); color: var(--tr-cream); border-radius: 14px; text-decoration: none;
+    box-shadow: 0 18px 40px -24px rgba(0, 12, 24, 0.7);
+    transition: transform 0.2s var(--tr-ease), box-shadow 0.2s ease;
+  }
+  .tr-shift:hover { transform: translateY(-2px); box-shadow: 0 22px 44px -22px rgba(0, 12, 24, 0.75); }
+  .tr-shift__kick, .tr-shift__meta { font-family: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace; }
+  .tr-shift__kick { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tr-mint); }
+  .tr-shift__title { font-family: var(--tr-display); font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem); line-height: 1.25; text-wrap: balance; }
+  .tr-shift__meta { font-size: 0.85rem; color: #b9c7d0; }
 
   .tr-epigraph { background: var(--tr-navy); color: var(--tr-cream); padding-block: clamp(3.5rem, 8vw, 6.5rem); text-align: center; }
   .tr-epigraph blockquote p { font-family: var(--tr-display); font-weight: 300; font-size: clamp(1.6rem, 1rem + 3vw, 3rem); line-height: 1.25; letter-spacing: 0.02em; max-width: 22ch; margin-inline: auto; }

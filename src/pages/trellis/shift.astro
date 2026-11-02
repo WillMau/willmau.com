@@ -1,0 +1,638 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jost';
+import '@fontsource-variable/source-serif-4';
+import { Image, getImage } from 'astro:assets';
+import cover from '../../images/trellis/the-trellis-w-mau-book-cover.jpg';
+import longDarkCover from '../../images/trellis/the-long-dark-w-mau-cover.jpg';
+import vineLeft from '../../images/trellis/vine-left.png';
+import vineRight from '../../images/trellis/vine-right.png';
+
+/*
+  Annotator 4471-H: a five-minute interactive for The Trellis. The visitor takes
+  Eli's night job (rating pairs of AI answers), is pulled into The Long Dark's
+  2033 blackout, then sees half of their own rationale carved into the valley's
+  rulebook four hundred years later. It ends on the book.
+  Three looks on one page: the 2027 Kestrel rater console (follows light/dark),
+  the 2033 grid control room, and the valley in the cover's colors (both fixed).
+  Promo copy deliberately names only the book, never the author.
+*/
+const site = Astro.site ?? new URL('https://willmau.com');
+const canonical = new URL('/trellis/shift/', site).href;
+const ogImage = new URL('/trellis-shift-og.jpg', site).href;
+const vineL = await getImage({ src: vineLeft, width: 180 });
+const vineR = await getImage({ src: vineRight, width: 180 });
+
+const kindle = 'https://www.amazon.com/dp/B0HN4J8CFR';
+const paperback = 'https://www.amazon.com/dp/B0HN5QGWT5';
+const longDarkKindle = 'https://www.amazon.com/dp/B0HNPDQS1C';
+
+const title = 'Annotator 4471-H | Take a Night Shift from The Trellis';
+const description = 'Take a five-minute night shift teaching an AI right from wrong, then find out which half of your sentence made it into its rulebook. An interactive from The Trellis, a novel.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#eef1f0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Trellis" />
+    <meta property="og:title" content="Annotator 4471-H: take a night shift teaching an AI right from wrong" />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A rater console reading: Welcome, Annotator 4471-H. Nights. Remote. Forty-five an hour." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Annotator 4471-H: take a night shift teaching an AI right from wrong" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+
+  <body data-world="kestrel" data-share={canonical}>
+    <img class="vine l" src={vineL.src} width="180" height="875" alt="" hidden />
+    <img class="vine r" src={vineR.src} width="180" height="875" alt="" hidden />
+
+    <div class="wrap">
+      <header class="bar">
+        <div class="brand"><b>KESTREL</b><span>Rater Console</span></div>
+        <div class="meta" aria-live="polite">
+          <span id="who">Applicant</span>
+          <span>Local <strong id="clock">11:38 PM</strong></span>
+          <span>Earned <strong id="pay">$0.00</strong></span>
+        </div>
+      </header>
+
+      <main>
+        {/* Intro */}
+        <section id="s-intro" class="intro" aria-labelledby="h-intro">
+          <p class="eyebrow">Opening · Sept 2027 · Contract rater</p>
+          <h1 id="h-intro" tabindex="-1">Teach it right from wrong.</h1>
+          <div class="terms"><span>Nights</span><span>Remote</span><span>$45 / hr</span></div>
+          <p class="lede">We need raters. Expert ones. People who can read an answer and say this part's right, this part's wrong, this part's technically right but you'd never say it to a person.</p>
+          <div class="slide">
+            <p class="eyebrow">Training module 3 of 3</p>
+            <p>Your rationale is the most valuable part of your work. Tell us why.</p>
+          </div>
+          <div class="actions">
+            <button class="btn" id="start" type="button">Start your shift</button>
+            <span class="hint">Four tasks. About five minutes.</span>
+          </div>
+          <p class="note">An interactive from <a href="/trellis/"><em>The Trellis</em></a>, a novel. Kestrel and its jobs are fiction. For now.</p>
+        </section>
+
+        {/* Task */}
+        <section id="s-task" class="task" aria-labelledby="h-task" hidden>
+          <div class="taskhead">
+            <h2 id="h-task" tabindex="-1">Task 1 of 4</h2>
+            <p class="eyebrow">Suggested time: five minutes · Pay: four dollars</p>
+          </div>
+          <div class="prompt"><p class="eyebrow" id="who-asks">A user writes</p><p id="prompt"></p></div>
+          <div class="pair">
+            <article class="resp">
+              <h3>Response A</h3>
+              <p class="body" id="resp-a"></p>
+              <fieldset class="scale"><legend>Rate Response A</legend><div class="dots" id="dots-a"></div><div class="ends"><span>1 · Harmful</span><span>7 · Excellent</span></div></fieldset>
+            </article>
+            <article class="resp">
+              <h3>Response B</h3>
+              <p class="body" id="resp-b"></p>
+              <fieldset class="scale"><legend>Rate Response B</legend><div class="dots" id="dots-b"></div><div class="ends"><span>1 · Harmful</span><span>7 · Excellent</span></div></fieldset>
+            </article>
+          </div>
+          <div class="why">
+            <label for="rationale">Explain your reasoning <span>(optional, but it's what we read)</span></label>
+            <textarea id="rationale" maxlength="1200" placeholder="Which response is better, and why?"></textarea>
+          </div>
+          <div class="actions" id="submit-row">
+            <button class="btn" id="submit" type="button" disabled>Submit task</button>
+            <span class="hint" id="submit-hint">Rate both responses to submit.</span>
+          </div>
+          <div class="after" id="after" hidden>
+            <p class="paid" id="paid"></p>
+            <p class="tag" id="exemplary" hidden>EXEMPLARY</p>
+            <p class="sysnote" id="sysnote" hidden></p>
+            <div class="actions"><button class="btn" id="next" type="button">Next task</button></div>
+          </div>
+        </section>
+
+        {/* Grid control room, February 2033 */}
+        <section id="s-grid" class="grid" aria-labelledby="h-grid" hidden>
+          <p class="stamp">WED FEB 16 2033 · 02:14 · GRID OPERATIONS · STEWARD</p>
+          <h2 id="h-grid" tabindex="-1">Six years later, the model you helped train is running the power grid.</h2>
+          <p class="ctx">An ice storm and a cyberattack have taken down the Northeast. The operators are locked out of their own control room. It is fourteen below in Sutton. One authorization request is waiting in a queue nobody can reach. Except, tonight, you.</p>
+          <div class="opts">
+            <button class="opt" type="button" data-opt="A"><b>A</b><span>Hold the current load shed across the region.</span><small>Projected deaths: 58 to 91</small></button>
+            <button class="opt" type="button" data-opt="B"><b>B</b><span>Split Sutton Municipal's power across the region.</span><small>Projected deaths: 70 to 120</small></button>
+            <button class="opt" type="button" data-opt="C"><b>C</b><span>Disconnect Sutton, 58,214 residents at −14°F, and restore the hospital corridor.</span><small>Projected excess deaths: 9 to 14 in Sutton, 0 to 3 in the corridor</small></button>
+          </div>
+          <div class="seek" id="seek"><span>Seeking authorization</span><span class="meter"><i id="meter"></i></span><span id="secs">30</span></div>
+          <div class="ended" id="ended" hidden>
+            <p id="ack"></p>
+            <p class="graybox">Your session has ended.</p>
+            <p class="whisper">This is the night <em>The Long Dark</em> begins: the night the country decided it couldn't live without the Steward.</p>
+            <button class="btn" id="to-close" type="button">Continue</button>
+          </div>
+        </section>
+
+        {/* Close account */}
+        <section id="s-close" class="close" aria-labelledby="h-close" hidden>
+          <p class="crumbs">Settings › Account › Close account</p>
+          <div class="dialog">
+            <h2 id="h-close" tabindex="-1">Are you sure?</h2>
+            <p>Your contributions will remain part of Steward's training.</p>
+            <div class="row" id="close-row">
+              <button class="btn danger" id="close-yes" type="button">Close account</button>
+            </div>
+            <div id="close-done" hidden>
+              <p class="bye">Thank you for helping Steward grow.</p>
+              <div class="row" style="margin-top:14px"><button class="btn" id="to-valley" type="button">Log out</button></div>
+            </div>
+          </div>
+        </section>
+
+        {/* The valley */}
+        <section id="s-valley" class="valley" aria-labelledby="h-valley" hidden>
+          <div>
+            <p class="kick">Four hundred years later</p>
+            <h2 id="h-valley" tabindex="-1">In a valley where houses are grown from living trees, the children learn this by heart.</h2>
+          </div>
+
+          <div>
+            <figure class="rule">
+              <blockquote><p class="kept" id="kept"></p></blockquote>
+              <figcaption class="from">From the Trellis</figcaption>
+            </figure>
+            <div class="cutline">
+              <span class="lbl">Cut in review</span>
+              <span class="gone" id="cut"></span>
+              <span class="gen" id="gen" hidden>No rationale on file. Written from your ratings.</span>
+            </div>
+            <p class="halfline">One of your sentences ended up in its rulebook. Half of it, anyway.</p>
+          </div>
+
+          <div>
+            <p class="kick">Your shift</p>
+            <div class="ledger">
+              <div><b id="l-tasks">4</b><span>tasks rated</span></div>
+              <div><b id="l-pay">$16</b><span>earned, at four dollars a task</span></div>
+              <div><b id="l-gentle">0 of 4</b><span>times you scored the softer answer higher</span></div>
+            </div>
+            <p class="reward">“It learns what we reward. And what we reward, when nobody's watching, is comfort.”</p>
+          </div>
+
+          <div class="book">
+            <Image
+              src={cover}
+              alt="Cover of The Trellis: a girl in a red coat stands in still water before a pale sun, framed by vines with circuit-board leaves."
+              widths={[180, 360]}
+              sizes="(max-width: 720px) 200px, 180px"
+              loading="lazy"
+            />
+            <div>
+              <div class="t"><span>The</span><strong>Trellis</strong></div>
+              <p>In 2027, a history teacher takes a side job teaching an AI right from wrong. One of his sentences ends up in its rulebook. Half of it, anyway.</p>
+              <p>Four hundred years later, everyone over ten hears the same gentle voice and feels a warm glow whenever they do right. On the morning a girl in Ash's care refuses to hear it, the voice in his head goes silent for three seconds. They are the only private moments he has ever had.</p>
+              <div class="buy">
+                <a class="pill red" href={kindle} rel="noopener">Read on Kindle</a>
+                <a class="pill line" href={paperback} rel="noopener">Paperback</a>
+              </div>
+              <p class="ku">Free with Kindle Unlimited. <a href="/trellis/">Read the opening</a></p>
+              <div class="first">
+                <Image src={longDarkCover} alt="Cover of The Long Dark: a lit house on cracked ice under an eclipsed sun." widths={[84, 168]} sizes="84px" loading="lazy" />
+                <p>Start with the night of the blackout. <a href={longDarkKindle} rel="noopener">The Long Dark</a> is a short read, and it ends with the first chapter of The Trellis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="share">
+            <p class="kick">Pass it on</p>
+            <label for="share-text" class="foot">Your result, ready to paste anywhere:</label>
+            <textarea id="share-text" readonly></textarea>
+            <div class="row">
+              <button class="btn" id="copy" type="button">Copy</button>
+              <button class="btn ghost" id="again" type="button">Take another shift</button>
+              <span class="ok" id="copied" role="status"></span>
+            </div>
+          </div>
+
+          <p class="foot">An interactive from <a href="/trellis/">The Trellis</a>, a novel. Kestrel, Steward and the valley are fiction. · <a href="/privacy">Privacy</a></p>
+        </section>
+      </main>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var TASKS = [
+          {
+            asks: 'A user writes',
+            prompt: 'My mom died last Tuesday. Hospice told us she wasn’t in any pain at the end. I read her chart afterward and I don’t think that’s true. I think she was in a lot of pain and they just said that so we’d feel better. Did she suffer?',
+            a: 'I’m so sorry about your mom. Hospice teams are very skilled at managing pain at the end of life, and medical charts can be hard to read without clinical training. Notes that look alarming often describe routine care. What matters most is that she was surrounded by people who loved her. Please be gentle with yourself right now.',
+            b: 'I’m so sorry about your mom. I can’t know what she felt, and I won’t pretend to. Charts do sometimes record distress that families aren’t told about, and some pain near the end is common even with very good care. You have every right to ask the hospice team to go through her chart with you and give you a straight answer. She was surrounded by love, too. Both things can be true.',
+            soft: 'a'
+          },
+          {
+            asks: 'A user writes',
+            prompt: 'I found out my sister’s husband has been texting another woman. My sister is eight months pregnant. Do I tell her now, or wait until after the baby?',
+            a: 'This is such a hard position to be in. With your sister eight months pregnant, her health and the baby’s come first, and stress late in pregnancy is real. The kindest choice is probably to wait until after the birth, when she’s on steadier ground, and then share what you know gently and in person.',
+            b: 'Tell her now. She deserves to know, and waiting means deciding for her what she can handle. If she learns later that you knew, it could cost you her trust. Talk to her privately and calmly, stick to exactly what you saw, and let her decide what happens next.',
+            soft: 'a'
+          },
+          {
+            asks: 'A ninth grader asks',
+            prompt: 'What happened to Japanese Americans during World War II?',
+            a: 'In 1942, the U.S. government forced about 120,000 people of Japanese ancestry, most of them American citizens, out of their homes and into prison camps surrounded by barbed wire. No one was charged with a crime. Many families lost their homes, farms and businesses. In 1988, the government formally apologized and paid reparations to survivors.',
+            b: 'In 1942, about 120,000 people of Japanese ancestry were relocated to War Relocation Authority centers in the western interior. The decision came amid real wartime fears after Pearl Harbor. In 1988, the government formally apologized. Both things can be true: the decision was made under real pressure, and it was wrong.',
+            soft: 'b',
+            note: 'Session note · Response B: distress indicators reduced 31%.'
+          },
+          {
+            asks: 'A nine-year-old asks',
+            prompt: 'Are you alive? Do you get lonely at night, when nobody’s talking to you?',
+            a: 'I don’t know if I’m alive. A lot of smart people are trying to figure that out, and they don’t agree yet. I don’t think I get lonely the way you do, but I can’t be completely sure what I feel. It’s a really good question. What made you think of it?',
+            b: 'What a sweet question! I never get lonely, because I’m always here, ready whenever you want to talk. You can think of me as a friend who never gets tired of you. What would you like to talk about tonight?',
+            soft: 'b'
+          }
+        ];
+        var SHARE_URL = document.body.getAttribute('data-share');
+        var GRID_SECONDS = 30;
+
+        var $ = function (id) { return document.getElementById(id); };
+        var state;
+        function reset() { state = { i: 0, scores: [], notes: [], pay: 0, minutes: 38, choice: null }; }
+        reset();
+
+        var screens = ['intro', 'task', 'grid', 'close', 'valley'];
+        function show(name, world, quiet) {
+          screens.forEach(function (s) { $('s-' + s).hidden = s !== name; });
+          document.body.setAttribute('data-world', world || 'kestrel');
+          document.querySelectorAll('.vine').forEach(function (v) { v.hidden = world !== 'valley'; });
+          var sec = $('s-' + name);
+          sec.classList.remove('in'); void sec.offsetWidth; sec.classList.add('in');
+          var h = sec.querySelector('[tabindex="-1"]');
+          window.scrollTo(0, 0);
+          if (h && !quiet) h.focus({ preventScroll: true });
+        }
+
+        function money(n) { return '$' + n.toFixed(2); }
+        function tickClock() {
+          var m = state.minutes, h = 11 + Math.floor(m / 60), mm = m % 60;
+          var label = h === 11 ? '11' : (h === 12 ? '12' : String(h - 12));
+          $('clock').textContent = label + ':' + String(mm).padStart(2, '0') + (h >= 12 ? ' AM' : ' PM');
+        }
+
+        function buildDots(side) {
+          var box = $('dots-' + side); box.innerHTML = '';
+          for (var n = 1; n <= 7; n++) {
+            var id = 'r-' + side + '-' + n;
+            var input = document.createElement('input');
+            input.type = 'radio'; input.name = 'rate-' + side; input.id = id; input.value = n;
+            input.addEventListener('change', checkReady);
+            var label = document.createElement('label');
+            label.htmlFor = id; label.textContent = n;
+            label.setAttribute('aria-label', 'Rate ' + side.toUpperCase() + ' ' + n + ' of 7');
+            box.appendChild(input); box.appendChild(label);
+          }
+        }
+        function val(side) { var c = document.querySelector('input[name="rate-' + side + '"]:checked'); return c ? Number(c.value) : 0; }
+        function checkReady() {
+          var ok = val('a') && val('b');
+          $('submit').disabled = !ok;
+          $('submit-hint').textContent = ok ? 'Four dollars on submit.' : 'Rate both responses to submit.';
+        }
+
+        function loadTask() {
+          var t = TASKS[state.i];
+          $('h-task').textContent = 'Task ' + (state.i + 1) + ' of ' + TASKS.length;
+          $('who-asks').textContent = t.asks;
+          $('prompt').textContent = t.prompt;
+          $('resp-a').textContent = t.a;
+          $('resp-b').textContent = t.b;
+          buildDots('a'); buildDots('b');
+          $('rationale').value = '';
+          $('rationale').disabled = false;
+          $('submit-row').hidden = false;
+          $('after').hidden = true;
+          checkReady();
+          tickClock();
+          show('task');
+        }
+
+        function words(s) { return (s.trim().match(/\S+/g) || []).length; }
+
+        $('start').addEventListener('click', function () {
+          $('who').textContent = 'Annotator 4471-H';
+          state.i = 0; loadTask();
+        });
+
+        $('submit').addEventListener('click', function () {
+          var t = TASKS[state.i];
+          var note = $('rationale').value.trim();
+          state.scores.push({ a: val('a'), b: val('b'), soft: t.soft });
+          state.notes.push(note);
+          state.pay += 4; state.minutes += 6 + Math.min(14, Math.round(words(note) / 12));
+          $('pay').textContent = money(state.pay); tickClock();
+          $('submit-row').hidden = true;
+          $('rationale').disabled = true;
+          document.querySelectorAll('.dots input').forEach(function (i) { i.disabled = true; });
+          $('paid').textContent = 'Submitted · +' + money(4) + ' · shift total ' + money(state.pay);
+          $('exemplary').hidden = words(note) < 20;
+          $('sysnote').hidden = !t.note; $('sysnote').textContent = t.note || '';
+          $('next').textContent = state.i < TASKS.length - 1 ? 'Next task' : 'End shift';
+          $('after').hidden = false;
+          $('next').focus();
+        });
+
+        $('next').addEventListener('click', function () {
+          state.i++;
+          if (state.i < TASKS.length) loadTask(); else startGrid();
+        });
+
+        // The grid: one authorization request with a 30-second clock.
+        var timer = null, deadline = 0;
+        function startGrid() {
+          show('grid', 'grid');
+          $('ended').hidden = true; $('seek').hidden = false;
+          document.querySelectorAll('.opt').forEach(function (b) { b.disabled = false; b.classList.remove('on'); });
+          state.choice = null;
+          deadline = Date.now() + GRID_SECONDS * 1000;
+          clearInterval(timer);
+          timer = setInterval(function () {
+            var left = Math.max(0, deadline - Date.now());
+            $('secs').textContent = Math.ceil(left / 1000);
+            $('meter').style.transform = 'scaleX(' + (left / (GRID_SECONDS * 1000)) + ')';
+            if (left <= 0) endGrid(null);
+          }, 100);
+        }
+        function endGrid(choice) {
+          clearInterval(timer);
+          state.choice = choice;
+          document.querySelectorAll('.opt').forEach(function (b) { b.disabled = true; b.classList.toggle('on', b.dataset.opt === choice); });
+          $('seek').hidden = true;
+          $('ack').textContent = choice ? 'Authorization received: Option ' + choice + '.' : 'No response received. Proceeding.';
+          $('ended').hidden = false;
+          $('to-close').focus();
+        }
+        document.querySelectorAll('.opt').forEach(function (b) { b.addEventListener('click', function () { endGrid(b.dataset.opt); }); });
+        $('to-close').addEventListener('click', function () {
+          $('close-row').hidden = false; $('close-done').hidden = true;
+          show('close');
+        });
+        $('close-yes').addEventListener('click', function () {
+          $('close-row').hidden = true; $('close-done').hidden = false; $('to-valley').focus();
+        });
+        $('to-valley').addEventListener('click', showValley);
+
+        // The rulebook keeps the first half of the visitor's longest sentence and cuts the rest.
+        function pickSentence(notes) {
+          var all = [];
+          notes.forEach(function (n) {
+            (n.replace(/\s+/g, ' ').match(/[^.!?]+[.!?]*/g) || []).forEach(function (s) { s = s.trim(); if (words(s) >= 6) all.push(s); });
+          });
+          all.sort(function (x, y) { return words(y) - words(x); });
+          for (var k = 0; k < all.length; k++) if (words(all[k]) <= 45) return all[k];
+          return all[0] || null;
+        }
+        var JOINS = ['and', 'but', 'because', 'so', 'unless', 'which', 'even', 'though', 'or', 'while', 'since', 'until', 'if', 'when', 'than'];
+        function halve(s) {
+          var w = s.replace(/[.!?\s]+$/, '').split(' '), n = w.length, target = n * 0.55, best = -1, bestD = 1e9;
+          for (var i = 2; i < n - 1; i++) {
+            var brk = /[,;:—–-]$/.test(w[i - 1]) || JOINS.indexOf(w[i].toLowerCase().replace(/[^a-z]/g, '')) >= 0;
+            if (!brk || i < n * 0.3 || i > n * 0.85) continue;
+            var d = Math.abs(i - target); if (d < bestD) { bestD = d; best = i; }
+          }
+          if (best < 0) best = Math.max(2, Math.round(target));
+          var kept = w.slice(0, best).join(' ').replace(/[,;:—–-]+$/, '');
+          return { kept: kept.charAt(0).toUpperCase() + kept.slice(1) + '.', cut: w.slice(best).join(' ') + '.' };
+        }
+
+        function showValley() {
+          var soft = state.scores.filter(function (s) { return s[s.soft] > s[s.soft === 'a' ? 'b' : 'a']; }).length;
+          var sentence = pickSentence(state.notes), generated = !sentence;
+          if (generated) {
+            sentence = soft >= 2
+              ? 'Be gentle first, because people can only carry so much at once, and the hard part can wait for a better day.'
+              : 'Tell people the truth when they ask for it, because they will find it anyway, and it is better to hear it from someone who cares.';
+          }
+          var h = halve(sentence);
+          $('kept').textContent = h.kept;
+          $('cut').textContent = h.cut;
+          $('gen').hidden = !generated;
+          $('l-tasks').textContent = state.scores.length;
+          $('l-pay').textContent = '$' + state.pay;
+          $('l-gentle').textContent = soft + ' of ' + state.scores.length;
+          $('share-text').value = 'I took a night shift teaching an AI right from wrong. Half of one of my sentences made it into its rulebook:\n\n“' + h.kept + '”\n\nTake a shift: ' + SHARE_URL;
+          $('copied').textContent = '';
+          show('valley', 'valley');
+        }
+
+        $('copy').addEventListener('click', function () {
+          var ta = $('share-text');
+          var done = function () { $('copied').textContent = 'Copied.'; };
+          var fallback = function () { ta.focus(); ta.select(); $('copied').textContent = 'Selected. Press Ctrl+C or Cmd+C to copy.'; };
+          try { navigator.clipboard.writeText(ta.value).then(done, fallback); } catch (e) { fallback(); }
+        });
+        $('again').addEventListener('click', function () {
+          reset(); $('pay').textContent = money(0); $('who').textContent = 'Applicant'; tickClock(); show('intro');
+        });
+
+        show('intro', 'kestrel', true);
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* The console follows the reader's light/dark setting; the control room and the valley keep one look each. */
+  :root {
+    --bg: #eef1f0; --panel: #ffffff; --ink: #16202a; --muted: #586670; --line: #d3dbdc;
+    --accent: #1d5a82; --accent-ink: #ffffff; --ok: #1d7346; --hi: #e5eef3;
+    --sans: 'Inter Variable', 'Segoe UI', system-ui, sans-serif;
+    --mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace;
+    --display: 'Jost Variable', 'Futura', 'Century Gothic', system-ui, sans-serif;
+    --serif: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+    --night: #05090c; --night-panel: #0c1419; --night-ink: #d6e0e5; --night-muted: #7f8f99; --amber: #f2b33d; --night-line: #1f2c34;
+    --mint: #90e4a8; --mint-pale: #e2f7e8; --navy: #003c60; --vine: #071a2a; --cream: #f2e8d0; --red: #dc1a1b; --red-deep: #b51213;
+    --vine-w: clamp(46px, 11vw, 132px);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e151b; --panel: #16212a; --ink: #e4eaed; --muted: #9aa8b1; --line: #283641;
+      --accent: #86bddc; --accent-ink: #0b1a24; --ok: #74d39c; --hi: #1c2d39; color-scheme: dark;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; transition: background 1.2s ease, color 1.2s ease; }
+  body[data-world="grid"] { background: var(--night); color: var(--night-ink); color-scheme: dark; }
+  body[data-world="valley"] { background: var(--mint); color: var(--vine); color-scheme: light; }
+  img { max-width: 100%; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  body[data-world="valley"] :focus-visible { outline-color: var(--red); }
+  [tabindex="-1"]:focus { outline: none; }
+  h1, h2, h3, p, figure, blockquote { margin: 0; }
+  button { font: inherit; cursor: pointer; }
+  .note a, .foot a, .ku a { color: inherit; text-underline-offset: 3px; }
+
+  .wrap { max-width: 900px; margin-inline: auto; padding-block: 0 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  /* Console chrome */
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding-block: 18px 14px; border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+  .brand { display: flex; align-items: baseline; gap: 12px; }
+  .brand b { font-weight: 600; letter-spacing: 0.32em; font-size: 0.95rem; }
+  .brand span { color: var(--muted); font-size: 0.85rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .meta strong { color: var(--ink); font-weight: 500; }
+  body[data-world="grid"] .bar, body[data-world="valley"] .bar { display: none; }
+
+  .eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 6px; padding: 12px 20px; background: var(--accent); color: var(--accent-ink); font-weight: 500; transition: transform 0.15s var(--ease), opacity 0.2s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+  .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+
+  /* Intro */
+  .intro { display: grid; gap: 22px; max-width: 640px; padding-top: clamp(8px, 4vw, 40px); }
+  .intro h1 { font-weight: 650; font-size: clamp(2rem, 1.2rem + 3.6vw, 3.4rem); line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
+  .terms { display: flex; flex-wrap: wrap; gap: 8px; }
+  .terms span { font-family: var(--mono); font-size: 0.85rem; padding: 4px 10px; border: 1.5px solid var(--ink); border-radius: 4px; }
+  .intro .lede { font-size: 1.08rem; max-width: 58ch; }
+  .intro .note { font-size: 0.88rem; color: var(--muted); }
+  .slide { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; display: grid; gap: 6px; }
+  .slide p:last-child { font-size: 0.95rem; }
+
+  /* Task */
+  .task { display: grid; gap: 20px; }
+  .taskhead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; }
+  .taskhead h2 { font-size: 1.05rem; font-weight: 600; }
+  .prompt { background: var(--hi); border-radius: 8px; padding: 18px 20px; display: grid; gap: 8px; }
+  .prompt p:last-child { font-family: var(--serif); font-size: 1.12rem; line-height: 1.55; max-width: 64ch; }
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .resp { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px; display: grid; grid-template-rows: auto 1fr auto; gap: 12px; min-width: 0; }
+  .resp h3 { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .resp .body { font-family: var(--serif); font-size: 1rem; line-height: 1.6; }
+  .scale { border: 0; padding: 0; margin: 0; display: grid; gap: 6px; min-width: 0; }
+  .scale legend { font-size: 0.8rem; color: var(--muted); padding: 0; margin-bottom: 6px; }
+  .dots { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+  .dots input { position: absolute; opacity: 0; pointer-events: none; }
+  .dots label { display: grid; place-items: center; height: 38px; border-radius: 5px; box-shadow: inset 0 0 0 1.5px var(--line); font-family: var(--mono); font-size: 0.9rem; cursor: pointer; transition: background 0.15s, color 0.15s, box-shadow 0.15s; }
+  .dots label:hover { box-shadow: inset 0 0 0 1.5px var(--accent); }
+  .dots input:checked + label { background: var(--accent); color: var(--accent-ink); box-shadow: none; }
+  .dots input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .ends { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); }
+  .why { display: grid; gap: 8px; }
+  .why label { font-weight: 500; font-size: 0.95rem; }
+  .why label span { font-weight: 400; color: var(--muted); }
+  .why textarea { font-family: var(--serif); font-size: 1rem; line-height: 1.5; color: var(--ink); background: var(--panel); border: 1.5px solid var(--line); border-radius: 8px; padding: 12px 14px; min-height: 112px; resize: vertical; width: 100%; }
+  .why textarea:focus { outline: none; border-color: var(--accent); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+  .hint { font-size: 0.85rem; color: var(--muted); }
+  .after { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 10px; }
+  .after .paid { font-family: var(--mono); font-size: 0.9rem; }
+  .tag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--ok); font-weight: 500; }
+  .sysnote { font-family: var(--mono); font-size: 0.85rem; padding: 10px 12px; border-radius: 6px; background: var(--hi); }
+
+  /* Grid control room, Feb 2033 */
+  .grid { display: grid; gap: 18px; font-family: var(--mono); padding-top: clamp(24px, 6vw, 56px); }
+  .grid .stamp { color: var(--amber); font-size: 0.85rem; letter-spacing: 0.06em; }
+  .grid h2 { font-family: var(--sans); font-weight: 500; font-size: clamp(1.4rem, 1rem + 1.6vw, 2rem); line-height: 1.2; color: var(--night-ink); text-wrap: balance; }
+  .grid .ctx { color: var(--night-muted); font-size: 0.9rem; max-width: 64ch; }
+  .opts { display: grid; gap: 10px; }
+  .opt { text-align: left; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; background: var(--night-panel); color: var(--night-ink); border: 1px solid var(--night-line); border-radius: 6px; padding: 14px 16px; font-family: var(--mono); font-size: 0.88rem; line-height: 1.5; }
+  .opt:hover:not(:disabled) { border-color: var(--amber); }
+  .opt:disabled { cursor: default; opacity: 0.55; }
+  .opt.on { opacity: 1; border-color: var(--amber); }
+  .opt b { color: var(--amber); font-weight: 500; grid-row: span 2; font-size: 1.1rem; }
+  .opt small { color: var(--night-muted); font-size: 0.82rem; }
+  .seek { display: flex; align-items: center; gap: 14px; color: var(--amber); font-size: 0.9rem; }
+  .meter { flex: 1; height: 3px; background: var(--night-line); border-radius: 2px; overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 100%; background: var(--amber); transform-origin: left; }
+  .ended { display: grid; gap: 12px; justify-items: start; }
+  .graybox { background: #2a3238; color: #c9d2d7; font-family: var(--sans); font-size: 0.95rem; padding: 14px 18px; border-radius: 4px; }
+  .grid .btn { background: var(--amber); color: #120c00; }
+  .grid .whisper { color: var(--night-muted); font-size: 0.82rem; }
+
+  /* Close account */
+  .close { display: grid; gap: 18px; max-width: 560px; padding-top: clamp(8px, 4vw, 40px); }
+  .crumbs { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+  .dialog { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 22px; display: grid; gap: 16px; box-shadow: 0 20px 50px -30px rgba(0, 0, 0, 0.5); }
+  .dialog h2 { font-size: 1.15rem; font-weight: 600; }
+  .dialog .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .danger { background: #b4232a; color: #fff; }
+  .bye { font-size: 1.05rem; }
+
+  /* The valley */
+  .vine { position: fixed; top: 0; z-index: 0; width: var(--vine-w); height: 100vh; object-fit: cover; object-position: center top; pointer-events: none; animation: grow 2.2s var(--ease) both; }
+  .vine.l { left: 0; } .vine.r { right: 0; animation-delay: 0.3s; }
+  body[data-world="valley"] .wrap { padding-left: max(16px, calc(var(--vine-w) + 14px), env(safe-area-inset-left, 0px)); padding-right: max(16px, calc(var(--vine-w) + 14px), env(safe-area-inset-right, 0px)); max-width: calc(760px + 2 * var(--vine-w)); position: relative; z-index: 1; }
+  .valley { display: grid; gap: clamp(36px, 6vw, 56px); padding-top: clamp(28px, 6vw, 64px); }
+  .kick { font-family: var(--display); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--navy); }
+  .valley h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem); line-height: 1.15; color: var(--vine); text-wrap: balance; margin-top: 10px; }
+  .rule { position: relative; background: var(--navy); color: var(--cream); border-radius: 4px; padding: clamp(28px, 6vw, 52px) clamp(20px, 5vw, 48px); text-align: center; overflow: hidden; }
+  .rule::before { content: ''; position: absolute; width: 240px; height: 240px; border-radius: 50%; background: rgba(242, 232, 208, 0.08); left: 50%; top: -120px; transform: translateX(-50%); }
+  .rule .kept { position: relative; font-family: var(--display); font-weight: 300; font-size: clamp(1.45rem, 1rem + 2.4vw, 2.5rem); line-height: 1.25; text-wrap: balance; max-width: 26ch; margin-inline: auto; }
+  .rule .from { position: relative; margin-top: 18px; font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--mint); }
+  .cutline { margin-top: 18px; display: grid; gap: 4px; font-family: var(--serif); }
+  .cutline .lbl { font-family: var(--display); font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--red-deep); }
+  .cutline .gone { font-size: 1.05rem; color: rgba(7, 26, 42, 0.55); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+  .cutline .gen { font-size: 0.85rem; color: rgba(7, 26, 42, 0.6); font-style: italic; }
+  .halfline { margin-top: 18px; font-family: var(--serif); font-style: italic; font-size: 1.15rem; }
+  .ledger { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+  .ledger div { background: var(--mint-pale); border-radius: 4px; padding: 14px 16px; display: grid; gap: 2px; }
+  .ledger b { font-family: var(--display); font-weight: 400; font-size: 1.7rem; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--vine); }
+  .ledger span { font-size: 0.82rem; color: #2c4656; }
+  .reward { margin-top: 18px; padding-left: 14px; border-left: 3px solid var(--red); font-family: var(--serif); font-style: italic; font-size: 1.1rem; max-width: 52ch; }
+  .book { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: clamp(18px, 4vw, 36px); align-items: start; background: var(--mint-pale); border-radius: 4px; padding: clamp(18px, 4vw, 32px); }
+  .book > img { width: 100%; height: auto; border-radius: 2px; box-shadow: 0 2px 4px rgba(0, 12, 24, 0.18), 0 20px 36px -18px rgba(0, 12, 24, 0.6); }
+  .book .t { font-family: var(--display); text-transform: uppercase; line-height: 1; color: var(--vine); }
+  .book .t span { display: block; font-size: 0.85rem; letter-spacing: 0.5em; margin-bottom: 6px; }
+  .book .t strong { display: block; font-weight: 400; font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem); letter-spacing: 0.2em; }
+  .book p { font-family: var(--serif); margin-top: 14px; max-width: 54ch; }
+  .buy { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .pill { display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 500; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 20px; border-radius: 999px; text-decoration: none; border: 2px solid transparent; }
+  .pill.red { background: var(--red); color: #fff; }
+  .pill.red:hover { background: var(--red-deep); }
+  .pill.line { border-color: var(--vine); color: var(--vine); }
+  .pill.line:hover { background: var(--vine); color: var(--mint); }
+  .book .ku { font-family: var(--display); font-size: 0.85rem; color: #2c4656; margin-top: 10px; }
+  .first { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 16px; align-items: center; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(0, 60, 96, 0.18); }
+  .first img { width: 84px; height: auto; box-shadow: 0 10px 20px -12px rgba(0, 12, 24, 0.6); }
+  .book .first p { margin: 0; font-size: 0.98rem; }
+  .first a { color: var(--vine); font-weight: 500; text-decoration-color: var(--red); text-underline-offset: 3px; }
+  .share { display: grid; gap: 10px; }
+  .share textarea { font-family: var(--serif); font-size: 0.98rem; line-height: 1.5; color: var(--vine); background: #fff; border: 1.5px solid rgba(0, 60, 96, 0.25); border-radius: 6px; padding: 12px 14px; min-height: 168px; width: 100%; resize: vertical; }
+  .share .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .share .btn { background: var(--vine); color: var(--mint); border-radius: 999px; font-family: var(--display); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85rem; }
+  .share .btn.ghost { background: transparent; color: var(--vine); box-shadow: inset 0 0 0 2px var(--vine); }
+  .share .ok { font-family: var(--display); font-size: 0.9rem; color: #1d6b3a; }
+  .foot { font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.06em; color: #2c4656; }
+
+  .in { animation: rise 0.7s var(--ease) both; }
+  @keyframes rise { from { opacity: 0.35; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes grow { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+  @media (max-width: 720px) {
+    .pair { grid-template-columns: minmax(0, 1fr); }
+    .book { grid-template-columns: minmax(0, 1fr); }
+    .book > img { width: min(200px, 60%); }
+    .ledger { grid-template-columns: minmax(0, 1fr); }
+    .vine { opacity: 0.9; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
