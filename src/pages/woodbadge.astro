@@ -32,7 +32,7 @@ import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
   Kept off this page on purpose: volunteer and family names, the troop's
   bank details, and reviewer names and contact information.
 */
-const asOf = 'Oct 31, 2026';
+const asOf = 'Nov 12, 2026';
 const shotsTaken = 'Oct 14, 2026';
 
 type Kind = 'done' | 'pend' | 'sched';
@@ -69,7 +69,7 @@ const goals: Goal[] = [
     short: 'Recruiting',
     due: 'Apr 30, 2027',
     badge: { kind: 'done', label: 'Approved Oct 14' },
-    next: 'Crossover at Blue & Gold, Mar 15, next',
+    next: 'Complete. The crossover at Blue & Gold, Mar 15, is the next step in the yearly cycle',
     summary: `Document a repeatable annual recruiting process run jointly by Troop 3054 and Pack 3054, and post it on the recruiting page of the troop portal.`,
     smart: {
       s: `I will write a repeatable annual recruiting process for the troop and the pack and publish it on the recruiting page of the Troop 3054 portal. It points every family into Scouting America's official join path, both units' BeAScout pins and Invitation Manager, and covers the fall sign-up, peer invitation our Scouts run themselves, and the crossover handoff from Arrow of Light into the troop. Constraint: no page of ours sits in the registration path or stores a lead, so nothing here leaves the units a tool to maintain.`,
@@ -134,7 +134,7 @@ const goals: Goal[] = [
     short: 'Program calendar',
     due: 'May 31, 2027',
     badge: { kind: 'done', label: 'Scout-led' },
-    next: 'PLC review of the procedure next, at a PLC meeting',
+    next: 'Complete. Still ahead: the SPL walkthrough by Dec 31 and the spring planning conference',
     summary: `Document an annual program planning procedure for the Patrol Leaders' Council, and prove it works with a Scout-built program year calendar posted to the troop portal.`,
     smart: {
       s: `I will write a short annual program planning procedure based on Scouting America's annual planning conference materials rather than something I invent, and coach the senior patrol leader through it one on one before it reaches the PLC. The Scoutmaster and I prepare, the senior patrol leader runs the conference, and the PLC picks the activities and puts a Scout's name on each. The PLC reviews each meeting it planned right after that meeting, so the procedure gets tested every few weeks rather than once a year. Constraint: youth-led does not mean unstructured, and the calendar the Scouts produce is a plan, not a contract.`,
@@ -145,7 +145,7 @@ const goals: Goal[] = [
     },
     rows: [
       { item: 'Planning procedure posted to the portal', evidence: `Written and posted: the "Planning Meetings (PLC)" section of the troop's app guide covers who writes plans, planning the month (the general idea for each meeting, who's teaching, what to wear and bring, and the rank requirements it covers), the one-line review after every meeting, and which committee position to ask for help. The PLC used it to plan the rest of the year through the fourth quarter, and the troop is now Scout-led.`, kind: 'done', status: 'Posted', href: 'https://www.troop3054.org/app.html#plc' },
-      { item: `Procedure revised from the PLC's own review`, evidence: `The PLC used the procedure to plan the fourth quarter. Next, it reviews the procedure itself (what worked, what didn't, what to change), and its changes go into the posted version. Not done yet; it moves to a coming PLC meeting.`, kind: 'sched', status: 'Next PLC' },
+      { item: `Procedure revised from the PLC's own review`, evidence: `The PLC used the procedure to plan the fourth quarter (October to December), then went over it at the Nov 9 troop meeting.`, kind: 'done', status: 'Nov 9' },
       { item: `PLC's program-year calendar posted to the portal`, evidence: `The full 2026-27 program year is on the portal calendar, 60 events through June 2027, and on the public calendar at troop3054.org. The PLC has planned through the fourth quarter (October to December), and the rest of the year follows the same procedure.`, kind: 'done', status: 'Posted' },
       { item: 'Start time and location on every event', evidence: `58 of the 61 events on the 2026-27 calendar have both. The other three, Blue & Gold and the two Memorial Day events, aren't confirmed yet and get a time and place when they're set; the portal's Program page flags them until then.`, kind: 'done', status: '58 of 61' },
     ],
@@ -265,7 +265,7 @@ const goals: Goal[] = [
     short: 'Foundations Weekend',
     due: 'Dec 31, 2026',
     badge: { kind: 'sched', label: 'Nov 20-22' },
-    next: 'RSVPs close Nov 9, then the weekend Nov 20-22',
+    next: 'The weekend, Nov 20-22, next',
     summary: 'Coach the PLC through the first Troop 3054 Foundations Weekend and document the planning process so future years can repeat it without me.',
     smart: {
       s: `I will coach the PLC through developing the first Troop 3054 Foundations Weekend, a Scout-led campout where older Scouts teach the Scout through First Class requirements the attending Scouts still need, picked from our advancement records, and I will document the planning process for future years. Each Scout instructor chooses which requirement to teach rather than being handed one, and we walk through Teaching EDGE at a PLC meeting beforehand. The weekend is the November 20-22, 2026 troop trip to Camp Wakpominee. Constraint: it is Scout-taught. Adults supervise, drive and cook.`,
@@ -287,7 +287,7 @@ const goals: Goal[] = [
         { item: 'Advancement gap list', evidence: `The Scout through First Class requirements each Scout still needs, built from the troop's advancement records. The weekend's crews and skill stations come from it.`, kind: 'done', status: 'Done' },
         { item: 'Weekend announced to families', evidence: `Two tracks. Trail to First Class for newer Scouts: tent camping, patrol cooking and cleanup, knots, lashing, woods tools and fire building, first aid, flag ceremonies, and a 5-mile map-and-compass hike Sunday. The Cooking merit badge for Scouts who have finished First Class cooking. Older Scouts who have a skill signed off teach it in small rotating groups, and for Star Scouts that counts toward Life requirement 6. RSVPs are due Nov 9 because the plan is built around who comes.`, kind: 'done', status: 'Oct 25' },
         { item: 'Cooking merit badge packet', evidence: `A 16-page Scout packet: a badge tracker, the Badge Day plan, the activity and meal logs, and the camp and trail cooking pages, so a Scout can finish the whole badge by the end of the campout.`, kind: 'done', status: 'Posted', href: 'https://www.troop3054.org/docs/Cooking-Merit-Badge-Packet.pdf' },
-        { item: 'Program schedule and Scout instructors', evidence: 'Partly set. Each instructor picks the requirement they teach, and the rest of the stations and instructors are set once RSVPs close Nov 9. Teaching EDGE walk-through at a PLC meeting.', kind: 'pend', status: 'Partly set' },
+        { item: 'Program schedule and Scout instructors', evidence: 'Partly set. Each instructor picks the requirement they teach. RSVPs closed Nov 9, and the rest of the stations and instructors get set from who is coming. Teaching EDGE walk-through at a PLC meeting.', kind: 'pend', status: 'Partly set' },
       ],
     },
     notes: [
@@ -331,8 +331,7 @@ const scoutPath = [
 ];
 
 const comingUp: Row[] = [
-  { item: 'Nov 9', evidence: 'Foundations Weekend RSVPs close, and the rest of the station schedule and Scout instructors get set from who is coming.', kind: 'pend', status: 'In progress' },
-  { item: 'Next PLC meeting', evidence: 'The PLC reviews the planning procedure after using it for the fourth quarter; its changes go into the posted version.', kind: 'sched', status: 'Planned' },
+  { item: 'Before Nov 20', evidence: 'The rest of the Foundations Weekend station schedule and Scout instructors, set from who RSVPed.', kind: 'pend', status: 'In progress' },
   { item: 'Nov 18 committee meeting', evidence: `Approve the Oct 14 minutes; the first Treasurer's report against the new budget.`, kind: 'sched', status: 'Scheduled' },
   { item: 'Nov 20-22', evidence: 'Foundations Weekend at Camp Wakpominee.', kind: 'sched', status: 'Scheduled' },
   { item: 'By Dec 31', evidence: 'Every backup in the roles matrix confirmed one on one.', kind: 'sched', status: 'Planned' },
@@ -417,7 +416,7 @@ const timeline = [
   ['Oct 2026', 'Work underway on all five goals.'],
   ['Oct 14 · Committee votes', `The committee adopted the roles matrix, the budget process and the 2026-27 budget, and approved the joint recruiting process, with the pack's Key 3 giving their OK the same night. All three votes landed months ahead of the ticket's dates.`],
   ['Oct 25 · Foundations Weekend announced', `Families got the plan for Nov 20-22: a Trail to First Class track and a Cooking merit badge track, built from each Scout's advancement record and taught by older Scouts.`],
-  ['Nov 9 · Troop app rolled out', `At the troop meeting, I rolled the troop app out to leaders and parents. It's the portal every goal posts to.`],
+  ['Nov 9 · App rollout and PLC review', `At the troop meeting, I rolled the troop app out to leaders and parents, the portal every goal posts to, and went over the planning procedure with the PLC.`],
 ];
 
 const draftingRules = [
