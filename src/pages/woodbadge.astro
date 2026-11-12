@@ -185,7 +185,7 @@ const goals: Goal[] = [
     short: 'Roles matrix',
     due: 'Jan 31, 2027',
     badge: { kind: 'done', label: 'Adopted Oct 14' },
-    next: 'Backups confirmed one on one next, by Dec 31',
+    next: 'Complete. The committee reviews the matrix each September',
     summary: 'Build a matrix of adult roles and responsibilities with named holders and backups, so the troop keeps operating through leadership changes and no single adult holds a job nobody else can do.',
     smart: {
       s: `I will document every key troop role and every shared responsibility that currently lives with one person: committee positions, social media administration, website and domain access, communications, bank account authorization and custody of key files. I will start from Scouting America's published position descriptions rather than my own wording, and confirm each entry one on one with the person holding it before it goes anywhere. Backups are asked individually rather than volunteered into in a meeting. Constraint: no passwords or credentials, only who holds access and how it transfers.`,
@@ -199,7 +199,7 @@ const goals: Goal[] = [
       { item: 'Named maintainer', evidence: 'The Committee Chair, named in the Oct 14 motion.', kind: 'done', status: 'Oct 14' },
       { item: 'Adopted by recorded committee vote', evidence: 'Adopted Oct 14, and in the minutes on troop3054.org.', kind: 'done', status: 'Oct 14', href: 'https://www.troop3054.org/governance.html' },
       { item: 'A named holder for every role and single-point job', evidence: `Built from Scouting America's official position list. Every committee and Key 3 seat has a holder except Secretary, which the Committee Chair covers until it's filled, and the portal and the public Get Involved page match the adopted matrix. Shared single-point jobs are listed by role: website and domain, app, calendar, Facebook and BAND (Webmaster); the bank account (Treasurer); records, key files and the committee email list (Secretary); recharter and my.Scouting (Committee Chair). Who holds access and how it transfers, never passwords.`, kind: 'done', status: 'In the portal' },
-      { item: 'A named backup wherever one has been found', evidence: 'Eight backups named in the adopted matrix. Each one gets confirmed one on one with the person by the end of December.', kind: 'pend', status: '8 named' },
+      { item: 'A named backup wherever one has been found', evidence: 'Eight backups named in the adopted matrix: me and seven other adults. I talked with each of the seven one on one and each confirmed, ahead of the Dec 31 date.', kind: 'done', status: 'Confirmed' },
       { item: 'Every remaining gap written down, with an owner', evidence: `Every open seat and every role without a backup says what is at risk and who is working to close it. Open now: Secretary, and a backup for the Scoutmaster.`, kind: 'done', status: 'Written' },
       { item: 'Review rotation set at adoption', evidence: 'Set in the Oct 14 motion: the roles matrix each September, the budget process each May.', kind: 'done', status: 'Oct 14' },
     ],
@@ -334,7 +334,6 @@ const comingUp: Row[] = [
   { item: 'Before Nov 20', evidence: 'The rest of the Foundations Weekend station schedule and Scout instructors, set from who RSVPed.', kind: 'pend', status: 'In progress' },
   { item: 'Nov 18 committee meeting', evidence: `Approve the Oct 14 minutes; the first Treasurer's report against the new budget.`, kind: 'sched', status: 'Scheduled' },
   { item: 'Nov 20-22', evidence: 'Foundations Weekend at Camp Wakpominee.', kind: 'sched', status: 'Scheduled' },
-  { item: 'By Dec 31', evidence: 'Every backup in the roles matrix confirmed one on one.', kind: 'sched', status: 'Planned' },
   { item: 'By Dec 31', evidence: `Foundations Weekend's after-action review, its planning procedure posted, and next year's weekend on the calendar.`, kind: 'sched', status: 'Planned' },
 ];
 
@@ -455,7 +454,7 @@ const ticketTotal = goals.reduce((n, g) => n + progress(g).total, 0);
 const trail = [
   { label: 'Course weekends', when: 'Aug and Sept 2026', state: 'done' },
   { label: 'Ticket approved', when: 'Sept 19, 2026', state: 'done' },
-  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met, ${ticketPend} in progress`, state: 'now' },
+  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met${ticketPend ? `, ${ticketPend} in progress` : ''}`, state: 'now' },
   { label: 'Beads', when: 'By Mar 20, 2028', state: 'next' },
 ];
 ---
