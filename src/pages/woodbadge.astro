@@ -32,7 +32,7 @@ import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
   Kept off this page on purpose: volunteer and family names, the troop's
   bank details, and reviewer names and contact information.
 */
-const asOf = 'Nov 12, 2026';
+const asOf = 'Nov 18, 2026';
 const shotsTaken = 'Oct 14, 2026';
 
 type Kind = 'done' | 'pend' | 'sched';
@@ -102,6 +102,7 @@ const goals: Goal[] = [
         { value: '8', label: 'Arrow of Light Scouts, the next crossover class' },
         { value: '8 → 5', label: 'New troop Scouts this year, still active in October' },
         { value: '14 → 15', label: 'Scouts in the troop, after a friend joined in October' },
+        { value: '9 → 18', label: `Registered Scouts, a year ago and now, by the council's count on Nov 18` },
       ],
     },
     points: {
@@ -220,7 +221,7 @@ const goals: Goal[] = [
     short: 'Budget process',
     due: 'Feb 28, 2027',
     badge: { kind: 'done', label: 'Adopted Oct 14' },
-    next: `The Treasurer's first report against the budget next, Nov 18`,
+    next: `Complete. The Treasurer reported to the committee on Nov 18, and next year's budget work starts Apr 30`,
     summary: `Establish a written annual budget process the committee owns and works from the troop's program calendar.`,
     smart: {
       s: `I will write the troop's annual budgeting process and bring it to the committee for adoption. The process sets when budgeting happens in the year, who supplies which numbers, how the program calendar drives the expense side, how income is estimated, and how the committee approves the result. Constraint: the treasurer's bookkeeping works and is not being replaced, and this goal is the process rather than any one year's numbers, so completing it does not wait on anyone else's schedule.`,
@@ -256,7 +257,7 @@ const goals: Goal[] = [
     notes: [
       { who: 'Ticket counselor, Sept 2', said: 'Goal 4 put the Treasurer in the kill chain. No goal should have another person in it.', answer: `The goal was narrowed to the process only. The budget was still built, as the ticket intended, but completion never waited on anyone else's numbers.` },
     ],
-    aside: `Bonus: Twin Rivers Council's Pathfinder program adds 3% to the popcorn commission for units that submit an annual budget, calendar, succession plan and membership plan. Goals 1 through 4 produce all four, and the commission goes to Scout accounts.`,
+    aside: `Bonus: Twin Rivers Council's Pathfinder Award asks a unit for an annual budget, calendar, succession plan and membership plan. Goals 1 through 4 produced all four, and the council confirmed the award on Nov 18. Its review called the budget "thorough" and the calendar and succession plan "excellent." The award adds 3% to the popcorn commission, which goes to Scout accounts, and every registered Scout and adult gets the Pathfinder patch.`,
   },
   {
     id: 'foundations',
@@ -332,8 +333,8 @@ const scoutPath = [
 
 const comingUp: Row[] = [
   { item: 'Before Nov 20', evidence: 'The rest of the Foundations Weekend station schedule and Scout instructors, set from who RSVPed.', kind: 'pend', status: 'In progress' },
-  { item: 'Nov 18 committee meeting', evidence: `Approve the Oct 14 minutes; the first Treasurer's report against the new budget.`, kind: 'sched', status: 'Scheduled' },
   { item: 'Nov 20-22', evidence: 'Foundations Weekend at Camp Wakpominee.', kind: 'sched', status: 'Scheduled' },
+  { item: 'Dec 9 committee meeting', evidence: 'Approve the Nov 18 minutes.', kind: 'sched', status: 'Scheduled' },
   { item: 'By Dec 31', evidence: `Foundations Weekend's after-action review, its planning procedure posted, and next year's weekend on the calendar.`, kind: 'sched', status: 'Planned' },
 ];
 
@@ -417,6 +418,7 @@ const timeline = [
   ['Oct 14 · Committee votes', `The committee adopted the roles matrix, the budget process and the 2026-27 budget, and approved the joint recruiting process, with the pack's Key 3 giving their OK the same night. All three votes landed months ahead of the ticket's dates.`],
   ['Oct 25 · Foundations Weekend announced', `Families got the plan for Nov 20-22: a Trail to First Class track and a Cooking merit badge track, built from each Scout's advancement record and taught by older Scouts.`],
   ['Nov 9 · App rollout and PLC review', `At the troop meeting, I rolled the troop app out to leaders and parents, the portal every goal posts to, and went over the planning procedure with the PLC.`],
+  ['Nov 18 · Pathfinder Award', `Twin Rivers Council confirmed Troop 3054's Pathfinder Award. Its review called the calendar "excellent," the budget "thorough," and the succession plan "excellent with a clear plan for the future and the unit's sustainability." Those are the documents goals 2, 3 and 4 produced. The council counts 18 registered Scouts, up from 9 a year ago, and 19 registered adult leaders, all of them trained. That evening the committee approved the Oct 14 minutes and heard the Treasurer's report.`],
 ];
 
 const draftingRules = [
