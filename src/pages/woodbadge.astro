@@ -455,10 +455,16 @@ const meta = [
 const ticketDone = goals.reduce((n, g) => n + progress(g).done, 0);
 const ticketPend = goals.reduce((n, g) => n + progress(g).pend, 0);
 const ticketTotal = goals.reduce((n, g) => n + progress(g).total, 0);
+// Once every pass condition is met, the ticket step is done and the counselor's sign-off becomes the current step.
+const worked = ticketDone === ticketTotal;
+const workedOn = 'Nov 23, 2026';
 const trail = [
   { label: 'Course weekends', when: 'Aug and Sept 2026', state: 'done' },
   { label: 'Ticket approved', when: 'Sept 19, 2026', state: 'done' },
-  { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met${ticketPend ? `, ${ticketPend} in progress` : ''}`, state: 'now' },
+  worked
+    ? { label: 'Ticket worked', when: `${ticketTotal} of ${ticketTotal} pass conditions met, ${workedOn}`, state: 'done' }
+    : { label: 'Working the ticket', when: `${ticketDone} of ${ticketTotal} pass conditions met${ticketPend ? `, ${ticketPend} in progress` : ''}`, state: 'now' },
+  ...(worked ? [{ label: 'Counselor sign‑off', when: 'My ticket counselor reviews the finished ticket', state: 'now' }] : []),
   { label: 'Beads', when: 'By Mar 20, 2028', state: 'next' },
 ];
 ---
@@ -504,7 +510,7 @@ const trail = [
             loading="eager"
           />
 
-          <ol class="wb-trail" aria-label="The road to the beads">
+          <ol class="wb-trail" aria-label="The road to the beads" style={`--wb-steps: ${trail.length}`}>
             {trail.map((t) => (
               <li class={`wb-trail__step wb-trail__step--${t.state}`}>
                 <span class="wb-trail__dot" aria-hidden="true">
@@ -1083,7 +1089,7 @@ const trail = [
     grid-column: 1 / -1;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--wb-steps, 4), minmax(0, 1fr));
     margin-top: 1.2rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(246, 239, 224, 0.14);
