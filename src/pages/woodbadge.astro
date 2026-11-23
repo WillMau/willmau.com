@@ -32,7 +32,7 @@ import gilwell1919 from '../images/woodbadge/gilwell-1919.jpg';
   Kept off this page on purpose: volunteer and family names, the troop's
   bank details, and reviewer names and contact information.
 */
-const asOf = 'Nov 18, 2026';
+const asOf = 'Nov 23, 2026';
 const shotsTaken = 'Oct 14, 2026';
 
 type Kind = 'done' | 'pend' | 'sched';
@@ -265,8 +265,8 @@ const goals: Goal[] = [
     title: 'Foundations Weekend, coached and documented',
     short: 'Foundations Weekend',
     due: 'Dec 31, 2026',
-    badge: { kind: 'sched', label: 'Nov 20-22' },
-    next: 'The weekend, Nov 20-22, next',
+    badge: { kind: 'pend', label: 'Weekend held' },
+    next: 'The after-action review, Nov 30, next',
     summary: 'Coach the PLC through the first Troop 3054 Foundations Weekend and document the planning process so future years can repeat it without me.',
     smart: {
       s: `I will coach the PLC through developing the first Troop 3054 Foundations Weekend, a Scout-led campout where older Scouts teach the Scout through First Class requirements the attending Scouts still need, picked from our advancement records, and I will document the planning process for future years. Each Scout instructor chooses which requirement to teach rather than being handed one, and we walk through Teaching EDGE at a PLC meeting beforehand. The weekend is the November 20-22, 2026 troop trip to Camp Wakpominee. Constraint: it is Scout-taught. Adults supervise, drive and cook.`,
@@ -276,8 +276,8 @@ const goals: Goal[] = [
       t: `Concept presented to the PLC and the site reservation confirmed by September 30, 2026. Advancement gap list built by October 16, 2026. Program schedule and Scout instructor assignments complete by October 30, 2026. Weekend held November 20-22, 2026. After-action review done, planning procedure posted to the portal and next year's placeholder on the calendar by December 31, 2026.`,
     },
     rows: [
-      { item: 'Weekend held', evidence: 'Troop trip to Camp Wakpominee, Nov 20-22. Scout-taught; adults supervise, drive and cook.', kind: 'sched', status: 'Nov 20-22' },
-      { item: 'PLC after-action review', evidence: 'Added after the weekend.', kind: 'sched', status: 'By Dec 31' },
+      { item: 'Weekend held', evidence: 'Held Nov 20-22 at Camp Wakpominee. The Scouts cooked 12 different meals in two days and worked on safety, first aid and outdoor ethics.', kind: 'done', status: 'Held Nov 20-22' },
+      { item: 'PLC after-action review', evidence: `On Nov 23 the Scouts were asked what went well, what to improve, and whether to run it again next year with a different merit badge. The PLC is taking those questions to the patrols, and the debrief follows the Nov 30 troop meeting.`, kind: 'pend', status: 'Nov 30' },
       { item: 'Planning procedure posted to the portal', evidence: `Written from how this year's weekend was planned, so the next PLC can repeat it.`, kind: 'sched', status: 'By Dec 31' },
       { item: `Next year's weekend on the calendar`, evidence: 'A placeholder for Foundations Weekend 2027.', kind: 'sched', status: 'By Dec 31' },
     ],
@@ -332,10 +332,9 @@ const scoutPath = [
 ];
 
 const comingUp: Row[] = [
-  { item: 'Before Nov 20', evidence: 'The rest of the Foundations Weekend station schedule and Scout instructors, set from who RSVPed.', kind: 'pend', status: 'In progress' },
-  { item: 'Nov 20-22', evidence: 'Foundations Weekend at Camp Wakpominee.', kind: 'sched', status: 'Scheduled' },
+  { item: 'Nov 30', evidence: `The Foundations Weekend debrief, after the troop meeting.`, kind: 'sched', status: 'Scheduled' },
   { item: 'Dec 9 committee meeting', evidence: 'Approve the Nov 18 minutes.', kind: 'sched', status: 'Scheduled' },
-  { item: 'By Dec 31', evidence: `Foundations Weekend's after-action review, its planning procedure posted, and next year's weekend on the calendar.`, kind: 'sched', status: 'Planned' },
+  { item: 'By Dec 31', evidence: `Foundations Weekend's planning procedure posted, and next year's weekend on the calendar.`, kind: 'sched', status: 'Planned' },
 ];
 
 const systemsShots: Shot[] = [
@@ -419,6 +418,7 @@ const timeline = [
   ['Oct 25 · Foundations Weekend announced', `Families got the plan for Nov 20-22: a Trail to First Class track and a Cooking merit badge track, built from each Scout's advancement record and taught by older Scouts.`],
   ['Nov 9 · App rollout and PLC review', `At the troop meeting, I rolled the troop app out to leaders and parents, the portal every goal posts to, and went over the planning procedure with the PLC.`],
   ['Nov 18 · Pathfinder Award', `Twin Rivers Council confirmed Troop 3054's Pathfinder Award. Its review called the calendar "excellent," the budget "thorough," and the succession plan "excellent with a clear plan for the future and the unit's sustainability." Those are the documents goals 2, 3 and 4 produced. The council counts 18 registered Scouts, up from 9 a year ago, and 19 registered adult leaders, all of them trained. That evening the committee approved the Oct 14 minutes and heard the Treasurer's report.`],
+  ['Nov 20-22 · Foundations Weekend', `The weekend ran at Camp Wakpominee. The Scouts cooked 12 different meals in two days and worked on safety, first aid and outdoor ethics. The debrief follows the Nov 30 troop meeting.`],
 ];
 
 const draftingRules = [
