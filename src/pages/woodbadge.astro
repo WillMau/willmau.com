@@ -135,7 +135,7 @@ const goals: Goal[] = [
     short: 'Program calendar',
     due: 'May 31, 2027',
     badge: { kind: 'done', label: 'Scout-led' },
-    next: 'Complete. Still ahead: the SPL walkthrough by Dec 31 and the spring planning conference',
+    next: 'Complete. Still ahead: the SPL walkthrough by Dec 31 and the spring planning conference, which is on the calendar',
     summary: `Document an annual program planning procedure for the Patrol Leaders' Council, and prove it works with a Scout-built program year calendar posted to the troop portal.`,
     smart: {
       s: `I will write a short annual program planning procedure based on Scouting America's annual planning conference materials rather than something I invent, and coach the senior patrol leader through it one on one before it reaches the PLC. The Scoutmaster and I prepare, the senior patrol leader runs the conference, and the PLC picks the activities and puts a Scout's name on each. The PLC reviews each meeting it planned right after that meeting, so the procedure gets tested every few weeks rather than once a year. Constraint: youth-led does not mean unstructured, and the calendar the Scouts produce is a plan, not a contract.`,
@@ -178,6 +178,7 @@ const goals: Goal[] = [
       { who: 'Course director, Sept 14', said: 'For Goal 2, do you plan a feedback cycle with the PLC to iterate and refine the plan and build alignment?', answer: 'Yes, built into the rhythm: the PLC reviews each meeting right after it happens, so the loop runs every few weeks instead of once a year. The review lives on the same Plan card, and the Program page shows any review still waiting. After the annual conference, the PLC reviews the procedure itself before it is posted.' },
       { who: 'Ticket counselor, Sept 2', said: `Don't over-delegate to youth. If you leave too much up to the kids they will default to less than is actually required for success.`, answer: `It isn't a blank page: every plan names what the meeting is for and a Scout or leader as point person, it can tie the meeting to the rank requirements it covers, and the Program page shows adults any meeting that isn't planned yet.` },
     ],
+    aside: `The PLC is a work in progress, but the foundation is there. The Foundations Weekend showed it: Scouts ran almost everything while adults guided. That's what we were striving for. It won't happen overnight. It takes constant guiding instead of doing it for them.`,
   },
   {
     id: 'roles',
@@ -265,8 +266,8 @@ const goals: Goal[] = [
     title: 'Foundations Weekend, coached and documented',
     short: 'Foundations Weekend',
     due: 'Dec 31, 2026',
-    badge: { kind: 'pend', label: 'Weekend held' },
-    next: 'The after-action review, Nov 30, next',
+    badge: { kind: 'done', label: 'Held Nov 20-22' },
+    next: `Complete. The PLC finalizes the debrief Nov 30, and next year's weekend is on the calendar for Nov 19-21, 2027`,
     summary: 'Coach the PLC through the first Troop 3054 Foundations Weekend and document the planning process so future years can repeat it without me.',
     smart: {
       s: `I will coach the PLC through developing the first Troop 3054 Foundations Weekend, a Scout-led campout where older Scouts teach the Scout through First Class requirements the attending Scouts still need, picked from our advancement records, and I will document the planning process for future years. Each Scout instructor chooses which requirement to teach rather than being handed one, and we walk through Teaching EDGE at a PLC meeting beforehand. The weekend is the November 20-22, 2026 troop trip to Camp Wakpominee. Constraint: it is Scout-taught. Adults supervise, drive and cook.`,
@@ -276,10 +277,10 @@ const goals: Goal[] = [
       t: `Concept presented to the PLC and the site reservation confirmed by September 30, 2026. Advancement gap list built by October 16, 2026. Program schedule and Scout instructor assignments complete by October 30, 2026. Weekend held November 20-22, 2026. After-action review done, planning procedure posted to the portal and next year's placeholder on the calendar by December 31, 2026.`,
     },
     rows: [
-      { item: 'Weekend held', evidence: 'Held Nov 20-22 at Camp Wakpominee. The Scouts cooked 12 different meals in two days and worked on safety, first aid and outdoor ethics.', kind: 'done', status: 'Held Nov 20-22' },
-      { item: 'PLC after-action review', evidence: `On Nov 23 the Scouts were asked what went well, what to improve, and whether to run it again next year with a different merit badge. The PLC is taking those questions to the patrols, and the debrief follows the Nov 30 troop meeting.`, kind: 'pend', status: 'Nov 30' },
-      { item: 'Planning procedure posted to the portal', evidence: `Written from how this year's weekend was planned, so the next PLC can repeat it.`, kind: 'sched', status: 'By Dec 31' },
-      { item: `Next year's weekend on the calendar`, evidence: 'A placeholder for Foundations Weekend 2027.', kind: 'sched', status: 'By Dec 31' },
+      { item: 'Weekend held', evidence: 'Held Nov 20-22 at Camp Wakpominee with 12 Scouts and 7 adults. Scouts ran almost everything while adults guided. The patrols cooked 12 different meals in two days and worked on safety, first aid and outdoor ethics.', kind: 'done', status: 'Held Nov 20-22' },
+      { item: 'PLC after-action review', evidence: `The Scouts debriefed at camp before we left. On Nov 23 they were asked what went well, what to improve, and whether to run it again with a different merit badge, and the PLC finalizes it after the Nov 30 troop meeting. One result already: some older Scouts want a hike-in, hike-out trip, and we're looking at one for the spring.`, kind: 'done', status: 'Done at camp' },
+      { item: 'Planning procedure posted to the portal', evidence: `"Foundations Weekend: How We Plan It": the timeline, who does what by position, each step before, at and after camp, and what the first run taught us. It's linked from the 2026 event in the portal, where this year's schedule, teacher sign-up, station sheets and meal planning sheets are filed, and from next year's event.`, kind: 'done', status: 'Posted Nov 23', href: 'https://www.troop3054.org/foundations-weekend/' },
+      { item: `Next year's weekend on the calendar`, evidence: 'Foundations Weekend is on the troop calendar for Nov 19-21, 2027, linked to the procedure. The PLC picks the camp and the merit badge at the annual planning conference.', kind: 'done', status: 'Nov 19-21, 2027' },
     ],
     milestones: {
       heading: 'Milestones (not pass conditions)',
@@ -288,13 +289,13 @@ const goals: Goal[] = [
         { item: 'Advancement gap list', evidence: `The Scout through First Class requirements each Scout still needs, built from the troop's advancement records. The weekend's crews and skill stations come from it.`, kind: 'done', status: 'Done' },
         { item: 'Weekend announced to families', evidence: `Two tracks. Trail to First Class for newer Scouts: tent camping, patrol cooking and cleanup, knots, lashing, woods tools and fire building, first aid, flag ceremonies, and a 5-mile map-and-compass hike Sunday. The Cooking merit badge for Scouts who have finished First Class cooking. Older Scouts who have a skill signed off teach it in small rotating groups, and for Star Scouts that counts toward Life requirement 6. RSVPs are due Nov 9 because the plan is built around who comes.`, kind: 'done', status: 'Oct 25' },
         { item: 'Cooking merit badge packet', evidence: `A 16-page Scout packet: a badge tracker, the Badge Day plan, the activity and meal logs, and the camp and trail cooking pages, so a Scout can finish the whole badge by the end of the campout.`, kind: 'done', status: 'Posted', href: 'https://www.troop3054.org/docs/Cooking-Merit-Badge-Packet.pdf' },
-        { item: 'Program schedule and Scout instructors', evidence: 'Partly set. Each instructor picks the requirement they teach. RSVPs closed Nov 9, and the rest of the stations and instructors get set from who is coming. Teaching EDGE walk-through at a PLC meeting.', kind: 'pend', status: 'Partly set' },
+        { item: 'Program schedule and Scout instructors', evidence: 'A block-by-block schedule listed the rank requirements each block covers, and older Scouts signed up for the stations they wanted to teach. At camp, Scouts taught first aid, and trained paramedics and nurses added to it and showed proper CPR and AED use. Older Scouts were paired with newer Scouts to teach skills like knot tying and fire building.', kind: 'done', status: 'Done' },
       ],
     },
     notes: [
       { who: 'Course director, Sept 14', said: 'What do you need to do to ensure that the older Scouts are prepared? Are you comfortable you will get their support?', answer: 'Three things: Scouts pick their requirement from the gap list rather than being handed one, each instructor gets a coaching session with a merit badge counselor beforehand, and the PLC walks through Teaching EDGE first. For Star Scouts, teaching a Tenderfoot through First Class skill with Teaching EDGE is Life requirement 6, so the weekend is their own advancement too.' },
     ],
-    aside: 'This section fills in after the weekend: the schedule, instructor list, after-action review and photos, with no Scout faces shown.',
+    aside: 'Still to add here: what the Scouts say when the debrief is finalized on Nov 30, and photos, with no Scout faces shown.',
   },
 ];
 
@@ -332,9 +333,9 @@ const scoutPath = [
 ];
 
 const comingUp: Row[] = [
-  { item: 'Nov 30', evidence: `The Foundations Weekend debrief, after the troop meeting.`, kind: 'sched', status: 'Scheduled' },
+  { item: 'Nov 30', evidence: `The PLC finalizes the Foundations Weekend debrief, after the troop meeting.`, kind: 'sched', status: 'Scheduled' },
   { item: 'Dec 9 committee meeting', evidence: 'Approve the Nov 18 minutes.', kind: 'sched', status: 'Scheduled' },
-  { item: 'By Dec 31', evidence: `Foundations Weekend's planning procedure posted, and next year's weekend on the calendar.`, kind: 'sched', status: 'Planned' },
+  { item: 'By Dec 31', evidence: `The one-on-one walkthrough of the planning procedure with the Senior Patrol Leader.`, kind: 'sched', status: 'Planned' },
 ];
 
 const systemsShots: Shot[] = [
@@ -418,7 +419,8 @@ const timeline = [
   ['Oct 25 · Foundations Weekend announced', `Families got the plan for Nov 20-22: a Trail to First Class track and a Cooking merit badge track, built from each Scout's advancement record and taught by older Scouts.`],
   ['Nov 9 · App rollout and PLC review', `At the troop meeting, I rolled the troop app out to leaders and parents, the portal every goal posts to, and went over the planning procedure with the PLC.`],
   ['Nov 18 · Pathfinder Award', `Twin Rivers Council confirmed Troop 3054's Pathfinder Award. Its review called the calendar "excellent," the budget "thorough," and the succession plan "excellent with a clear plan for the future and the unit's sustainability." Those are the documents goals 2, 3 and 4 produced. The council counts 18 registered Scouts, up from 9 a year ago, and 19 registered adult leaders, all of them trained. That evening the committee approved the Oct 14 minutes and heard the Treasurer's report.`],
-  ['Nov 20-22 · Foundations Weekend', `The weekend ran at Camp Wakpominee. The Scouts cooked 12 different meals in two days and worked on safety, first aid and outdoor ethics. The debrief follows the Nov 30 troop meeting.`],
+  ['Nov 20-22 · Foundations Weekend', `The weekend ran at Camp Wakpominee with 12 Scouts and 7 adults. Scouts ran almost everything while adults guided: they taught first aid, older Scouts taught newer Scouts knots and fire building, and the patrols cooked 12 different meals in two days. The Scouts debriefed before we left camp.`],
+  ['Nov 23 · All five goals complete', `The weekend's planning procedure is posted, and next year's weekend is on the calendar for Nov 19-21, 2027. That closes the last of the 25 pass conditions, more than a year ahead of the ticket's deadline.`],
 ];
 
 const draftingRules = [
