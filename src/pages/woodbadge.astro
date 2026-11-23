@@ -97,12 +97,12 @@ const goals: Goal[] = [
     stats: {
       heading: 'What ran this fall',
       items: [
-        { value: '31', label: 'Cubs registered in the pack (Oct 4)' },
-        { value: '16', label: 'Families who started an application or asked' },
-        { value: '8', label: 'Arrow of Light Scouts, the next crossover class' },
+        { value: '31 → 38', label: 'Cubs registered in the pack, Oct 4 to Nov 23: eight joined and one left' },
+        { value: '8', label: 'More applications in progress in my.Scouting on Nov 23' },
+        { value: '9', label: 'Arrow of Light Scouts, the next crossover class' },
         { value: '8 → 5', label: 'New troop Scouts this year, still active in October' },
         { value: '+2', label: 'Scouts who joined this year because a troop Scout invited them' },
-        { value: '9 → 18', label: `Registered Scouts, a year ago and now, by the council's count on Nov 18` },
+        { value: '9 → 18', label: `Registered Scouts in the troop, a year ago and now, by the council's count on Nov 18` },
       ],
     },
     points: {
@@ -313,14 +313,14 @@ const smartParts = [
   ['t', 'Timely'],
 ] as const;
 
-// Pack numbers by rank, council roster Oct 4 plus families in progress.
+// Registered Cubs by rank, council roster Nov 23. The three Lions have no grade on file and are counted by age.
 const scoutPath = [
-  ['Lion', '1'],
-  ['Tiger', '3 + 3'],
-  ['Wolf', '4 + 1'],
-  ['Bear', '7 + 3'],
-  ['Webelos', '8 + 1'],
-  ['AOL', '8'],
+  ['Lion', '3'],
+  ['Tiger', '4'],
+  ['Wolf', '6'],
+  ['Bear', '7'],
+  ['Webelos', '9'],
+  ['AOL', '9'],
 ];
 
 const comingUp: Row[] = [
@@ -745,7 +745,7 @@ const trail = [
                   </div>
                   {g.id === 'recruiting' && (
                     <>
-                      <p class="wb-small">The path a Scout takes, with this fall's pack numbers (council roster Oct 4, plus families in progress):</p>
+                      <p class="wb-small">The path a Scout takes, with the pack's registered Cubs at each rank (council roster, Nov 23):</p>
                       <ol class="wb-path">
                         {scoutPath.map(([rank, count]) => (
                           <li><strong>{rank}</strong>{count}</li>
